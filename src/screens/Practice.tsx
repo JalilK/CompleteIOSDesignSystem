@@ -168,12 +168,94 @@ const QUESTIONS = [
   },
 ]
 
+const SCRIPTURE_REFERENCES: Record<string, { title: string; edition: string; text: string; note: string }[]> = {
+  'Proverbs 3:5–6': [
+    {
+      title: 'Proverbs 3:5–6',
+      edition: 'Selected translation',
+      text: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.',
+      note: 'This is the governing passage for this question.',
+    },
+  ],
+  'James 4:13–15': [
+    {
+      title: 'James 4:13–15',
+      edition: 'Selected translation',
+      text: 'Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain: whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away. For that ye ought to say, If the Lord will, we shall live, and do this, or that.',
+      note: 'This supporting passage keeps planning under humble dependence on God.',
+    },
+  ],
+  'Proverbs 3:5–6 · James 4:13–15': [
+    {
+      title: 'Proverbs 3:5–6',
+      edition: 'Selected translation',
+      text: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.',
+      note: 'Governing passage.',
+    },
+    {
+      title: 'James 4:13–15',
+      edition: 'Selected translation',
+      text: 'Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain: whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away. For that ye ought to say, If the Lord will, we shall live, and do this, or that.',
+      note: 'Supporting passage.',
+    },
+  ],
+}
+
+function ScriptureReferenceSheet({ passage, onClose }: { passage: string; onClose: () => void }) {
+  const references = SCRIPTURE_REFERENCES[passage] ?? SCRIPTURE_REFERENCES['Proverbs 3:5–6']
+
+  return (
+    <div className="absolute inset-0 z-30 flex flex-col justify-end" style={{ background: 'rgba(36,23,26,0.34)' }}>
+      <button className="flex-1" onClick={onClose} aria-label="Close Scripture reference" />
+      <div className="max-h-[76%] overflow-y-auto rounded-t-[28px] px-5 pb-10 pt-4 shadow-2xl" style={{ background: '#FFFCF6' }}>
+        <div className="mx-auto mb-4 h-1 w-12 rounded-full" style={{ background: '#D7C4AF' }} />
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: '#B68425' }}>Scripture reference</p>
+            <h2 className="mt-1 font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#24171A' }}>{passage}</h2>
+          </div>
+          <button onClick={onClose} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full" style={{ background: '#F4EBDD' }} aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#675A5D" strokeWidth="1.8" strokeLinecap="round" /></svg>
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {references.map(ref => (
+            <div key={ref.title} className="rounded-[18px] p-5" style={{ background: '#F7F1E7', border: '1px solid #E5D7C6' }}>
+              <div className="mb-4 flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: '#F3E6C9' }}>
+                  <AppIcon name="book" size={22} color="#9B6B18" />
+                </span>
+                <div>
+                  <p className="font-serif text-[17px] font-semibold" style={{ color: '#24171A' }}>{ref.title}</p>
+                  <p className="text-[12px]" style={{ color: '#675A5D' }}>{ref.edition}</p>
+                </div>
+              </div>
+              <p className="font-serif text-[19px] leading-[30px]" style={{ color: '#24171A' }}>{ref.text}</p>
+              <div className="mt-4 rounded-[12px] px-3 py-2" style={{ background: '#F4EBDD' }}>
+                <p className="text-[12px] leading-[17px]" style={{ color: '#675A5D' }}>{ref.note}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={onClose}
+          className="mt-5 w-full rounded-full font-semibold text-[16px]"
+          style={{ height: 52, background: '#741630', color: '#FFFCF6' }}>
+          Return to Question
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // PRAC-03 Practice Question
 export function PracticeQuestion() {
   const { navigate } = useApp()
   const [questionIdx, setQuestionIdx] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [checked, setChecked] = useState(false)
+  const [showScripture, setShowScripture] = useState(false)
 
   const q = QUESTIONS[questionIdx]
   const isCorrect = selected === q.correct
@@ -204,7 +286,7 @@ export function PracticeQuestion() {
   }
 
   return (
-    <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
+    <div className="relative flex flex-col h-full" style={{ background: '#F7F1E7' }}>
       {/* Header */}
       <div className="px-5 pt-14 pb-3 shrink-0">
         <div className="flex items-center justify-between mb-2">
@@ -213,7 +295,7 @@ export function PracticeQuestion() {
             <p className="text-[13px] font-semibold" style={{ color: '#675A5D' }}>{q.passage}</p>
             <p className="text-[11px]" style={{ color: '#897A76' }}>Level 2 · Question {questionIdx + 1} of {QUESTIONS.length}</p>
           </div>
-          <button className="text-[13px] font-medium" style={{ color: '#741630' }}>
+          <button onClick={() => setShowScripture(true)} className="text-[13px] font-medium" style={{ color: '#741630' }}>
             View Scripture
           </button>
         </div>
@@ -261,6 +343,8 @@ export function PracticeQuestion() {
           Check Answer
         </button>
       </div>
+
+      {showScripture && <ScriptureReferenceSheet passage={q.passage} onClose={() => setShowScripture(false)} />}
     </div>
   )
 }
