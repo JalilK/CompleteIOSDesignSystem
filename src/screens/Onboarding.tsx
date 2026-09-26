@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { useApp } from '../context'
 import activatedHomeCurrentPath from '../assets/alignment/activated-home-current-path-clean.png'
 import activatedHomeForYou from '../assets/alignment/activated-home-for-you-reference.png'
+import onboardingMission from '../assets/alignment/onboarding-reference/onboarding-01-mission.png'
+import onboardingMethod from '../assets/alignment/onboarding-reference/onboarding-02-method.png'
+import onboardingQuestion from '../assets/alignment/onboarding-reference/onboarding-03-question.png'
+import onboardingCompletion from '../assets/alignment/onboarding-reference/onboarding-04-completion.png'
 
 const UNSPLASH = 'https://images.unsplash.com'
 
@@ -49,6 +53,28 @@ function SecondaryButton({ label, onPress }: { label: string; onPress: () => voi
       style={{ height: 56, borderColor: '#741630', color: '#741630', background: 'transparent' }}>
       {label}
     </button>
+  )
+}
+
+function ReferenceOnboardingScreen({
+  image,
+  alt,
+  onNext,
+}: {
+  image: string
+  alt: string
+  onNext: () => void
+}) {
+  return (
+    <div className="relative h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
+      <img src={image} alt={alt} className="absolute inset-0 h-full w-full object-cover" />
+      <button
+        onClick={onNext}
+        className="absolute left-5 right-5 bottom-5 rounded-full"
+        style={{ height: 64 }}
+        aria-label="Continue onboarding"
+      />
+    </div>
   )
 }
 
@@ -686,19 +712,14 @@ export function Onboarding() {
   }
 
   const steps: Record<number, React.ReactElement> = {
-    1: <MissionScreen onNext={nextOnboardingStep} />,
-    2: <CapabilitiesScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    3: <PurposeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    4: <MethodScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    5: <DemoMomentScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    6: <DemoScriptureScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    7: <DemoQuestionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    8: <DemoFeedbackScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    9: <DemoCompletionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    10: <StartingModeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    11: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    12: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    13: <ActivatedHomeScreen onFinish={finishOnboarding} />,
+    1: <ReferenceOnboardingScreen image={onboardingMission} alt="Bring the Word of God into real life onboarding screen" onNext={nextOnboardingStep} />,
+    2: <ReferenceOnboardingScreen image={onboardingMethod} alt="Scripture comes before advice onboarding screen" onNext={nextOnboardingStep} />,
+    3: <ReferenceOnboardingScreen image={onboardingQuestion} alt="Proverbs 14 question onboarding screen" onNext={nextOnboardingStep} />,
+    4: <ReferenceOnboardingScreen image={onboardingCompletion} alt="First Scripture practice complete onboarding screen" onNext={nextOnboardingStep} />,
+    5: <StartingModeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    6: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    7: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    8: <ActivatedHomeScreen onFinish={finishOnboarding} />,
   }
 
   return (
