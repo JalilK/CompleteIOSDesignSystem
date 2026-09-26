@@ -96,19 +96,19 @@ function DevotionalCard({ onBegin }: { onBegin: () => void }) {
   )
 }
 
-function ProgressCapsule() {
+function ProgressCapsule({ level, totalXP }: { level: number; totalXP: number }) {
   return (
     <div className="rounded-[20px] p-5" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
       <p className="text-[13px] font-semibold uppercase tracking-wider mb-4" style={{ color: '#897A76', letterSpacing: '0.08em' }}>Your Progress</p>
       <div className="flex gap-4">
         <div className="flex-1 text-center">
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>3</p>
+          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>{level}</p>
           <p className="text-[11px]" style={{ color: '#897A76' }}>Level</p>
         </div>
         <div className="w-px" style={{ background: '#DDD0C0' }} />
         <div className="flex-1 text-center">
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>4</p>
-          <p className="text-[11px]" style={{ color: '#897A76' }}>Growing</p>
+          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>{totalXP}</p>
+          <p className="text-[11px]" style={{ color: '#897A76' }}>XP</p>
         </div>
         <div className="w-px" style={{ background: '#DDD0C0' }} />
         <div className="flex-1 text-center">
@@ -183,7 +183,7 @@ export function Home() {
           </div>
           <div className="flex-1">
             <p className="font-semibold text-[15px]" style={{ color: '#24171A' }}>Pray or meditate with Scripture</p>
-            <p className="text-[12px]" style={{ color: '#675A5D' }}>Psalm 23 · Based on your current journey</p>
+            <p className="text-[12px]" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · Based on your current journey</p>
           </div>
           <button onClick={() => navigate('prayer-mode')}
             className="rounded-full text-[13px] font-semibold px-3"
@@ -192,7 +192,7 @@ export function Home() {
           </button>
         </div>
 
-        <ProgressCapsule />
+        <ProgressCapsule level={level} totalXP={totalXP} />
 
         {/* Start new alignment */}
         <button onClick={() => navigate('alignment-intake')}

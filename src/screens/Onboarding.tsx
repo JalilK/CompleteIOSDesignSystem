@@ -768,6 +768,7 @@ function PaywallScreen({ onNext, onBack }: { onNext: () => void; onBack: () => v
 
 // ONB-13 Activated Home
 function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
+  const { navigate, setTab } = useApp()
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
       <div className="px-6 pt-14 pb-4 flex items-start justify-between shrink-0">
@@ -777,7 +778,7 @@ function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
           </h1>
           <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Level 1 · 25 XP</p>
         </div>
-        <button className="w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1.5px solid #D4B070', background: '#FFF8ED' }} aria-label="Profile">
+        <button onClick={() => setTab('you')} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1.5px solid #D4B070', background: '#FFF8ED' }} aria-label="Profile">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <circle cx="10" cy="7" r="3.2" stroke="#9B6B18" strokeWidth="1.4" />
             <path d="M4.8 16c.9-3 2.6-4.6 5.2-4.6S14.3 13 15.2 16" stroke="#9B6B18" strokeWidth="1.4" strokeLinecap="round" />
@@ -808,7 +809,7 @@ function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
           <h2 className="font-serif text-[21px] leading-[26px] font-bold mb-3" style={{ color: '#24171A' }}>
             What are you facing today?
           </h2>
-          <button className="w-full rounded-[12px] px-4 flex items-center gap-3 text-left" style={{ height: 54, background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.7)' }}>
+          <button onClick={() => navigate('alignment-intake')} className="w-full rounded-[12px] px-4 flex items-center gap-3 text-left" style={{ height: 54, background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.7)' }}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <circle cx="8.5" cy="8.5" r="5" stroke="#8B6A3A" strokeWidth="1.6" />
               <path d="M12.3 12.3L16 16" stroke="#8B6A3A" strokeWidth="1.6" strokeLinecap="round" />
@@ -820,7 +821,7 @@ function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
 
         <div>
           <h2 className="font-serif text-[22px] leading-[27px] font-bold mb-3" style={{ color: '#24171A' }}>For You</h2>
-          <button onClick={onFinish} className="relative w-full rounded-[12px] overflow-hidden text-left" style={{ height: 122, background: '#FFFCF6', boxShadow: '0 1px 10px rgba(30,21,18,0.08)' }}>
+          <button onClick={() => navigate('devotional')} className="relative w-full rounded-[12px] overflow-hidden text-left" style={{ height: 122, background: '#FFFCF6', boxShadow: '0 1px 10px rgba(30,21,18,0.08)' }}>
             <img src={activatedHomeForYou} alt="Olive branch devotional recommendation" className="absolute inset-0 w-full h-full object-cover" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(255,252,246,0.08) 0%, rgba(255,252,246,0.82) 54%, rgba(255,252,246,0.96) 100%)' }} />
             <div className="absolute right-9 left-[42%] top-0 bottom-0 flex items-center">
@@ -835,7 +836,16 @@ function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
 
       <div className="grid grid-cols-4 shrink-0 pt-2 pb-7" style={{ background: '#FFFCF6', borderTop: '1px solid #E7DCCE' }}>
         {['Home', 'Paths', 'Explore', 'Profile'].map((label, index) => (
-          <button key={label} className="flex flex-col items-center gap-1">
+          <button
+            key={label}
+            onClick={() => {
+              if (index === 0) setTab('home')
+              if (index === 1) setTab('library')
+              if (index === 2) setTab('progress')
+              if (index === 3) setTab('you')
+            }}
+            className="flex flex-col items-center gap-1"
+          >
             <span className="text-[20px]" style={{ color: index === 0 ? '#8E1F3D' : '#675A5D' }}>
               {index === 0 ? '⌂' : index === 1 ? '⌁' : index === 2 ? '□' : '♙'}
             </span>
@@ -861,10 +871,9 @@ export function Onboarding() {
     2: <MethodReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
     3: <QuestionReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
     4: <CompletionReferenceNativeScreen onNext={nextOnboardingStep} />,
-    5: <StartingModeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    6: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    7: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    8: <ActivatedHomeScreen onFinish={finishOnboarding} />,
+    5: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    6: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    7: <ActivatedHomeScreen onFinish={finishOnboarding} />,
   }
 
   return (

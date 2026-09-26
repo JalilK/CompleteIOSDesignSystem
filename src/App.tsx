@@ -5,8 +5,8 @@ import { Onboarding } from './screens/Onboarding'
 import { Home } from './screens/Home'
 import { Library } from './screens/Library'
 import { Progress } from './screens/Progress'
-import { Profile } from './screens/Profile'
-import { Devotional, PrayerMode } from './screens/Devotional'
+import { Profile, PrivacySettings } from './screens/Profile'
+import { Devotional, GuidedPrayerScreen, MeditationPlayer, PrayerMode, PrayScriptureScreen, SoundControls } from './screens/Devotional'
 import { ContextStudy } from './screens/ContextStudy'
 import { AlignmentIntake, AlignmentAnalyzing, AlignmentReport, FaithfulAction } from './screens/Alignment'
 import { PracticeIntro, PracticeQuestion, PracticeLevelComplete } from './screens/Practice'
@@ -30,6 +30,11 @@ function AppShell() {
       case 'profile': return <Profile />
       case 'devotional': return <Devotional />
       case 'prayer-mode': return <PrayerMode />
+      case 'pray-scripture': return <PrayScriptureScreen />
+      case 'guided-prayer': return <GuidedPrayerScreen />
+      case 'meditation-player': return <MeditationPlayer />
+      case 'sound-controls': return <SoundControls />
+      case 'privacy-settings': return <PrivacySettings />
       case 'context-study': return <ContextStudy />
       case 'alignment-intake': return <AlignmentIntake />
       case 'alignment-analyzing': return <AlignmentAnalyzing />

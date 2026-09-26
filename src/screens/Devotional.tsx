@@ -131,113 +131,110 @@ export function Devotional() {
 // Prayer mode
 export function PrayerMode() {
   const { navigate } = useApp()
-  const [mode, setMode] = useState<'pray' | 'guided' | null>(null)
-  const [praying, setPraying] = useState(false)
-
-  if (praying && mode === 'pray') {
-    return <PrayScripture onBack={() => setPraying(false)} onFinish={() => navigate('home')} />
-  }
-  if (praying && mode === 'guided') {
-    return <GuidedPrayer onBack={() => setPraying(false)} onFinish={() => navigate('home')} />
-  }
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
-      <div className="px-5 pt-14 pb-6 flex items-center gap-3">
-        <button onClick={() => navigate('home')} className="w-10 h-10 flex items-center justify-center rounded-full" aria-label="Back">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        <h1 className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>Pray with Scripture</h1>
+      <div className="px-5 pt-16 pb-5">
+        <h1 className="font-serif text-[34px] font-semibold leading-[40px]" style={{ color: '#24171A' }}>Pray or meditate</h1>
       </div>
 
-      <div className="flex-1 px-5 flex flex-col gap-5">
-        {/* Psalm reference */}
-        <div className="rounded-[18px] p-4 text-center" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-          <p className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: '#897A76', letterSpacing: '0.08em' }}>Psalm anchor for this teaching</p>
-          <p className="font-serif text-[18px] font-semibold mt-1" style={{ color: '#24171A' }}>Psalm 23 · KJV</p>
-          <p className="font-serif text-[14px] italic mt-1" style={{ color: '#675A5D' }}>The LORD is my shepherd; I shall not want.</p>
-        </div>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-7 flex flex-col gap-5">
+        <button onClick={() => navigate('devotional')} className="rounded-[14px] p-3 flex items-center gap-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+          <div className="h-[86px] w-[105px] rounded-[9px] overflow-hidden shrink-0">
+            <img src={DEV_IMG} alt="Open Bible in quiet light" className="h-full w-full object-cover" />
+          </div>
+          <div className="flex-1">
+            <p className="font-serif text-[16px] font-semibold" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
+            <p className="text-[12px] mt-1" style={{ color: '#675A5D' }}>King James Version</p>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#897A76" strokeWidth="1.5" strokeLinecap="round" /></svg>
+        </button>
 
-        {/* Mode selection */}
+        <p className="text-[15px]" style={{ color: '#30272A' }}>Stay with the Scripture you just studied.</p>
+
         <div className="flex flex-col gap-3">
           {[
-            { id: 'pray' as const, title: 'Pray Scripture', desc: 'Pray Psalm 23 exactly as written, with optional pauses and repetition.', icon: '📖' },
-            { id: 'guided' as const, title: 'Guided Prayer', desc: 'A Scripture-shaped prayer built from this teaching and your context.', icon: '🙏' },
-          ].map(m => (
-            <button key={m.id} onClick={() => setMode(m.id)}
-              className="rounded-[20px] p-5 text-left flex gap-4 items-start transition-all duration-200"
-              style={{
-                background: mode === m.id ? '#FDEEF1' : '#FFFCF6',
-                border: `1.5px solid ${mode === m.id ? '#741630' : '#DDD0C0'}`,
-              }}>
-              <span className="text-[28px]">{m.icon}</span>
-              <div>
-                <p className="font-serif font-semibold text-[17px] mb-1" style={{ color: '#24171A' }}>{m.title}</p>
-                <p className="text-[13px] leading-[19px]" style={{ color: '#675A5D' }}>{m.desc}</p>
-              </div>
+            { screen: 'pray-scripture' as const, title: 'Pray Scripture', desc: 'Turn these verses into a prayer of your own.', icon: 'prayer', bg: '#F5E4D2', fg: '#9B6B18' },
+            { screen: 'guided-prayer' as const, title: 'Guided prayer', desc: 'A guided prayer based on this Scripture.', icon: 'document', bg: '#E6ECE2', fg: '#607255' },
+            { screen: 'meditation-player' as const, title: 'Guided Scripture meditation · 6 min', desc: 'A calm, reflective journey with this passage.', icon: 'leaf', bg: '#F3E1E3', fg: '#741630' },
+          ].map(item => (
+            <button key={item.title} onClick={() => navigate(item.screen)}
+              className="rounded-[16px] p-4 flex items-center gap-4 text-left"
+              style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+              <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full" style={{ background: item.bg }}>
+                <PrayerIcon kind={item.icon} color={item.fg} />
+              </span>
+              <span className="flex-1">
+                <span className="block font-serif text-[17px] font-semibold" style={{ color: '#3A0D18' }}>{item.title}</span>
+                <span className="mt-1 block text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{item.desc}</span>
+              </span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#897A76" strokeWidth="1.5" strokeLinecap="round" /></svg>
             </button>
           ))}
         </div>
-      </div>
-
-      <div className="px-5 pb-10 pt-4">
-        <button onClick={() => mode && setPraying(true)} disabled={!mode}
-          className="w-full rounded-full font-semibold text-[17px] transition-all"
-          style={{ height: 56, background: mode ? '#741630' : '#DDD0C0', color: mode ? '#FFFCF6' : '#897A76' }}>
-          Begin →
-        </button>
       </div>
     </div>
   )
 }
 
+function PrayerIcon({ kind, color }: { kind: string; color: string }) {
+  if (kind === 'prayer') {
+    return <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M11 5c1.5 3.5 1.4 7.6.4 11.5L9 24M17 5c-1.5 3.5-1.4 7.6-.4 11.5L19 24M11.4 16.5c-2.5 1.2-4.3 3.3-5.4 6.5M16.6 16.5c2.5 1.2 4.3 3.3 5.4 6.5" stroke={color} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+  }
+  if (kind === 'document') {
+    return <svg width="27" height="27" viewBox="0 0 27 27" fill="none"><path d="M7 4h9l4 4v15H7V4z" stroke={color} strokeWidth="1.6" strokeLinejoin="round"/><path d="M16 4v5h5M10 13h7M10 17h7" stroke={color} strokeWidth="1.6" strokeLinecap="round"/></svg>
+  }
+  return <svg width="27" height="27" viewBox="0 0 27 27" fill="none"><path d="M7 21c1.3-5.8 4.4-10 12.8-13.2-1.4 8.2-5.3 12.2-12.8 13.2z" stroke={color} strokeWidth="1.6" strokeLinejoin="round"/><path d="M7 21l8-8" stroke={color} strokeWidth="1.6" strokeLinecap="round"/></svg>
+}
+
+export function PrayScriptureScreen() {
+  const { navigate } = useApp()
+  return <PrayScripture onBack={() => navigate('prayer-mode')} onFinish={() => navigate('meditation-player')} />
+}
+
+export function GuidedPrayerScreen() {
+  const { navigate } = useApp()
+  return <GuidedPrayer onBack={() => navigate('prayer-mode')} onFinish={() => navigate('meditation-player')} />
+}
+
 function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () => void }) {
   const verses = [
-    { ref: '1', text: 'The LORD is my shepherd; I shall not want.' },
-    { ref: '2', text: 'He maketh me to lie down in green pastures: he leadeth me beside the still waters.' },
-    { ref: '3', text: 'He restoreth my soul: he leadeth me in the paths of righteousness for his name\'s sake.' },
-    { ref: '4', text: 'Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.' },
+    { ref: 'Proverbs 3:5–6', text: 'Trust in the LORD with all thine heart; and lean not unto thine own understanding.' },
+    { ref: 'Proverbs 3:5–6', text: 'In all thy ways acknowledge him, and he shall direct thy paths.' },
   ]
   const [idx, setIdx] = useState(0)
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
-      <div className="px-5 pt-14 pb-4 flex items-center gap-3">
+      <div className="px-5 pt-14 pb-4 flex items-center justify-between">
         <button onClick={onBack} className="w-10 h-10 flex items-center justify-center rounded-full" aria-label="Back">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         <div>
-          <h1 className="font-serif text-[20px] font-bold" style={{ color: '#24171A' }}>Pray Scripture</h1>
-          <p className="text-[12px]" style={{ color: '#897A76' }}>Psalm 23 · KJV · Verse {idx + 1} of {verses.length}</p>
+          <span className="block h-1 w-8 rounded-full" style={{ background: '#DDD0C0' }} />
         </div>
+        <button className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
       </div>
-      <div className="px-5 mb-4">
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
-          <div className="h-full rounded-full transition-all" style={{ width: `${((idx + 1) / verses.length) * 100}%`, background: '#741630' }} />
-        </div>
+      <div className="px-7">
+        <h1 className="font-serif text-[37px] font-semibold leading-[44px]" style={{ color: '#24171A' }}>Pray Scripture</h1>
+        <p className="mt-3 text-[16px] leading-[22px]" style={{ color: '#30272A' }}>Read slowly. Pause where the words meet your need.</p>
       </div>
-      <div className="flex-1 px-5 flex flex-col justify-center gap-6">
-        <div className="rounded-[24px] p-7" style={{ background: '#F4EBDD' }}>
-          <p className="text-[13px] font-semibold mb-3" style={{ color: '#B68425' }}>VERSE {verses[idx].ref}</p>
-          <p className="font-serif text-[22px] leading-[34px] italic" style={{ color: '#24171A' }}>{verses[idx].text}</p>
+      <div className="flex-1 px-7 pt-5 flex flex-col gap-6">
+        <div className="rounded-[15px] p-6" style={{ background: '#F4EBDD', border: '1px solid #E5D7C6' }}>
+          <p className="font-serif text-[22px] leading-[34px]" style={{ color: '#24171A' }}>
+            {verses.map(v => v.text).join(' ')}
+          </p>
+          <div className="my-7 h-px" style={{ background: '#D7C4AF' }} />
+          <p className="font-serif text-[16px]" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
+          <p className="mt-1 text-[13px]" style={{ color: '#675A5D' }}>King James Version</p>
         </div>
-        <p className="text-[14px] text-center" style={{ color: '#897A76' }}>Read slowly. Pause. Let the words rest.</p>
       </div>
       <div className="px-5 pb-10 pt-4 flex flex-col gap-2.5">
-        {idx < verses.length - 1
-          ? <button onClick={() => setIdx(i => i + 1)}
-              className="w-full rounded-full font-semibold text-[17px] transition-all"
-              style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
-              Continue →
-            </button>
-          : <button onClick={onFinish}
-              className="w-full rounded-full font-semibold text-[17px] transition-all"
-              style={{ height: 56, background: '#607255', color: '#FFFCF6' }}>
-              ✓ Prayer Complete
-            </button>
-        }
+        <button onClick={onFinish}
+          className="w-full rounded-full font-semibold text-[17px] flex items-center justify-center gap-2 transition-all"
+          style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
+          Begin prayer →
+        </button>
       </div>
     </div>
   )
@@ -245,50 +242,136 @@ function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () 
 
 function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () => void }) {
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <div className="px-5 pt-14 pb-4 flex items-center gap-3 shrink-0">
+    <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
+      <div className="px-5 pt-14 pb-4 flex items-center justify-between shrink-0">
         <button onClick={onBack} className="w-10 h-10 flex items-center justify-center rounded-full" aria-label="Back">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-serif text-[20px] font-bold" style={{ color: '#24171A' }}>Guided Prayer</h1>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded" style={{ background: '#F4EBDD', color: '#795719' }}>Not Scripture</span>
-          </div>
-          <p className="text-[12px]" style={{ color: '#897A76' }}>Built from Proverbs 3:5–6 and your context</p>
-        </div>
+        <button className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-6 flex flex-col gap-5">
+        <div className="text-center">
+          <span className="inline-flex rounded-full px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.1em]" style={{ background: '#EACB8F', color: '#4B1021' }}>Guided prayer</span>
+          <h1 className="mt-3 font-serif text-[33px] font-semibold leading-[39px]" style={{ color: '#3A0D18' }}>Guided prayer</h1>
+          <p className="mt-2 text-[15px] leading-[21px]" style={{ color: '#30272A' }}>A short prayer to help you respond to this Scripture.</p>
+        </div>
+        <div className="rounded-[13px] p-4 flex items-center gap-3" style={{ background: '#F4EBDD' }}>
+          <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: '#F3E6C9' }}><PrayerIcon kind="document" color="#9B6B18" /></span>
+          <div>
+            <p className="font-serif text-[16px] font-semibold" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
+            <p className="text-[12px]" style={{ color: '#675A5D' }}>King James Version</p>
+          </div>
+        </div>
         <div className="rounded-[20px] p-5 flex flex-col gap-4" style={{ background: '#FFFCF6' }}>
           <p className="text-[15px] leading-[24px]" style={{ color: '#24171A' }}>
-            Lord, I come to you carrying a decision that feels too large for me. You have said—
-          </p>
-          <div className="border-l-2 pl-4" style={{ borderColor: '#741630' }}>
-            <p className="font-serif text-[16px] leading-[25px] italic" style={{ color: '#24171A' }}>
-              "Trust in the LORD with all thine heart; and lean not unto thine own understanding."
-            </p>
-            <p className="text-[12px] mt-1 font-semibold" style={{ color: '#675A5D' }}>Proverbs 3:5 · KJV</p>
-          </div>
-          <p className="text-[15px] leading-[24px]" style={{ color: '#24171A' }}>
-            I confess that I have been leaning on my own fear and my own hopes instead of on you. Help me to acknowledge you in this way, and to trust that you will direct the path that is faithful—even if it is not the outcome I have preferred.
-          </p>
-          <p className="text-[15px] leading-[24px]" style={{ color: '#24171A' }}>
-            I lay this decision before you. Amen.
+            Lord, I choose to trust You with all my heart. Help me to let go of my own understanding and to acknowledge You in all my ways. Direct my paths, and give me the courage to follow You today. Amen.
           </p>
         </div>
-        <p className="text-[12px] text-center" style={{ color: '#897A76' }}>
-          This prayer is shaped by Scripture but is pastoral language, not direct Scripture quotation. Scripture is marked above.
-        </p>
+        <div className="rounded-[13px] p-4 flex gap-3" style={{ background: '#F4EBDD' }}>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full text-[15px] font-semibold" style={{ background: '#B68425', color: '#FFFCF6' }}>i</span>
+          <p className="text-[13px] leading-[18px]" style={{ color: '#30272A' }}>This prayer is shaped by the displayed Scripture.</p>
+        </div>
       </div>
       <div className="px-5 pb-10 pt-3 flex flex-col gap-2.5">
         <button onClick={onFinish}
           className="w-full rounded-full font-semibold text-[17px] transition-all"
           style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
-          ✓ Complete Prayer
+          ▶ Listen
         </button>
         <button className="w-full rounded-full font-semibold text-[16px] transition-all"
-          style={{ height: 52, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
-          Save This Prayer
+          style={{ height: 52, background: 'transparent', border: '1.5px solid #9B6B18', color: '#7B4B16' }}>
+          ✎ Edit prayer
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export function MeditationPlayer() {
+  const { navigate } = useApp()
+  return (
+    <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#111716' }}>
+      <img src={DEV_IMG} alt="Still waters at sunrise" className="absolute inset-0 h-full w-full object-cover" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,18,24,0.25) 0%, rgba(10,18,24,0.18) 42%, rgba(7,12,13,0.88) 100%)' }} />
+      <div className="relative z-10 flex h-full flex-col px-6 pb-8 pt-14" style={{ color: '#FFFCF6' }}>
+        <div className="flex items-center justify-between">
+          <button onClick={() => navigate('prayer-mode')} className="h-10 w-10" aria-label="Back"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 4l-7 7 7 7" stroke="#FFFCF6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+          <button onClick={() => navigate('sound-controls')} className="h-10 w-10 text-[22px]" aria-label="Sound controls">...</button>
+        </div>
+        <div className="mt-14 text-center">
+          <h1 className="font-serif text-[27px] leading-[34px]">Trust without<br />demanding the outcome</h1>
+          <p className="mt-3 text-[14px] opacity-90">2 of 7 · Hear the Scripture</p>
+        </div>
+        <div className="mt-auto">
+          <div className="text-center">
+            <p className="font-serif text-[15px]">Proverbs 3:5–6</p>
+            <p className="mt-1 text-[12px] opacity-85">King James Version</p>
+          </div>
+          <div className="mt-7">
+            <div className="relative h-[3px] rounded-full" style={{ background: 'rgba(255,252,246,0.42)' }}>
+              <div className="absolute left-0 top-0 h-full w-[42%] rounded-full" style={{ background: '#FFFCF6' }} />
+              <div className="absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full" style={{ left: '42%', background: '#FFFCF6' }} />
+            </div>
+            <div className="mt-3 flex justify-between text-[12px]"><span>2:14</span><span>6:00</span></div>
+          </div>
+          <div className="mt-7 flex items-center justify-center gap-8">
+            <button className="h-11 w-11 rounded-full border border-white/35">↶<span className="text-[10px]">15</span></button>
+            <button className="h-[66px] w-[66px] rounded-full text-[30px]" style={{ background: '#FFFCF6', color: '#24171A' }}>Ⅱ</button>
+            <button className="h-11 w-11 rounded-full border border-white/35">↷<span className="text-[10px]">15</span></button>
+            <button className="h-11 w-11 rounded-full border border-white/25">1×</button>
+          </div>
+          <button className="mt-7 h-11 w-full rounded-full border border-white/35 text-[14px]">▤ View transcript</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function SoundControls() {
+  const { navigate } = useApp()
+  const [music, setMusic] = useState(true)
+  const [soundscape, setSoundscape] = useState('Still Waters')
+  const scapes = ['Still Waters', 'Morning Path', 'Quiet Room', 'Music off']
+  return (
+    <div className="flex h-full flex-col" style={{ background: '#F7F1E7' }}>
+      <div className="px-5 pt-14 pb-4 flex items-center justify-between">
+        <button onClick={() => navigate('meditation-player')} className="h-10 w-10" aria-label="Back"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#24171A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+      </div>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8">
+        <h1 className="font-serif text-[30px] font-semibold leading-[36px]" style={{ color: '#24171A' }}>Sound for this moment</h1>
+        <p className="mt-2 text-[14px] leading-[20px]" style={{ color: '#675A5D' }}>Adjust the balance, or choose a different soundscape for your time with God.</p>
+        <label className="mt-8 flex items-center justify-between">
+          <span className="text-[15px]" style={{ color: '#24171A' }}>Background music</span>
+          <button onClick={() => setMusic(v => !v)} className="h-8 w-14 rounded-full p-1" style={{ background: music ? '#40513B' : '#DDD0C0' }} aria-label="Toggle background music"><span className="block h-6 w-6 rounded-full bg-white transition-transform" style={{ transform: music ? 'translateX(24px)' : 'translateX(0)' }} /></button>
+        </label>
+        {[
+          ['Narration', '80%'],
+          ['Background music', '35%'],
+        ].map(([label, value]) => (
+          <div key={label} className="mt-7">
+            <div className="mb-3 flex justify-between text-[15px]" style={{ color: '#24171A' }}><span>{label}</span><span>{value}</span></div>
+            <div className="relative h-[4px] rounded-full" style={{ background: '#DDD0C0' }}>
+              <div className="absolute h-full rounded-full" style={{ width: value, background: '#40513B' }} />
+              <div className="absolute top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border" style={{ left: value, background: '#FFFCF6', borderColor: '#CDBDAA' }} />
+            </div>
+          </div>
+        ))}
+        <p className="mt-8 text-[15px] font-medium" style={{ color: '#24171A' }}>Choose a soundscape</p>
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          {scapes.slice(0, 3).map((name, index) => (
+            <button key={name} onClick={() => setSoundscape(name)} className="rounded-[10px] p-1 pb-3 text-center" style={{ border: `1.5px solid ${soundscape === name ? '#B68425' : '#E5D7C6'}`, background: '#FFFCF6' }}>
+              <div className="h-[76px] rounded-[8px] overflow-hidden"><img src={DEV_IMG} alt={name} className="h-full w-full object-cover" /></div>
+              <p className="mt-2 text-[12px]" style={{ color: '#24171A' }}>{name}</p>
+            </button>
+          ))}
+        </div>
+        <button onClick={() => setSoundscape('Music off')} className="mt-4 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+          <span className="text-[14px]" style={{ color: '#24171A' }}>♫ Music off</span>
+          <span className="h-5 w-5 rounded-full border" style={{ borderColor: soundscape === 'Music off' ? '#B68425' : '#A99B8B' }} />
+        </button>
+        <button className="mt-5 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+          <span className="text-[14px]" style={{ color: '#24171A' }}>⚙ Sensory settings</span>
+          <span>›</span>
         </button>
       </div>
     </div>

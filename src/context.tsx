@@ -18,6 +18,10 @@ export type Screen =
   | 'devotional'
   | 'prayer-mode'
   | 'pray-scripture'
+  | 'guided-prayer'
+  | 'meditation-player'
+  | 'sound-controls'
+  | 'privacy-settings'
   | 'context-study'
 
 interface AppState {
@@ -46,18 +50,57 @@ interface AppContextType extends AppState {
 
 const AppContext = createContext<AppContextType | null>(null)
 
+const screens: Screen[] = [
+  'onboarding',
+  'home',
+  'alignment-intake',
+  'alignment-analyzing',
+  'alignment-report',
+  'faithful-action',
+  'practice-intro',
+  'practice-question',
+  'practice-feedback',
+  'practice-level-complete',
+  'library',
+  'progress',
+  'profile',
+  'path-overview',
+  'devotional',
+  'prayer-mode',
+  'pray-scripture',
+  'guided-prayer',
+  'meditation-player',
+  'sound-controls',
+  'privacy-settings',
+  'context-study',
+]
+
+function previewInitialScreen(): Screen {
+  if (typeof window === 'undefined') return 'onboarding'
+  const requested = new URLSearchParams(window.location.search).get('screen') as Screen | null
+  return requested && screens.includes(requested) ? requested : 'onboarding'
+}
+
+function previewInitialTab(screen: Screen): AppState['tab'] {
+  if (screen === 'library') return 'library'
+  if (screen === 'progress') return 'progress'
+  if (screen === 'profile' || screen === 'privacy-settings' || screen === 'sound-controls') return 'you'
+  return 'home'
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
+  const initialScreen = previewInitialScreen()
   const [state, setState] = useState<AppState>({
-    screen: 'onboarding',
-    tab: 'home',
+    screen: initialScreen,
+    tab: previewInitialTab(initialScreen),
     onboardingStep: 1,
     practiceSource: 'alignment',
     selectedAnswer: null,
     answeredCorrect: false,
     alignmentText: '',
-    totalXP: 275,
-    level: 3,
-    passageMastery: 2,
+    totalXP: 25,
+    level: 1,
+    passageMastery: 1,
   })
 
   const navigate = (screen: Screen) => setState(s => ({ ...s, screen }))
