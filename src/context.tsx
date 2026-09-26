@@ -82,13 +82,19 @@ function previewInitialTab(screen: Screen): AppState['tab'] {
   return 'home'
 }
 
+function previewInitialOnboardingStep(): number {
+  if (typeof window === 'undefined') return 1
+  const requested = Number(new URLSearchParams(window.location.search).get('onboardingStep'))
+  return Number.isInteger(requested) && requested >= 1 && requested <= 7 ? requested : 1
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const initialScreen = previewInitialScreen()
   const [state, setState] = useState<AppState>({
     screen: initialScreen,
     history: [],
     tab: previewInitialTab(initialScreen),
-    onboardingStep: 1,
+    onboardingStep: previewInitialOnboardingStep(),
     alignmentText: '',
     totalXP: 275,
     level: 3,

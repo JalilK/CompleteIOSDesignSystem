@@ -1,0 +1,23 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=6".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=6
+	2 container
+		3 text 9:41
+		4 button Back
+			5 image
+		6 text RECOMMENDED FOR YOU
+		7 heading Bringing Scripture Into Daily Decisions, Value: 2
+			8 text Bringing Scripture
+			9 text Into Daily Decisions
+		10 text 7 sessions · About 5 minutes each
+		11 image Stone path through ancient landscape
+		12 text Learn to understand what Scripture establishes and choose one faithful next step.
+		13 button First: Trust Before You Choose ›
+			14 image
+			15 text First: Trust Before
+			16 text You Choose
+			17 text ›
+		18 button Start This Path
+			19 text Start This Path
+			20 image
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=6

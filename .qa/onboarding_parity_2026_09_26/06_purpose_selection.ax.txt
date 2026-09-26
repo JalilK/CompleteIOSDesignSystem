@@ -1,0 +1,30 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=5".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=5
+	2 container
+		3 text 9:41
+		4 image Soft stone path landscape
+		5 button Back
+			6 image
+		7 heading Where would Scripture help most right now?, Value: 2
+			8 text Where would Scripture
+			9 text help most right now?
+		10 button Make a faithful decision ›
+			11 text Make a faithful decision
+			12 text ›
+		13 button Change a pattern in my life ›
+			14 text Change a pattern in my life
+			15 text ›
+		16 button Work through something weighing on me ›
+			17 text Work through something weighing on me
+			18 text ›
+		19 button Understand something I’m facing ›
+			20 text Understand something I’m facing
+			21 text ›
+		22 button Grow in understanding Scripture ›
+			23 text Grow in understanding Scripture
+			24 text ›
+		25 button Continue
+			26 text Continue
+			27 image
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=5

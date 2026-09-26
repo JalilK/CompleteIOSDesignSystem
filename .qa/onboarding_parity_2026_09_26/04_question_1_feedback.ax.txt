@@ -1,0 +1,27 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=3&questionIndex=0".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=3&questionIndex=0
+	2 container
+		3 text 9:41
+		4 container
+			5 image Ancient hillside and city landscape
+		6 button Back
+			7 image
+		8 text PROVERBS 14:12
+		9 container
+			10 text There is a way that seems
+			11 text right to a man, but its end
+			12 text is the way to death.
+		13 heading What should determine whether the belief is true?, Value: 2
+			14 text What should determine whether the belief is true?
+		15 container
+			16 text Question  1  of  4
+		17 button The strength of the feeling
+		18 button The person’s intention
+		19 button What Scripture establishes
+		20 text Scripture comes first
+		21 text A belief is not proven by how strongly it feels true. Scripture establishes the boundary.
+		22 button Next Question
+			23 text Next Question
+			24 image
+
+The focused UI element is 22 button Next Question

@@ -1,0 +1,37 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=7".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=7
+	2 container
+		3 image Ancient city at golden hour
+		4 button Back
+			5 image
+		6 heading Continue your journey in Scripture, Value: 2
+			7 text Continue your journey in Scripture
+		8 text Deeper understanding. A clearer next step. A more rooted you.
+		9 button 7 days free MOST POPULAR Annual · $39.99/yr
+			10 text 7 days free
+			11 text MOST POPULAR
+			12 text Annual · $39.99/yr
+		13 button Monthly $7.99/mo
+			14 text Monthly
+			15 text $7.99/mo
+		16 image
+		17 text Continue your personalized Path
+		18 image
+		19 text Bring real situations under Scripture
+		20 image
+		21 text Build lasting understanding through Practice
+		22 image
+		23 text See your growth across passages
+		24 image
+		25 text Receive personal devotionals, prayer, and guided meditation
+		26 image
+		27 text Save your Library, progress, and achievements
+		28 text Then renews automatically at the selected price. Cancel anytime.
+		29 button Start 7-Day Free Trial
+			30 text Start 7-Day Free Trial
+			31 image
+		32 button Restore Purchases
+		33 button Terms
+		34 button Privacy
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=7

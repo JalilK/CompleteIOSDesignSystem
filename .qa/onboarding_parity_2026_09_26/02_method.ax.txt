@@ -1,0 +1,20 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=2".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=2
+	2 container
+		3 text 9:41
+		4 image Open Bible and cup in warm morning light
+		5 button Back
+			6 image
+		7 heading Scripture comes before advice., Value: 2
+			8 text Scripture
+			9 text comes before
+			10 text advice.
+		11 container
+			12 text Understand the moment.
+			13 text Read what Scripture says.
+			14 text Choose one faithful step.
+		15 button Try it
+			16 text Try it
+			17 image
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=2

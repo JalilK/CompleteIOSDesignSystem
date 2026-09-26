@@ -1,0 +1,18 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=1".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=1
+	2 container
+		3 text 9:41
+		4 image Open Bible overlooking an ancient city at sunrise
+		5 heading Bring the Word of God into real life., Value: 1
+			6 text Bring the Word
+			7 text of God into
+			8 text real life.
+		9 container
+			10 text Understand Scripture.
+			11 text Act faithfully. Communicate
+			12 text it clearly.
+		13 button Begin
+			14 text Begin
+			15 image
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=1

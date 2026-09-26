@@ -1,0 +1,22 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding
+	2 container
+		3 text 9:41
+		4 container
+			5 image Ancient hillside and city landscape
+		6 button Back
+			7 image
+		8 text JAMES 4:13–15
+		9 container
+			10 text If the Lord will, we shall live,
+			11 text and do this, or that.
+		12 heading What does humble planning sound like?, Value: 2
+			13 text What does humble planning sound like?
+		14 container
+			15 text Question  4  of  4
+		16 button I control what happens next
+		17 button I should never make a plan
+		18 button I will plan while submitting the outcome to God
+		19 button (disabled) Complete Level 1
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding

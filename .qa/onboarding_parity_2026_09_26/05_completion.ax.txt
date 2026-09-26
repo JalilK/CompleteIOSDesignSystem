@@ -1,0 +1,18 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding&onboardingStep=4".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=4
+	2 container
+		3 text 9:41
+		4 image Ancient stone path and city at golden hour
+		5 heading First Scripture practice complete, Value: 2
+			6 text First Scripture
+			7 text practice 
+			8 text complete
+		9 text Passage Mastery · Level 1 of 5
+		10 text +25 XP
+		11 image
+		12 text Text Before Assumption · 1 of 3
+		13 button Continue
+			14 text Continue
+			15 image
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding&onboardingStep=4

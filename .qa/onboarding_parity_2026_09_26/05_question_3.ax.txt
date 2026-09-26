@@ -1,0 +1,22 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding
+	2 container
+		3 text 9:41
+		4 container
+			5 image Ancient hillside and city landscape
+		6 button Back
+			7 image
+		8 text PROVERBS 3:5–6
+		9 container
+			10 text Trust in the LORD with all thine heart;
+			11 text and lean not unto thine own understanding.
+		12 heading Which response keeps the passage in bounds?, Value: 2
+			13 text Which response keeps the passage in bounds?
+		14 container
+			15 text Question  3  of  4
+		16 button God must give me the outcome I want
+		17 button Trust God without making my view final
+		18 button Planning means I am not trusting
+		19 button (disabled) Next Question
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding

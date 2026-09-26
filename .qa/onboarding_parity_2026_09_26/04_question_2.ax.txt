@@ -1,0 +1,23 @@
+Browser tab: 77, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=onboarding".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding
+	2 container
+		3 text 9:41
+		4 container
+			5 image Ancient hillside and city landscape
+		6 button Back
+			7 image
+		8 text PROVERBS 14:12
+		9 container
+			10 text There is a way that seems
+			11 text right to a man, but its end
+			12 text is the way to death.
+		13 heading What does this passage warn against?, Value: 2
+			14 text What does this passage warn against?
+		15 container
+			16 text Question  2  of  4
+		17 button Treating inner certainty as proof
+		18 button Asking wise people for counsel
+		19 button Testing a belief against Scripture
+		20 button (disabled) Next Question
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=onboarding

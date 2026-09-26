@@ -10,7 +10,7 @@ The preview must use the screenshots as visual references, but behavior must fol
 
 ## Current Evidence
 
-Audit baseline commit: `3042f6d Regenerate parity audit`
+Audit baseline commit: `d527bde Add Home parity evidence`
 
 Current browser preview routes inspected through accessibility trees:
 
@@ -46,19 +46,20 @@ No direct Paywall preview route exists yet. Paywall remains reachable only insid
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
 - Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
+- Onboarding now uses direct preview routes for each step, includes mission/method/demo/completion/purpose/recommended Path states, and provides Scripture-based feedback after checked demo answers.
 - `Home -> Devotional -> Practice -> Back` was manually verified to return to Devotional.
 - Build passes with the current route set.
 
 ## QA Verdict
 
-The preview is now more coherent and routeable. `ALIGN-GAP-006A Home` has saved visual evidence and can be marked complete for the Figma Make/design-system preview. The remaining blockers are screen-composition parity on the other route sets, functional persistence, direct Paywall QA, and end-to-end proof.
+The preview is now more coherent and routeable. `ALIGN-GAP-006A Home` and `ALIGN-GAP-006B Onboarding` have saved visual evidence and can be marked complete for the Figma Make/design-system preview. The remaining blockers are screen-composition parity on the other route sets, functional persistence, direct Paywall QA, and end-to-end proof.
 
-The next implementation target after Home proof is `ALIGN-GAP-006B Onboarding` or `ALIGN-GAP-006C Paywall`, depending on whether we prioritize fresh-user flow or direct monetization QA.
+The next implementation target is `ALIGN-GAP-006C Paywall`, because Paywall still needs a direct preview route and a StoreKit-truthful visual/state pass.
 
 ## Remaining Gaps Before Tickets Can Be Marked Complete
 
 - `ALIGN-GAP-006A Home`: complete for the Figma Make/design-system preview. Current Home is native and routeable, uses the September board Path/Alignment/Devotionals hierarchy, fits at the target phone viewport, uses the referenced four-item bottom nav labels (`Home`, `Align`, `Devotionals`, `More`), and has saved screenshot evidence at `.qa/home_parity_2026_09_26/home_390x844.png`.
-- `ALIGN-GAP-006B Onboarding`: blocked. Visual states are native, but the flow still needs a fresh proof pass for four-question Level 1, safe-area behavior, and completion routing.
+- `ALIGN-GAP-006B Onboarding`: complete for the Figma Make/design-system preview. Mission, method, demo question, Scripture feedback, completion, purpose selection, and recommended Path are native and saved under `.qa/onboarding_parity_2026_09_26/`. Paywall is intentionally left to `ALIGN-GAP-006C`.
 - `ALIGN-GAP-006C Paywall`: blocked. No direct preview route exists. Pricing is static preview copy, StoreKit metadata is not proven, and production unavailable-product handling is not verified.
 - `ALIGN-GAP-006D Case`: blocked. Intake/report/action are native, but exact board parity, full case lifecycle states, active privacy controls, and result-to-action state are not proven.
 - `ALIGN-GAP-006E Practice`: blocked. The six-question flow and helper sheets exist, but entrance/question/feedback/completion still need exact screenshot spacing, typography, medallion, safe-area, persistence, and no-duplicate-XP proof.
@@ -76,7 +77,7 @@ The next implementation target after Home proof is `ALIGN-GAP-006B Onboarding` o
 ## Screen Notes From Current Preview
 
 - **Home**: native board hierarchy is implemented and visually checked at a 390 x 844 phone viewport. Saved evidence exists at `.qa/home_parity_2026_09_26/home_390x844.png` and `.qa/home_parity_2026_09_26/home_390x844.ax.txt`.
-- **Onboarding**: native and close in structure. Needs a focused fresh-user run after Paywall route/work is fixed.
+- **Onboarding**: native board hierarchy is implemented for mission, method, demo question, feedback, completion, purpose selection, and recommended Path. Saved evidence exists under `.qa/onboarding_parity_2026_09_26/`.
 - **Paywall**: cannot be directly inspected through `?screen=paywall`. Add direct route before Paywall parity work.
 - **Library**: native and local-image based. Still needs board-level image crops, card dimensions, and saved journey/continuation behavior.
 - **Progress**: native and local state-aware. Needs concept-grade ring, medallion visuals, spacing, and exact screenshot proof.
@@ -103,9 +104,12 @@ Home completion evidence proves:
 
 ## Verification Evidence From This Regeneration
 
-- `pnpm build` passed before audit regeneration and after the Home parity update.
+- `pnpm build` passed before audit regeneration and after the Home and Onboarding parity updates.
 - Browser accessibility inspection confirmed routeable native headings/buttons/controls for all direct preview routes listed above.
 - Browser inspection of `/?screen=home` confirmed the target Home copy stack, CTA labels, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` nav.
 - Visual preview at 390 x 844 confirmed the Home screen fits with the devotional section visible above the bottom navigation.
 - Saved Home evidence: `.qa/home_parity_2026_09_26/home_390x844.png` and `.qa/home_parity_2026_09_26/home_390x844.ax.txt`. Desktop copy: `/Users/jalilkennedy/Desktop/alignment-home-parity-2026-09-26.png`.
+- Saved Onboarding evidence: `.qa/onboarding_parity_2026_09_26/01_mission.png`, `02_method.png`, `03_question_1.png`, `04_question_1_feedback.png`, `05_completion.png`, `06_purpose_selection.png`, and `07_recommended_path.png`, each with matching `.ax.txt` files.
+- Direct QA URLs now support `?screen=onboarding&onboardingStep=1...7` and `questionIndex=0...3` for stable screenshot capture.
+- Onboarding Paywall activation smoke test passed: `/?screen=onboarding&onboardingStep=7` -> `Start 7-Day Free Trial` -> Home.
 - Manual contextual navigation smoke test passed for `Home -> Devotional -> Practice -> Back`.
