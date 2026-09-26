@@ -90,9 +90,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     tab: previewInitialTab(initialScreen),
     onboardingStep: 1,
     alignmentText: '',
-    totalXP: 25,
-    level: 1,
-    passageMastery: 1,
+    totalXP: 275,
+    level: 3,
+    passageMastery: 2,
     practiceLevel2Complete: false,
   })
 

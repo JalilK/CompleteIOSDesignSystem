@@ -10,7 +10,7 @@ The preview must use the screenshots as visual references, but behavior must fol
 
 ## Current Evidence
 
-Audit baseline commit: `fab70bd Add contextual back navigation`
+Audit baseline commit: `3042f6d Regenerate parity audit`
 
 Current browser preview routes inspected through accessibility trees:
 
@@ -45,18 +45,19 @@ No direct Paywall preview route exists yet. Paywall remains reachable only insid
 - `What You'll Learn` on Practice entrance opens a native Level 2 learning sheet.
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
+- Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
 - `Home -> Devotional -> Practice -> Back` was manually verified to return to Devotional.
 - Build passes with the current route set.
 
 ## QA Verdict
 
-The preview is now more coherent and routeable, but no visual parity ticket should be marked complete yet. The remaining blockers are screen-composition parity, functional persistence, direct Paywall QA, and end-to-end proof.
+The preview is now more coherent and routeable, but no visual parity ticket should be marked complete yet without saved screenshot evidence against the reference. Home has been implemented against the board and needs final screenshot comparison; the remaining blockers are screen-composition parity on the other route sets, functional persistence, direct Paywall QA, and end-to-end proof.
 
-The next implementation target is `ALIGN-GAP-006A Home`.
+The next implementation target after Home proof is `ALIGN-GAP-006B Onboarding` or `ALIGN-GAP-006C Paywall`, depending on whether we prioritize fresh-user flow or direct monetization QA.
 
 ## Remaining Gaps Before Tickets Can Be Marked Complete
 
-- `ALIGN-GAP-006A Home`: blocked. Current Home is native and routeable, but it still does not match the September board. The board target uses the large scenic current Path card, current Alignment card, devotional cards, and the older four-item bottom nav labels (`Home`, `Align`, `Devotionals`, `More`). Current implementation instead uses an activated-home style hierarchy with `What are you facing today?`, For You, prayer, and progress cards.
+- `ALIGN-GAP-006A Home`: implemented, pending final screenshot evidence. Current Home is native and routeable, uses the September board Path/Alignment/Devotionals hierarchy, fits at the target phone viewport, and uses the referenced four-item bottom nav labels (`Home`, `Align`, `Devotionals`, `More`). It still needs simulator/reference screenshot comparison before the ticket is marked complete.
 - `ALIGN-GAP-006B Onboarding`: blocked. Visual states are native, but the flow still needs a fresh proof pass for four-question Level 1, safe-area behavior, and completion routing.
 - `ALIGN-GAP-006C Paywall`: blocked. No direct preview route exists. Pricing is static preview copy, StoreKit metadata is not proven, and production unavailable-product handling is not verified.
 - `ALIGN-GAP-006D Case`: blocked. Intake/report/action are native, but exact board parity, full case lifecycle states, active privacy controls, and result-to-action state are not proven.
@@ -74,7 +75,7 @@ The next implementation target is `ALIGN-GAP-006A Home`.
 
 ## Screen Notes From Current Preview
 
-- **Home**: highest-priority visual mismatch. Current screen is coherent but not the screenshot target. Needs the September 25 Home board hierarchy and tab model before it can be compared fairly.
+- **Home**: native board hierarchy is now implemented and visually checked at a 390 x 844 phone viewport. Needs saved simulator/reference evidence before completion.
 - **Onboarding**: native and close in structure. Needs a focused fresh-user run after Paywall route/work is fixed.
 - **Paywall**: cannot be directly inspected through `?screen=paywall`. Add direct route before Paywall parity work.
 - **Library**: native and local-image based. Still needs board-level image crops, card dimensions, and saved journey/continuation behavior.
@@ -88,7 +89,7 @@ The next implementation target is `ALIGN-GAP-006A Home`.
 
 ## Home Parity Acceptance Checklist
 
-Home cannot be marked complete until current simulator/preview evidence proves:
+Home is implemented but cannot be marked complete until current simulator/preview evidence proves:
 
 - Greeting/header matches the reference board.
 - Current Path card uses the September board composition: scenic image, `Your Path`, `Trusting God Through Uncertainty`, session label, and `Continue Path`.
@@ -102,6 +103,8 @@ Home cannot be marked complete until current simulator/preview evidence proves:
 
 ## Verification Evidence From This Regeneration
 
-- `pnpm build` passed before audit regeneration.
+- `pnpm build` passed before audit regeneration and after the Home parity update.
 - Browser accessibility inspection confirmed routeable native headings/buttons/controls for all direct preview routes listed above.
+- Browser inspection of `/?screen=home` confirmed the target Home copy stack, CTA labels, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` nav.
+- Visual preview at 390 x 844 confirmed the Home screen fits with the devotional section visible above the bottom navigation.
 - Manual contextual navigation smoke test passed for `Home -> Devotional -> Practice -> Back`.

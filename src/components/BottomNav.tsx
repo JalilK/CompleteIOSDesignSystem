@@ -1,12 +1,5 @@
 import { useApp } from '../context'
 
-const tabs = [
-  { id: 'home' as const, label: 'Home', icon: HomeIcon },
-  { id: 'library' as const, label: 'Library', icon: LibraryIcon },
-  { id: 'progress' as const, label: 'Progress', icon: ProgressIcon },
-  { id: 'you' as const, label: 'You', icon: YouIcon },
-]
-
 function HomeIcon({ active }: { active: boolean }) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -18,47 +11,56 @@ function HomeIcon({ active }: { active: boolean }) {
   )
 }
 
-function LibraryIcon({ active }: { active: boolean }) {
+function AlignIcon({ active }: { active: boolean }) {
   const c = active ? '#741630' : '#897A76'
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="4" width="5" height="16" rx="1" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.5" />
-      <rect x="10" y="4" width="5" height="16" rx="1" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.5" />
-      <path d="M18 4l3 15.5" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M12 20V10.5" stroke={c} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M12 11c-2.9-3-6.1-3.9-9-2.7.9 4.5 4.1 7 9 7.3" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.4" strokeLinejoin="round" />
+      <path d="M12 11c2.7-3.3 6.1-4.2 9-3-.9 4.4-4.3 7-9 7.6" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.4" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function ProgressIcon({ active }: { active: boolean }) {
+function DevotionalIcon({ active }: { active: boolean }) {
   const c = active ? '#741630' : '#897A76'
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M4 20V14M9 20V10M14 20V6M19 20V2" stroke={c} strokeWidth="2" strokeLinecap="round" />
+      <path d="M12 6.5c-2-1.7-4.4-2.5-7-2.5v15c2.6 0 5 .8 7 2.5V6.5z" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M12 6.5c2-1.7 4.4-2.5 7-2.5v15c-2.6 0-5 .8-7 2.5V6.5z" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   )
 }
 
-function YouIcon({ active }: { active: boolean }) {
+function MoreIcon({ active }: { active: boolean }) {
   const c = active ? '#741630' : '#897A76'
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="8" r="4" fill={active ? '#741630' : 'none'} stroke={c} strokeWidth="1.5" />
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="5.5" cy="12" r="1.7" fill={c} />
+      <circle cx="12" cy="12" r="1.7" fill={c} />
+      <circle cx="18.5" cy="12" r="1.7" fill={c} />
     </svg>
   )
 }
 
 export function BottomNav() {
-  const { tab, setTab } = useApp()
+  const { screen, setTab, navigate } = useApp()
+  const items = [
+    { id: 'home', label: 'Home', icon: HomeIcon, active: screen === 'home', action: () => setTab('home') },
+    { id: 'align', label: 'Align', icon: AlignIcon, active: screen.startsWith('alignment') || screen === 'faithful-action', action: () => navigate('alignment-intake', { replace: true }) },
+    { id: 'devotionals', label: 'Devotionals', icon: DevotionalIcon, active: screen === 'devotional' || screen === 'prayer-mode', action: () => navigate('devotional', { replace: true }) },
+    { id: 'more', label: 'More', icon: MoreIcon, active: screen === 'profile', action: () => setTab('you') },
+  ]
+
   return (
     <div className="flex bg-surface border-t border-border safe-area-bottom" style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}>
-      {tabs.map(t => {
-        const active = tab === t.id
+      {items.map(t => {
+        const active = t.active
         const Icon = t.icon
         return (
           <button
             key={t.id}
-            onClick={() => setTab(t.id)}
+            onClick={t.action}
             className="flex-1 flex flex-col items-center gap-0.5 pt-2 pb-1"
             aria-label={t.label}
             aria-selected={active}
