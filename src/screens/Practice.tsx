@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
+import { AppIcon } from '../components/AppIcon'
 
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -295,7 +296,7 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
 
         {boundary && (
           <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
-            <span className="text-[16px] shrink-0 mt-0.5">⚠️</span>
+            <AppIcon name="alert" size={18} color="#9B6B18" className="shrink-0 mt-0.5" />
             <div>
               <p className="text-[12px] font-semibold mb-1" style={{ color: '#795719' }}>Important boundary</p>
               <p className="text-[13px] leading-[20px]" style={{ color: '#795719' }}>{boundary}</p>
@@ -339,7 +340,7 @@ export function PracticeLevelComplete() {
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col items-center gap-5" style={{ background: '#F7F1E7' }}>
         <div className="medal-rise w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
           <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3B1F0F 0%, #741630 100%)' }}>
-            <span className="text-[28px]">📖</span>
+            <AppIcon name="book" size={30} color="#E6C878" />
           </div>
         </div>
 
@@ -354,7 +355,7 @@ export function PracticeLevelComplete() {
 
         <div className="w-full rounded-[20px] p-5 flex flex-col gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
           <div className="flex items-center gap-3">
-            <span className="text-[20px]">📖</span>
+            <AppIcon name="book" size={22} color="#B68425" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Passage Mastery · {displayedMastery} of 5</p>
               <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
@@ -364,7 +365,7 @@ export function PracticeLevelComplete() {
           </div>
           <div className="h-px" style={{ background: '#DDD0C0' }} />
           <div className="flex items-center gap-3">
-            <span className="text-[20px]">⭐</span>
+            <AppIcon name="star" size={22} color="#B68425" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-1 xp-pop" style={{ color: '#B68425' }}>+{earnedXP} XP · {displayedTotal} XP total</p>
               <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
@@ -374,7 +375,7 @@ export function PracticeLevelComplete() {
           </div>
           <div className="h-px" style={{ background: '#DDD0C0' }} />
           <div className="flex items-center gap-3">
-            <span className="text-[20px]">🌿</span>
+            <AppIcon name="leaf" size={22} color="#607255" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Scripture in Context · 2 of 3</p>
               <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>

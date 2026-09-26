@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { useApp } from '../context'
+import { AppIcon, type AppIconName } from '../components/AppIcon'
 
-function SettingsRow({ icon, label, value, destructive, onPress }: { icon: string; label: string; value?: string; destructive?: boolean; onPress?: () => void }) {
+function SettingsRow({ icon, label, value, destructive, onPress }: { icon: AppIconName; label: string; value?: string; destructive?: boolean; onPress?: () => void }) {
   return (
     <button onClick={onPress} className="flex w-full items-center gap-3 py-3.5 text-left" style={{ borderBottom: '1px solid #DDD0C0' }}>
-      <span className="text-[18px] w-7 text-center shrink-0">{icon}</span>
+      <span className="w-7 shrink-0 text-center">
+        <AppIcon name={icon} size={20} color={destructive ? '#A33A3A' : '#7B4B16'} />
+      </span>
       <span className="flex-1 text-[15px]" style={{ color: destructive ? '#A33A3A' : '#24171A' }}>{label}</span>
       {value && <span className="text-[13px]" style={{ color: '#897A76' }}>{value}</span>}
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -47,7 +50,7 @@ export function Profile() {
 
         {/* Active Path */}
         <div className="rounded-[18px] p-4 flex items-center gap-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-          <span className="text-[20px]">🛤️</span>
+          <AppIcon name="path" size={22} color="#7B4B16" />
           <div className="flex-1">
             <p className="font-semibold text-[14px]" style={{ color: '#24171A' }}>Trusting God Through Uncertainty</p>
             <p className="text-[12px]" style={{ color: '#675A5D' }}>Session 2 of 7 · Active Path</p>
@@ -56,32 +59,32 @@ export function Profile() {
         </div>
 
         <Section title="Scripture">
-          <SettingsRow icon="📖" label="Translation" value="KJV" />
-          <SettingsRow icon="🌱" label="Personalization" />
+          <SettingsRow icon="book" label="Translation" value="Selected" />
+          <SettingsRow icon="leaf" label="Personalization" />
         </Section>
 
         <Section title="Experience">
-          <SettingsRow icon="🔔" label="Notifications" />
-          <SettingsRow icon="🎵" label="Sensory Preferences" onPress={() => navigate('sound-controls')} />
-          <SettingsRow icon="♿" label="Accessibility" />
+          <SettingsRow icon="info" label="Notifications" />
+          <SettingsRow icon="music" label="Sensory Preferences" onPress={() => navigate('sound-controls')} />
+          <SettingsRow icon="settings" label="Accessibility" />
         </Section>
 
         <Section title="Subscription">
-          <SettingsRow icon="💳" label="Subscription" value="Annual · Active" />
-          <SettingsRow icon="🔄" label="Restore Purchases" />
+          <SettingsRow icon="card" label="Subscription" value="Annual · Active" />
+          <SettingsRow icon="sync" label="Restore Purchases" />
         </Section>
 
         <Section title="Privacy & Data">
-          <SettingsRow icon="🔒" label="How Personalization Works" onPress={() => navigate('privacy-settings')} />
-          <SettingsRow icon="📤" label="Download My Data" />
-          <SettingsRow icon="🧹" label="Clear Personalization" onPress={() => navigate('privacy-settings')} />
-          <SettingsRow icon="🗑️" label="Delete Account" destructive />
+          <SettingsRow icon="lock" label="How Personalization Works" onPress={() => navigate('privacy-settings')} />
+          <SettingsRow icon="upload" label="Download My Data" />
+          <SettingsRow icon="broom" label="Clear Personalization" onPress={() => navigate('privacy-settings')} />
+          <SettingsRow icon="trash" label="Delete Account" destructive />
         </Section>
 
         <Section title="Help">
-          <SettingsRow icon="❓" label="Help & Support" />
-          <SettingsRow icon="🚨" label="Report a Problem" />
-          <SettingsRow icon="🛡️" label="Safety Information" />
+          <SettingsRow icon="help" label="Help & Support" />
+          <SettingsRow icon="alert" label="Report a Problem" />
+          <SettingsRow icon="shield" label="Safety Information" />
         </Section>
 
         <button className="w-full rounded-full font-semibold text-[16px] transition-all"
@@ -96,7 +99,7 @@ export function Profile() {
 }
 
 function ToggleRow({ icon, title, body, enabled, onToggle }: {
-  icon: string
+  icon: AppIconName
   title: string
   body: string
   enabled: boolean
@@ -104,7 +107,7 @@ function ToggleRow({ icon, title, body, enabled, onToggle }: {
 }) {
   return (
     <button onClick={onToggle} className="flex w-full items-center gap-3 px-4 py-3.5 text-left" style={{ borderBottom: '1px solid #E5D7C6' }}>
-      <span className="w-8 text-center text-[19px]">{icon}</span>
+      <span className="w-8 shrink-0 text-center"><AppIcon name={icon} size={21} color="#7B4B16" /></span>
       <span className="flex-1">
         <span className="block text-[15px] font-medium" style={{ color: '#24171A' }}>{title}</span>
         <span className="mt-0.5 block text-[12px] leading-[16px]" style={{ color: '#675A5D' }}>{body}</span>
@@ -135,20 +138,20 @@ export function PrivacySettings() {
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8">
         <p className="mb-2 text-[15px] font-medium" style={{ color: '#24171A' }}>Used for recommendations</p>
         <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <ToggleRow icon="🌿" title="Use recent Alignments" body="Include your latest Alignments in recommendations" enabled={recent} onToggle={() => setRecent(v => !v)} />
-          <ToggleRow icon="◉" title="Use active Path" body="Include your current Path in recommendations" enabled={path} onToggle={() => setPath(v => !v)} />
-          <ToggleRow icon="ⓘ" title="Explain why content was selected" body="Show a short note when we recommend content for you" enabled={why} onToggle={() => setWhy(v => !v)} />
+          <ToggleRow icon="leaf" title="Use recent Alignments" body="Include your latest Alignments in recommendations" enabled={recent} onToggle={() => setRecent(v => !v)} />
+          <ToggleRow icon="path" title="Use active Path" body="Include your current Path in recommendations" enabled={path} onToggle={() => setPath(v => !v)} />
+          <ToggleRow icon="info" title="Explain why content was selected" body="Show a short note when we recommend content for you" enabled={why} onToggle={() => setWhy(v => !v)} />
         </div>
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Prayer and meditation history</p>
         <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <SettingsRow icon="◷" label="Clear prayer and meditation history" value="Remove past sessions" />
+          <SettingsRow icon="sync" label="Clear prayer and meditation history" value="Remove past sessions" />
         </div>
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Audio preferences</p>
         <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <SettingsRow icon="♫" label="Preferred voice" value="A gentle, steady pace" />
-          <SettingsRow icon="🗑️" label="Delete personalization data" value="Remove saved preferences" destructive />
+          <SettingsRow icon="music" label="Preferred voice" value="A gentle, steady pace" />
+          <SettingsRow icon="trash" label="Delete personalization data" value="Remove saved preferences" destructive />
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import { useApp } from '../context'
+import { IconDisc } from '../components/AppIcon'
+import { alignmentAssets } from '../assets/alignment/assets'
 
-const UNSPLASH = 'https://images.unsplash.com'
-const IMG1 = `${UNSPLASH}/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop&auto=format`
-const IMG2 = `${UNSPLASH}/photo-1464822759023-fed622ff2c3b?w=300&h=200&fit=crop&auto=format`
-const IMG3 = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=300&h=200&fit=crop&auto=format`
-const IMG4 = `${UNSPLASH}/photo-1542314831-068cd1dbfeeb?w=300&h=200&fit=crop&auto=format`
+const IMG1 = alignmentAssets.currentPath
+const IMG2 = alignmentAssets.questionLandscape
+const IMG3 = alignmentAssets.forYou
+const IMG4 = alignmentAssets.completionLandscape
 
 const passages = [
   { ref: 'Proverbs 3:5–6', context: 'Trusting God Through Uncertainty', mastery: 2, img: IMG1, tag: 'Ready for review' },
@@ -118,9 +119,7 @@ export function Library() {
             { title: 'Finding contentment in this season', time: '1 week ago', status: 'Complete' },
           ].map((a, i) => (
             <div key={i} className="flex items-center gap-3 py-3" style={{ borderBottom: i < 2 ? '1px solid #DDD0C0' : 'none' }}>
-              <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#F4EBDD' }}>
-                <span className="text-[14px]">🌿</span>
-              </div>
+              <IconDisc name="leaf" size={32} iconSize={17} bg="#F4EBDD" color="#607255" />
               <div className="flex-1">
                 <p className="text-[14px] font-medium" style={{ color: '#24171A' }}>{a.title}</p>
                 <p className="text-[12px]" style={{ color: '#897A76' }}>{a.time} · <span style={{ color: a.status === 'Complete' ? '#607255' : '#A66F17' }}>{a.status}</span></p>

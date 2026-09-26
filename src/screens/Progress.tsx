@@ -1,18 +1,19 @@
 import { useApp } from '../context'
+import { AppIcon, type AppIconName } from '../components/AppIcon'
 
 const achievements = [
-  { id: 'tba', name: 'Text Before Assumption', desc: 'Read deeply, act wisely', unlocked: true, icon: '📖', req: 'Answer 3 boundary questions correctly', progress: 3, total: 3 },
-  { id: 'sic', name: 'Scripture in Context', desc: 'See the bigger picture', unlocked: true, icon: '🌐', req: 'Complete 3 Context Studies', progress: 3, total: 3 },
-  { id: 'fia', name: 'Faithful in Action', desc: 'Know it, live it', unlocked: true, icon: '🌿', req: 'Choose 3 faithful actions', progress: 3, total: 3 },
-  { id: 'cc', name: 'Clear Communicator', desc: 'Listen well, speak true', unlocked: false, icon: '💬', req: 'Complete 5 Communication Practice sessions', progress: 2, total: 5 },
-  { id: 'pb', name: 'Path Begun', desc: 'The first step is real', unlocked: true, icon: '🛤️', req: 'Begin your first Path', progress: 1, total: 1 },
-  { id: 'pc', name: 'Path Completed', desc: 'You saw it through', unlocked: false, icon: '🏁', req: 'Complete your first Path', progress: 0, total: 1 },
-  { id: 'fa', name: 'First Alignment', desc: 'Brought it under the Word', unlocked: true, icon: '⚖️', req: 'Complete your first Alignment', progress: 1, total: 1 },
-  { id: 'pm', name: 'Passage Mastered', desc: 'Deep understanding earned', unlocked: false, icon: '📗', req: 'Reach Mastery Level 5 on any passage', progress: 2, total: 5 },
-  { id: 'rr', name: 'Ready to Review', desc: 'Building lasting memory', unlocked: false, icon: '🔄', req: 'Have 5 passages ready to review', progress: 1, total: 5 },
-  { id: 'rw', name: 'Rooted in the Word', desc: 'Breadth and depth', unlocked: false, icon: '🌳', req: 'Encounter 10 unique passages', progress: 4, total: 10 },
-  { id: 'pts', name: 'Prayer Through Scripture', desc: 'Pray what God has said', unlocked: false, icon: '🙏', req: 'Complete 3 Pray Scripture sessions', progress: 1, total: 3 },
-  { id: 'cp', name: 'Consistent Practice', desc: 'Faithfulness over time', unlocked: false, icon: '📅', req: 'Practice 7 days this month', progress: 4, total: 7 },
+  { id: 'tba', name: 'Text Before Assumption', desc: 'Read deeply, act wisely', unlocked: true, icon: 'book' as AppIconName, req: 'Answer 3 boundary questions correctly', progress: 3, total: 3 },
+  { id: 'sic', name: 'Scripture in Context', desc: 'See the bigger picture', unlocked: true, icon: 'globe' as AppIconName, req: 'Complete 3 Context Studies', progress: 3, total: 3 },
+  { id: 'fia', name: 'Faithful in Action', desc: 'Know it, live it', unlocked: true, icon: 'leaf' as AppIconName, req: 'Choose 3 faithful actions', progress: 3, total: 3 },
+  { id: 'cc', name: 'Clear Communicator', desc: 'Listen well, speak true', unlocked: false, icon: 'message' as AppIconName, req: 'Complete 5 Communication Practice sessions', progress: 2, total: 5 },
+  { id: 'pb', name: 'Path Begun', desc: 'The first step is real', unlocked: true, icon: 'path' as AppIconName, req: 'Begin your first Path', progress: 1, total: 1 },
+  { id: 'pc', name: 'Path Completed', desc: 'You saw it through', unlocked: false, icon: 'flag' as AppIconName, req: 'Complete your first Path', progress: 0, total: 1 },
+  { id: 'fa', name: 'First Alignment', desc: 'Brought it under the Word', unlocked: true, icon: 'scales' as AppIconName, req: 'Complete your first Alignment', progress: 1, total: 1 },
+  { id: 'pm', name: 'Passage Mastered', desc: 'Deep understanding earned', unlocked: false, icon: 'book' as AppIconName, req: 'Reach Mastery Level 5 on any passage', progress: 2, total: 5 },
+  { id: 'rr', name: 'Ready to Review', desc: 'Building lasting memory', unlocked: false, icon: 'sync' as AppIconName, req: 'Have 5 passages ready to review', progress: 1, total: 5 },
+  { id: 'rw', name: 'Rooted in the Word', desc: 'Breadth and depth', unlocked: false, icon: 'tree' as AppIconName, req: 'Encounter 10 unique passages', progress: 4, total: 10 },
+  { id: 'pts', name: 'Prayer Through Scripture', desc: 'Pray what God has said', unlocked: false, icon: 'prayer' as AppIconName, req: 'Complete 3 Pray Scripture sessions', progress: 1, total: 3 },
+  { id: 'cp', name: 'Consistent Practice', desc: 'Faithfulness over time', unlocked: false, icon: 'calendar' as AppIconName, req: 'Practice 7 days this month', progress: 4, total: 7 },
 ]
 
 function MedalBadge({ a }: { a: typeof achievements[0] }) {
@@ -28,7 +29,7 @@ function MedalBadge({ a }: { a: typeof achievements[0] }) {
           }}>
           <div className="w-12 h-12 rounded-full flex items-center justify-center"
             style={{ background: a.unlocked ? 'linear-gradient(135deg, #741630, #4B1021)' : '#B0A899' }}>
-            <span className="text-[22px]" style={{ filter: a.unlocked ? 'none' : 'grayscale(1) opacity(0.6)' }}>{a.icon}</span>
+            <AppIcon name={a.icon} size={26} color={a.unlocked ? '#E6C878' : '#7E766B'} />
           </div>
         </div>
         {a.unlocked && (
@@ -96,7 +97,7 @@ export function Progress() {
               </defs>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-[28px]">🌿</span>
+              <AppIcon name="leaf" size={30} color="#B68425" />
               <p className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>Level {level}</p>
               <p className="text-[11px]" style={{ color: '#897A76' }}>{totalXP} XP</p>
             </div>
@@ -140,7 +141,7 @@ export function Progress() {
         {/* Practice Rhythm */}
         <div className="rounded-[20px] p-5" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-[18px]">📅</span>
+            <AppIcon name="calendar" size={20} color="#B68425" />
             <div>
               <p className="text-[15px] font-semibold" style={{ color: '#24171A' }}>Practice Rhythm</p>
               <p className="text-[13px]" style={{ color: '#675A5D' }}>4 days this week</p>
@@ -158,7 +159,7 @@ export function Progress() {
               <div key={a.id} className="rounded-[16px] p-4 flex items-center gap-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
                 <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
                   style={{ background: a.unlocked ? 'linear-gradient(135deg, #B68425, #E6C878)' : '#E0D6CC', boxShadow: a.unlocked ? '0 2px 12px rgba(182,132,37,0.3)' : 'none' }}>
-                  <span className="text-[20px]" style={{ filter: a.unlocked ? 'none' : 'grayscale(1) opacity(0.6)' }}>{a.icon}</span>
+                  <AppIcon name={a.icon} size={23} color={a.unlocked ? '#741630' : '#7E766B'} />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">

@@ -1,8 +1,14 @@
 import { useState } from 'react'
 import { useApp } from '../context'
+import { AppIcon, IconDisc } from '../components/AppIcon'
+import { alignmentAssets } from '../assets/alignment/assets'
 
-const UNSPLASH = 'https://images.unsplash.com'
-const DEV_IMG = `${UNSPLASH}/photo-1464822759023-fed622ff2c3b?w=800&h=400&fit=crop&auto=format`
+const DEV_IMG = alignmentAssets.currentPath
+const PRAYER_IMG = alignmentAssets.methodBibleRoom
+const STILL_WATERS_IMG = alignmentAssets.completionLandscape
+const MORNING_PATH_IMG = alignmentAssets.questionLandscape
+const QUIET_ROOM_IMG = alignmentAssets.forYou
+const TRANSLATION_LABEL = 'Selected translation'
 
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -53,7 +59,7 @@ export function Devotional() {
             <p className="font-serif text-[19px] leading-[29px] italic" style={{ color: '#24171A' }}>
               Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.
             </p>
-            <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · KJV</p>
+            <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · {TRANSLATION_LABEL}</p>
             <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[20px]" style={{ background: '#741630' }} />
           </div>
         </div>
@@ -66,7 +72,7 @@ export function Devotional() {
             <p className="font-serif text-[14px] leading-[21px] italic mt-1" style={{ color: '#24171A' }}>
               If the Lord will, we shall live, and do this, or that.
             </p>
-            <p className="text-[12px] font-semibold mt-1" style={{ color: '#675A5D' }}>James 4:15 · KJV</p>
+            <p className="text-[12px] font-semibold mt-1" style={{ color: '#675A5D' }}>James 4:15 · {TRANSLATION_LABEL}</p>
           </div>
         </div>
 
@@ -80,7 +86,7 @@ export function Devotional() {
 
         {/* Boundary */}
         <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
-          <span className="text-[16px] shrink-0">⚠️</span>
+          <AppIcon name="alert" size={18} color="#9B6B18" className="shrink-0 mt-0.5" />
           <div>
             <p className="text-[12px] font-semibold mb-1" style={{ color: '#795719' }}>What the passages do not establish</p>
             <p className="text-[13px] leading-[20px]" style={{ color: '#795719' }}>
@@ -113,13 +119,13 @@ export function Devotional() {
           </button>
           <div className="flex gap-2.5">
             <button onClick={() => navigate('prayer-mode')}
-              className="flex-1 rounded-full font-semibold text-[14px] transition-all"
+              className="flex-1 rounded-full font-semibold text-[14px] transition-all flex items-center justify-center gap-2"
               style={{ height: 48, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
-              🙏 Pray Scripture
+              <AppIcon name="prayer" size={17} color="#675A5D" /> Pray Scripture
             </button>
-            <button className="flex-1 rounded-full font-semibold text-[14px] transition-all"
+            <button className="flex-1 rounded-full font-semibold text-[14px] transition-all flex items-center justify-center gap-2"
               style={{ height: 48, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
-              🎧 Listen
+              <AppIcon name="audio" size={17} color="#675A5D" /> Listen
             </button>
           </div>
         </div>
@@ -141,11 +147,11 @@ export function PrayerMode() {
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-7 flex flex-col gap-5">
         <button onClick={() => navigate('devotional')} className="rounded-[14px] p-3 flex items-center gap-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <div className="h-[86px] w-[105px] rounded-[9px] overflow-hidden shrink-0">
-            <img src={DEV_IMG} alt="Open Bible in quiet light" className="h-full w-full object-cover" />
+            <img src={PRAYER_IMG} alt="Open Bible in quiet light" className="h-full w-full object-cover" />
           </div>
           <div className="flex-1">
             <p className="font-serif text-[16px] font-semibold" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
-            <p className="text-[12px] mt-1" style={{ color: '#675A5D' }}>King James Version</p>
+            <p className="text-[12px] mt-1" style={{ color: '#675A5D' }}>{TRANSLATION_LABEL}</p>
           </div>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#897A76" strokeWidth="1.5" strokeLinecap="round" /></svg>
         </button>
@@ -226,7 +232,7 @@ function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () 
           </p>
           <div className="my-7 h-px" style={{ background: '#D7C4AF' }} />
           <p className="font-serif text-[16px]" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
-          <p className="mt-1 text-[13px]" style={{ color: '#675A5D' }}>King James Version</p>
+          <p className="mt-1 text-[13px]" style={{ color: '#675A5D' }}>{TRANSLATION_LABEL}</p>
         </div>
       </div>
       <div className="px-5 pb-10 pt-4 flex flex-col gap-2.5">
@@ -256,10 +262,10 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
           <p className="mt-2 text-[15px] leading-[21px]" style={{ color: '#30272A' }}>A short prayer to help you respond to this Scripture.</p>
         </div>
         <div className="rounded-[13px] p-4 flex items-center gap-3" style={{ background: '#F4EBDD' }}>
-          <span className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: '#F3E6C9' }}><PrayerIcon kind="document" color="#9B6B18" /></span>
+          <IconDisc name="book" size={40} iconSize={22} bg="#F3E6C9" color="#9B6B18" />
           <div>
             <p className="font-serif text-[16px] font-semibold" style={{ color: '#24171A' }}>Proverbs 3:5–6</p>
-            <p className="text-[12px]" style={{ color: '#675A5D' }}>King James Version</p>
+            <p className="text-[12px]" style={{ color: '#675A5D' }}>{TRANSLATION_LABEL}</p>
           </div>
         </div>
         <div className="rounded-[20px] p-5 flex flex-col gap-4" style={{ background: '#FFFCF6' }}>
@@ -268,19 +274,19 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
           </p>
         </div>
         <div className="rounded-[13px] p-4 flex gap-3" style={{ background: '#F4EBDD' }}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-full text-[15px] font-semibold" style={{ background: '#B68425', color: '#FFFCF6' }}>i</span>
+          <IconDisc name="info" size={32} iconSize={18} bg="#B68425" color="#FFFCF6" />
           <p className="text-[13px] leading-[18px]" style={{ color: '#30272A' }}>This prayer is shaped by the displayed Scripture.</p>
         </div>
       </div>
       <div className="px-5 pb-10 pt-3 flex flex-col gap-2.5">
         <button onClick={onFinish}
-          className="w-full rounded-full font-semibold text-[17px] transition-all"
+          className="w-full rounded-full font-semibold text-[17px] transition-all flex items-center justify-center gap-2"
           style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
-          ▶ Listen
+          <AppIcon name="play" size={18} color="#FFFCF6" /> Listen
         </button>
-        <button className="w-full rounded-full font-semibold text-[16px] transition-all"
+        <button className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
           style={{ height: 52, background: 'transparent', border: '1.5px solid #9B6B18', color: '#7B4B16' }}>
-          ✎ Edit prayer
+          <AppIcon name="edit" size={18} color="#7B4B16" /> Edit prayer
         </button>
       </div>
     </div>
@@ -305,7 +311,7 @@ export function MeditationPlayer() {
         <div className="mt-auto">
           <div className="text-center">
             <p className="font-serif text-[15px]">Proverbs 3:5–6</p>
-            <p className="mt-1 text-[12px] opacity-85">King James Version</p>
+            <p className="mt-1 text-[12px] opacity-85">{TRANSLATION_LABEL}</p>
           </div>
           <div className="mt-7">
             <div className="relative h-[3px] rounded-full" style={{ background: 'rgba(255,252,246,0.42)' }}>
@@ -331,7 +337,11 @@ export function SoundControls() {
   const { navigate } = useApp()
   const [music, setMusic] = useState(true)
   const [soundscape, setSoundscape] = useState('Still Waters')
-  const scapes = ['Still Waters', 'Morning Path', 'Quiet Room', 'Music off']
+  const scapes = [
+    { name: 'Still Waters', img: STILL_WATERS_IMG },
+    { name: 'Morning Path', img: MORNING_PATH_IMG },
+    { name: 'Quiet Room', img: QUIET_ROOM_IMG },
+  ]
   return (
     <div className="flex h-full flex-col" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-4 flex items-center justify-between">
@@ -358,19 +368,19 @@ export function SoundControls() {
         ))}
         <p className="mt-8 text-[15px] font-medium" style={{ color: '#24171A' }}>Choose a soundscape</p>
         <div className="mt-4 grid grid-cols-3 gap-3">
-          {scapes.slice(0, 3).map((name, index) => (
-            <button key={name} onClick={() => setSoundscape(name)} className="rounded-[10px] p-1 pb-3 text-center" style={{ border: `1.5px solid ${soundscape === name ? '#B68425' : '#E5D7C6'}`, background: '#FFFCF6' }}>
-              <div className="h-[76px] rounded-[8px] overflow-hidden"><img src={DEV_IMG} alt={name} className="h-full w-full object-cover" /></div>
-              <p className="mt-2 text-[12px]" style={{ color: '#24171A' }}>{name}</p>
+          {scapes.map(scape => (
+            <button key={scape.name} onClick={() => setSoundscape(scape.name)} className="rounded-[10px] p-1 pb-3 text-center" style={{ border: `1.5px solid ${soundscape === scape.name ? '#B68425' : '#E5D7C6'}`, background: '#FFFCF6' }}>
+              <div className="h-[76px] rounded-[8px] overflow-hidden"><img src={scape.img} alt={scape.name} className="h-full w-full object-cover" /></div>
+              <p className="mt-2 text-[12px]" style={{ color: '#24171A' }}>{scape.name}</p>
             </button>
           ))}
         </div>
         <button onClick={() => setSoundscape('Music off')} className="mt-4 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <span className="text-[14px]" style={{ color: '#24171A' }}>♫ Music off</span>
+          <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="music" size={17} color="#24171A" /> Music off</span>
           <span className="h-5 w-5 rounded-full border" style={{ borderColor: soundscape === 'Music off' ? '#B68425' : '#A99B8B' }} />
         </button>
         <button className="mt-5 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <span className="text-[14px]" style={{ color: '#24171A' }}>⚙ Sensory settings</span>
+          <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="settings" size={17} color="#24171A" /> Sensory settings</span>
           <span>›</span>
         </button>
       </div>

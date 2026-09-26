@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useApp } from '../context'
+import { AppIcon } from '../components/AppIcon'
 
 const QUESTIONS = [
   {
@@ -82,7 +83,7 @@ export function ContextStudy() {
           </div>
           <div className="w-full rounded-[20px] p-5" style={{ background: '#FFFCF6' }}>
             <div className="flex items-center gap-3">
-              <span className="text-[20px]">💬</span>
+              <AppIcon name="message" size={22} color="#B68425" />
               <div className="flex-1">
                 <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Clear Communicator · 1 of 3</p>
                 <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
@@ -132,7 +133,7 @@ export function ContextStudy() {
             <p className="text-[15px] leading-[23px]" style={{ color: '#24171A' }}>{q.feedback.teaching}</p>
           </div>
           <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
-            <span className="text-[16px] shrink-0">⚠️</span>
+            <AppIcon name="alert" size={18} color="#9B6B18" className="shrink-0 mt-0.5" />
             <div>
               <p className="text-[12px] font-semibold mb-1" style={{ color: '#795719' }}>Important boundary</p>
               <p className="text-[13px] leading-[20px]" style={{ color: '#795719' }}>{q.feedback.boundary}</p>

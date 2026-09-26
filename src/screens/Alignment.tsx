@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useApp } from '../context'
+import { AppIcon, IconDisc } from '../components/AppIcon'
+import { alignmentAssets } from '../assets/alignment/assets'
 
-const UNSPLASH = 'https://images.unsplash.com'
-const REPORT_IMG = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=800&h=400&fit=crop&auto=format`
-const JOURNAL_IMG = `${UNSPLASH}/photo-1455390582262-044cdead277a?w=800&h=400&fit=crop&auto=format`
+const REPORT_IMG = alignmentAssets.currentPath
+const JOURNAL_IMG = alignmentAssets.methodBibleRoom
+const TRANSLATION_LABEL = 'Selected translation'
 
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -47,8 +49,8 @@ export function AlignmentIntake() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <button className="text-[13px] text-left" style={{ color: '#741630' }}>💡 Choose an example situation</button>
-          <button className="text-[13px] text-left" style={{ color: '#897A76' }}>🔒 How Alignment uses this information</button>
+          <button className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#741630' }}><AppIcon name="info" size={14} color="#741630" /> Choose an example situation</button>
+          <button className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#897A76' }}><AppIcon name="lock" size={14} color="#897A76" /> How Alignment uses this information</button>
         </div>
 
         {/* Recent Alignments */}
@@ -177,7 +179,7 @@ export function AlignmentReport() {
             <p className="font-serif text-[19px] leading-[29px] italic" style={{ color: '#24171A' }}>
               Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.
             </p>
-            <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · KJV</p>
+            <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · {TRANSLATION_LABEL}</p>
             <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[20px]" style={{ background: '#741630' }} />
           </div>
         </div>
@@ -194,7 +196,7 @@ export function AlignmentReport() {
               <p className="font-serif text-[15px] leading-[23px] italic" style={{ color: '#24171A' }}>
                 Go to now, ye that say, To day or to morrow we will go into such a city… ye ought to say, If the Lord will, we shall live…
               </p>
-              <p className="text-[12px] font-semibold mt-1" style={{ color: '#675A5D' }}>James 4:13–15 · KJV</p>
+              <p className="text-[12px] font-semibold mt-1" style={{ color: '#675A5D' }}>James 4:13–15 · {TRANSLATION_LABEL}</p>
             </div>
           </div>
         </div>
@@ -209,7 +211,7 @@ export function AlignmentReport() {
 
         {/* Boundary */}
         <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
-          <span className="text-[18px] shrink-0">⚠️</span>
+          <AppIcon name="alert" size={18} color="#9B6B18" className="shrink-0 mt-0.5" />
           <div>
             <p className="text-[13px] font-semibold mb-1" style={{ color: '#795719' }}>What the passages do not establish</p>
             <p className="text-[13px] leading-[20px]" style={{ color: '#795719' }}>
@@ -234,14 +236,14 @@ export function AlignmentReport() {
             See Your Faithful Step →
           </button>
           <button onClick={() => navigate('practice-intro')}
-            className="w-full rounded-full font-semibold text-[16px] transition-all"
+            className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
             style={{ height: 52, background: 'transparent', border: '1.5px solid #741630', color: '#741630' }}>
-            📖 Practice This Scripture
+            <AppIcon name="book" size={17} color="#741630" /> Practice This Scripture
           </button>
           <button onClick={() => navigate('prayer-mode')}
-            className="w-full rounded-full font-semibold text-[16px] transition-all"
+            className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
             style={{ height: 52, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
-            🙏 Pray with This Scripture
+            <AppIcon name="prayer" size={17} color="#675A5D" /> Pray with This Scripture
           </button>
         </div>
       </div>
@@ -267,9 +269,7 @@ export function FaithfulAction() {
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
         <div className="rounded-[24px] overflow-hidden" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.08)' }}>
           <div className="p-6 flex flex-col gap-4">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: '#E6ECE2' }}>
-              <span className="text-[22px]">🌿</span>
-            </div>
+            <IconDisc name="leaf" size={48} iconSize={24} bg="#E6ECE2" color="#607255" />
             <p className="font-serif text-[22px] font-bold leading-[30px]" style={{ color: '#24171A' }}>
               Compare the opportunity honestly against your responsibilities and motives, then decide without treating fear or money as your master.
             </p>
@@ -296,9 +296,9 @@ export function FaithfulAction() {
             {chosen ? '✓ Step Chosen' : 'Mark as Chosen →'}
           </button>
           <button onClick={() => navigate('practice-intro')}
-            className="w-full rounded-full font-semibold text-[16px] transition-all"
+            className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
             style={{ height: 52, background: 'transparent', border: '1.5px solid #741630', color: '#741630' }}>
-            📖 Practice This Scripture
+            <AppIcon name="book" size={17} color="#741630" /> Practice This Scripture
           </button>
           <button onClick={() => navigate('home')}
             className="w-full rounded-full font-semibold text-[16px] transition-all"
