@@ -2,6 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react'
 
 export type Screen =
   | 'onboarding'
+  | 'paywall'
   | 'home'
   | 'alignment-intake'
   | 'alignment-analyzing'
@@ -48,6 +49,7 @@ const AppContext = createContext<AppContextType | null>(null)
 
 const screens: Screen[] = [
   'onboarding',
+  'paywall',
   'home',
   'alignment-intake',
   'alignment-analyzing',

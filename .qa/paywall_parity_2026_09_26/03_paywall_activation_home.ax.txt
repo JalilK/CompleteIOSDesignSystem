@@ -1,0 +1,58 @@
+Browser tab: 78, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=paywall".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=paywall
+	2 container
+		3 heading Good morning, Jalil, Value: 1
+			4 text Good morning, Jalil
+		5 text Level  3  ·  275  XP
+		6 button Profile
+			7 image
+		8 container
+			9 image Stone path toward ancient hillside village
+			10 text YOUR PATH
+			11 heading Trusting God Through Uncertainty, Value: 2
+				12 text Trusting God Through
+				13 text Uncertainty
+			14 container
+				15 text Session 2 of 7 · Trust without demanding
+				16 text an outcome
+			17 button Continue Path ›
+				18 text Continue Path
+				19 text ›
+		20 container
+			21 button YOUR CURRENT ALIGNMENT Deciding whether to accept this job Next: Choose your faithful action ›
+				22 image
+				23 text YOUR CURRENT ALIGNMENT
+				24 heading Deciding whether to accept this job, Value: 2
+					25 text Deciding whether to
+					26 text accept this job
+				27 text Next: Choose your faithful action
+				28 text ›
+			29 button Continue Alignment ›
+				30 text Continue Alignment
+				31 text ›
+		32 container
+			33 heading Today’s Devotionals, Value: 2
+				34 text Today’s Devotionals
+			35 button See All
+			36 button For You A quiet word for your next step ›
+				37 container
+					38 text For You A quiet word for your next step
+				39 text ›
+			40 button For Everyone Faith for real life today ›
+				41 container
+					42 text For Everyone Faith for real life today
+				43 text ›
+		44 button Home
+			45 image
+			46 text Home
+		47 button Align
+			48 image
+			49 text Align
+		50 button Devotionals
+			51 image
+			52 text Devotionals
+		53 button More
+			54 image
+			55 text More
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=paywall

@@ -379,77 +379,119 @@ function RecommendedPathScreen({ onNext, onBack }: { onNext: () => void; onBack:
 }
 
 // ONB-12 Paywall
-function PaywallScreen({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?: () => void }) {
+  const { setTab, goBack } = useApp()
   const [selectedPlan, setSelectedPlan] = useState<'annual' | 'monthly'>('annual')
-  const benefits = [
-    'Continue your personalized Path',
-    'Bring real situations under Scripture',
-    'Build lasting understanding through Practice',
-    'See your growth across passages',
-    'Receive personal devotionals, prayer, and guided meditation',
-    'Save your Library, progress, and achievements',
+  const [notice, setNotice] = useState<string | null>(null)
+  const productState = typeof window === 'undefined'
+    ? 'available'
+    : new URLSearchParams(window.location.search).get('storekit') === 'unavailable' ? 'unavailable' : 'available'
+  const isUnavailable = productState === 'unavailable'
+  const plans = [
+    {
+      id: 'annual' as const,
+      badge: 'MOST POPULAR',
+      title: '7 days free',
+      price: isUnavailable ? 'StoreKit unavailable' : 'Annual · $39.99',
+    },
+    {
+      id: 'monthly' as const,
+      badge: null,
+      title: 'Monthly',
+      price: isUnavailable ? 'StoreKit unavailable' : '$7.99',
+    },
   ]
+  const benefits = [
+    'Full access to all Paths',
+    'Short, focused sessions',
+    'Personalized for your real life',
+    'New content added regularly',
+  ]
+  const activate = () => {
+    if (isUnavailable) {
+      setNotice('StoreKit products are unavailable in this preview state.')
+      return
+    }
+    if (onNext) onNext()
+    else setTab('home')
+  }
+  const back = () => {
+    if (onBack) onBack()
+    else goBack('onboarding')
+  }
+
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <div className="relative h-44 overflow-hidden">
-        <img src={HERO_LANDSCAPE} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.3), rgba(247,241,231,1))' }} />
-        <div className="absolute top-14 left-5">
-          <BackButton onBack={onBack} />
-        </div>
-      </div>
-      <div className="flex-1 px-6 pt-2 flex flex-col gap-4 overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
-        <div>
-          <h2 className="font-serif text-[28px] leading-[34px] font-bold" style={{ color: '#24171A' }}>
-            Continue your journey in Scripture
+    <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
+      <NativeStatusBar />
+      <button onClick={back} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </button>
+
+      <div className="relative h-[358px] shrink-0 overflow-hidden">
+        <img src={HERO_LANDSCAPE} alt="Ancient hillside path at golden hour" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.80) 0%, rgba(247,241,231,0.28) 46%, #F7F1E7 100%)' }} />
+        <div className="absolute inset-x-7 top-[120px] text-center">
+          <h2 className="font-serif text-[30px] leading-[36px]" style={{ color: '#3A0D18' }}>
+            Continue your<br />journey in Scripture
           </h2>
-          <p className="text-[15px] mt-2" style={{ color: '#675A5D' }}>
-            Deeper understanding. A clearer next step. A more rooted you.
+          <p className="mt-3 text-[13px] leading-[19px]" style={{ color: '#4A3D3A' }}>
+            Deeper understanding. A clearer next step.<br />A more rooted you.
           </p>
         </div>
-        <div className="flex flex-col gap-2">
-          {[
-            { id: 'annual' as const, badge: 'MOST POPULAR', line1: '7 days free', line2: 'Annual · $39.99/yr' },
-            { id: 'monthly' as const, badge: null, line1: 'Monthly', line2: '$7.99/mo' },
-          ].map(p => (
+      </div>
+
+      <div className="-mt-4 flex-1 overflow-y-auto scrollbar-hide px-7 pb-2">
+        <div className="flex flex-col gap-2.5">
+          {plans.map(p => (
             <button key={p.id} onClick={() => setSelectedPlan(p.id)}
-              className="rounded-[16px] p-4 flex items-center gap-3 transition-all duration-200"
+              className="rounded-[10px] px-4 py-3 flex items-center gap-3 transition-all duration-200"
               style={{
-                background: selectedPlan === p.id ? '#FDEEF1' : '#FFFCF6',
-                border: `2px solid ${selectedPlan === p.id ? '#741630' : '#DDD0C0'}`,
+                background: selectedPlan === p.id ? '#FFFCF6' : 'rgba(255,252,246,0.70)',
+                border: `1.5px solid ${selectedPlan === p.id ? '#B68425' : 'rgba(221,208,192,0.72)'}`,
               }}>
-              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0"
-                style={{ borderColor: selectedPlan === p.id ? '#741630' : '#DDD0C0' }}>
-                {selectedPlan === p.id && <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#741630' }} />}
+              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
+                style={{ border: `1.5px solid ${selectedPlan === p.id ? '#B68425' : '#8F8075'}` }}>
+                {selectedPlan === p.id && <div className="h-2.5 w-2.5 rounded-full" style={{ background: '#B68425' }} />}
               </div>
               <div className="flex-1 text-left">
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-[15px]" style={{ color: '#24171A' }}>{p.line1}</span>
-                  {p.badge && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#741630', color: '#E6C878', letterSpacing: '0.05em' }}>{p.badge}</span>}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-serif text-[19px] leading-[23px]" style={{ color: '#24171A' }}>{p.title}</span>
+                  {p.badge && <span className="rounded-full px-2.5 py-1 text-[9px] font-bold" style={{ background: '#B68425', color: '#FFFCF6', letterSpacing: '0.04em' }}>{p.badge}</span>}
                 </div>
-                <span className="text-[13px]" style={{ color: '#675A5D' }}>{p.line2}</span>
+                <span className="text-[13px]" style={{ color: isUnavailable ? '#A33A3A' : '#4A3D3A' }}>{p.price}</span>
               </div>
             </button>
           ))}
         </div>
-        <div className="flex flex-col gap-2">
+
+        {isUnavailable && (
+          <div className="mt-3 rounded-[10px] p-3" style={{ background: '#FFF1F1', border: '1px solid #E4B2B2' }}>
+            <p className="text-[12px] font-semibold" style={{ color: '#7A1E1E' }}>Preview StoreKit unavailable</p>
+            <p className="mt-1 text-[12px] leading-[17px]" style={{ color: '#4A3D3A' }}>Product metadata is not loaded, so activation is disabled until StoreKit connects.</p>
+          </div>
+        )}
+
+        <div className="mt-4 flex flex-col gap-2">
           {benefits.map((b, i) => (
             <div key={i} className="flex items-start gap-2.5">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5"><circle cx="8" cy="8" r="8" fill="#607255" /><path d="M4.5 8l2.5 2.5 5-5" stroke="#FFFCF6" strokeWidth="1.5" strokeLinecap="round" /></svg>
-              <span className="text-[14px] leading-[20px]" style={{ color: '#675A5D' }}>{b}</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5"><circle cx="8" cy="8" r="8" fill="#B68425" /><path d="M4.5 8l2.5 2.5 5-5" stroke="#FFFCF6" strokeWidth="1.5" strokeLinecap="round" /></svg>
+              <span className="text-[14px] leading-[20px]" style={{ color: '#4A3D3A' }}>{b}</span>
             </div>
           ))}
         </div>
-        <p className="text-[12px] text-center leading-[18px]" style={{ color: '#897A76' }}>
-          Then renews automatically at the selected price. Cancel anytime.
+
+        <p className="mt-4 text-center text-[12px] leading-[18px]" style={{ color: '#675A5D' }}>
+          {isUnavailable ? 'No charge can begin until products are available.' : 'Then renews automatically. Cancel anytime.'}
         </p>
+        {notice && <p className="mt-2 text-center text-[12px]" style={{ color: '#7A1E1E' }}>{notice}</p>}
       </div>
-      <div className="px-6 pb-6 pt-3 flex flex-col gap-3" style={{ background: '#F7F1E7' }}>
-        <PrimaryButton label={selectedPlan === 'annual' ? 'Start 7-Day Free Trial' : 'Start Monthly'} onPress={onNext} />
+
+      <div className="px-7 pb-6 pt-3 flex flex-col gap-3" style={{ background: '#F7F1E7' }}>
+        <PrimaryButton label={isUnavailable ? 'Products Unavailable' : selectedPlan === 'annual' ? 'Start Free Trial' : 'Start Monthly'} onPress={activate} disabled={isUnavailable} />
         <div className="flex justify-center gap-4">
-          <button className="text-[12px]" style={{ color: '#897A76' }}>Restore Purchases</button>
-          <button className="text-[12px]" style={{ color: '#897A76' }}>Terms</button>
-          <button className="text-[12px]" style={{ color: '#897A76' }}>Privacy</button>
+          <button onClick={() => setNotice('Restore purchases is available when StoreKit is connected.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Restore Purchases</button>
+          <button onClick={() => setNotice('Terms opens the App Store terms document in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Terms</button>
+          <button onClick={() => setNotice('Privacy opens the privacy policy in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Privacy</button>
         </div>
       </div>
     </div>

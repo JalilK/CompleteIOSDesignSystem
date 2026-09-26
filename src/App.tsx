@@ -1,6 +1,6 @@
 import { AppProvider, useApp } from './context'
 import { BottomNav } from './components/BottomNav'
-import { Onboarding } from './screens/Onboarding'
+import { Onboarding, PaywallScreen } from './screens/Onboarding'
 import { Home } from './screens/Home'
 import { Library } from './screens/Library'
 import { Progress } from './screens/Progress'
@@ -23,6 +23,7 @@ function AppShell() {
   const renderScreen = () => {
     switch (screen) {
       case 'onboarding': return <Onboarding />
+      case 'paywall': return <PaywallScreen />
       case 'home': return <Home />
       case 'library': return <Library />
       case 'progress': return <Progress />

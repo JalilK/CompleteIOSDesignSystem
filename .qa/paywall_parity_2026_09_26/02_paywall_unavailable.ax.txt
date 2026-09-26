@@ -1,0 +1,37 @@
+Browser tab: 78, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=paywall&storekit=unavailable".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=paywall&storekit=unavailable
+	2 container
+		3 text 9:41
+		4 button Back
+			5 image
+		6 image Ancient hillside path at golden hour
+		7 container
+			8 heading Continue your journey in Scripture, Value: 2
+				9 text Continue your
+				10 text journey in Scripture
+			11 text Deeper understanding. A clearer next step.
+			12 text A more rooted you.
+		13 button 7 days free MOST POPULAR StoreKit unavailable
+			14 text 7 days free
+			15 text MOST POPULAR
+			16 text StoreKit unavailable
+		17 button Monthly StoreKit unavailable
+			18 text Monthly
+			19 text StoreKit unavailable
+		20 text Preview StoreKit unavailable
+		21 text Product metadata is not loaded, so activation is disabled until StoreKit connects.
+		22 image
+		23 text Full access to all Paths
+		24 image
+		25 text Short, focused sessions
+		26 image
+		27 text Personalized for your real life
+		28 image
+		29 text New content added regularly
+		30 text No charge can begin until products are available.
+		31 button (disabled) Products Unavailable
+		32 button Restore Purchases
+		33 button Terms
+		34 button Privacy
+
+The focused UI element is 1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=paywall&storekit=unavailable

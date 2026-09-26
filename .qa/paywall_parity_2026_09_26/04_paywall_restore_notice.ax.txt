@@ -1,0 +1,36 @@
+Browser tab: 78, Title: "Figma Make App", URL: "http://127.0.0.1:4176/?screen=paywall".
+1 AXWebArea Figma Make App, URL: 127.0.0.1:4176/?screen=paywall
+	2 container
+		3 text 9:41
+		4 button Back
+			5 image
+		6 image Ancient hillside path at golden hour
+		7 container
+			8 heading Continue your journey in Scripture, Value: 2
+				9 text Continue your
+				10 text journey in Scripture
+			11 text Deeper understanding. A clearer next step.
+			12 text A more rooted you.
+		13 button 7 days free MOST POPULAR Annual · $39.99
+			14 text 7 days free
+			15 text MOST POPULAR
+			16 text Annual · $39.99
+		17 button Monthly $7.99
+			18 text Monthly
+			19 text $7.99
+		20 image
+		21 text Full access to all Paths
+		22 image
+		23 text Short, focused sessions
+		24 image
+		25 text Personalized for your real life
+		26 image
+		27 text New content added regularly Then renews automatically. Cancel anytime. Restore purchases is available when StoreKit is connected.
+		28 button Start Free Trial
+			29 text Start Free Trial
+			30 image
+		31 button Restore Purchases
+		32 button Terms
+		33 button Privacy
+
+The focused UI element is 31 button Restore Purchases
