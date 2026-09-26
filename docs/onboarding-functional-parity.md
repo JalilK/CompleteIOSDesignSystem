@@ -60,3 +60,7 @@ The master Alignment spec remains authoritative for behavior, state, XP, StoreKi
 - `completion-landscape.png`: completion hero background.
 
 The visible text, buttons, answer rows, progress dots, medallion, XP receipt, and navigation actions are native UI, not baked into those assets.
+
+## Clean Asset Rule
+
+The active onboarding artwork files must not contain UI chrome, status bars, headings, CTA labels, or ghosted screenshot text. Scenic background artwork remains high-resolution responsive raster imagery so it preserves the photographic September 25 look across device sizes. Icons, progress marks, medallions, dividers, buttons, typography, and controls must be native vector/UI layers so they scale cleanly, remain accessible, and can be edited in Figma or production SwiftUI.
