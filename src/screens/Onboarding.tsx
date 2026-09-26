@@ -170,7 +170,7 @@ function QuestionReferenceNativeScreen({ onNext, onBack }: { onNext: () => void;
             </button>
           ))}
         </div>
-        <div className="mt-auto">
+        <div className="mt-8 shrink-0">
           <PrimaryButton label="Check Answer" onPress={onNext} disabled={selected !== 2} />
         </div>
       </div>
