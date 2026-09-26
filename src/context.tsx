@@ -9,12 +9,10 @@ export type Screen =
   | 'faithful-action'
   | 'practice-intro'
   | 'practice-question'
-  | 'practice-feedback'
   | 'practice-level-complete'
   | 'library'
   | 'progress'
   | 'profile'
-  | 'path-overview'
   | 'devotional'
   | 'prayer-mode'
   | 'pray-scripture'
@@ -28,9 +26,6 @@ interface AppState {
   screen: Screen
   tab: 'home' | 'library' | 'progress' | 'you'
   onboardingStep: number
-  practiceSource: 'alignment' | 'path' | 'devotional' | 'library'
-  selectedAnswer: number | null
-  answeredCorrect: boolean
   alignmentText: string
   totalXP: number
   level: number
@@ -43,10 +38,7 @@ interface AppContextType extends AppState {
   setTab: (tab: 'home' | 'library' | 'progress' | 'you') => void
   nextOnboardingStep: () => void
   prevOnboardingStep: () => void
-  setSelectedAnswer: (i: number | null) => void
-  setAnsweredCorrect: (v: boolean) => void
   setAlignmentText: (t: string) => void
-  addXP: (amount: number) => void
   completePracticeLevel: () => void
 }
 
@@ -61,12 +53,10 @@ const screens: Screen[] = [
   'faithful-action',
   'practice-intro',
   'practice-question',
-  'practice-feedback',
   'practice-level-complete',
   'library',
   'progress',
   'profile',
-  'path-overview',
   'devotional',
   'prayer-mode',
   'pray-scripture',
@@ -96,9 +86,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     screen: initialScreen,
     tab: previewInitialTab(initialScreen),
     onboardingStep: 1,
-    practiceSource: 'alignment',
-    selectedAnswer: null,
-    answeredCorrect: false,
     alignmentText: '',
     totalXP: 25,
     level: 1,
@@ -110,10 +97,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setTab = (tab: 'home' | 'library' | 'progress' | 'you') => setState(s => ({ ...s, tab, screen: tab === 'home' ? 'home' : tab === 'library' ? 'library' : tab === 'progress' ? 'progress' : 'profile' }))
   const nextOnboardingStep = () => setState(s => ({ ...s, onboardingStep: s.onboardingStep + 1 }))
   const prevOnboardingStep = () => setState(s => ({ ...s, onboardingStep: Math.max(1, s.onboardingStep - 1) }))
-  const setSelectedAnswer = (i: number | null) => setState(s => ({ ...s, selectedAnswer: i }))
-  const setAnsweredCorrect = (v: boolean) => setState(s => ({ ...s, answeredCorrect: v }))
   const setAlignmentText = (t: string) => setState(s => ({ ...s, alignmentText: t }))
-  const addXP = (amount: number) => setState(s => ({ ...s, totalXP: s.totalXP + amount }))
   const completePracticeLevel = () => setState(s => {
     if (s.practiceLevel2Complete) return s
     const totalXP = s.totalXP + 50
@@ -127,7 +111,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   })
 
   return (
-    <AppContext.Provider value={{ ...state, navigate, setTab, nextOnboardingStep, prevOnboardingStep, setSelectedAnswer, setAnsweredCorrect, setAlignmentText, addXP, completePracticeLevel }}>
+    <AppContext.Provider value={{ ...state, navigate, setTab, nextOnboardingStep, prevOnboardingStep, setAlignmentText, completePracticeLevel }}>
       {children}
     </AppContext.Provider>
   )

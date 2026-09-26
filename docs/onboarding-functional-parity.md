@@ -46,7 +46,7 @@ The master Alignment spec remains authoritative for behavior, state, XP, StoreKi
 
 - The current React/Figma Make prototype uses native layout for the first four onboarding screens.
 - Extracted raster assets are limited to photographic/illustrative ingredients under `src/assets/alignment/onboarding-native/`.
-- Full-screen screenshot rasters are retained only as visual references under `src/assets/alignment/onboarding-reference/`; they must not be used as active screen implementations.
+- Full-screen screenshot rasters are not retained in the active source tree. Reference boards live outside the implementation repo; active screens must be native UI composed from clean scenic assets under `src/assets/alignment/onboarding-native/`.
 - Production SwiftUI must rebuild these screens with editable text, real controls, accessible labels, dynamic type behavior, and state-driven progress.
 - Do not hardcode Bible edition labels in production; use the user's selected/current Bible edition.
 - Do not hardcode prices in production; use StoreKit product metadata.

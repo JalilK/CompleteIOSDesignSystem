@@ -43,7 +43,7 @@ Most important blockers:
 - Several active screens still resolve to incorrect remote Unsplash imagery. Home, Paywall, Alignment Report, Practice Completion, Devotional, and Library do not consistently use the September 25 ancient-road / Scripture / still-waters art direction. The Paywall evidence is especially clear: accessibility text says `Ancient city at golden hour`, but the visible hero image is sneakers.
 - There are multiple Home implementations or states. `?screen=home` and the post-trial Activated Home look and behave differently, so passing one route does not prove Home parity.
 - Onboarding is still not spec-complete. The preview demonstrates one onboarding question before `+25 XP`, while the master spec requires fixed Onboarding Level 1 with four multiple-choice questions and completion only after the full level.
-- Practice is not spec-complete. The practice intro promises a six-question level, but `?screen=practice-question` exposes `Question 1 of 3`.
+- Practice has been updated to expose the six-question level in the preview route. Remaining practice work is visual polish, final icon/medallion assets, and deeper end-to-end persistence verification.
 - Hardcoded Bible edition strings remain visible across production-like surfaces, including `KJV` and `King James Version`.
 - Emoji or fallback symbols remain in multiple nav, profile, achievement, devotional, alignment, and practice surfaces. This blocks the native icons/medallions/typography ticket.
 - Several screens still clip important content or controls near the bottom safe area in browser preview evidence, including Onboarding Completion, Guided Prayer, Sound Controls, Privacy Settings, and Practice Completion.
@@ -98,7 +98,7 @@ Most important blockers:
 - Prayer and Meditation: doorway, pray scripture, guided prayer, player, and sound controls are native, but controls are not proven functional/persistent and some bottom content clips.
 - Privacy/Settings: route exists, but is not complete as a real privacy control surface because destructive actions and history clearing are not confirmed or proven.
 - Alignment: intake/report/action are native, but visual parity and state behavior remain incomplete. Intake also displays sample text while the CTA is disabled, which can read like a broken filled state.
-- Practice: direct question route says `Question 1 of 3`, blocking parity with the six-question spec. Completion screen clips and shows unproven XP totals.
+- Practice: direct question route now exposes `Question 1 of 6`, and completion derives XP from shared app state. Remaining practice gaps are visual parity, production persistence, and replay/no-duplicate-XP hardening.
 
 ## Verification Evidence From This Pass
 
