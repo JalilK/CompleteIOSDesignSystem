@@ -48,7 +48,7 @@ function BackButton({ onBack }: { onBack: () => void }) {
 }
 
 export function ContextStudy() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   const [qIdx, setQIdx] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [checked, setChecked] = useState(false)
@@ -71,7 +71,7 @@ export function ContextStudy() {
     return (
       <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
         <div className="px-5 pt-14 pb-4 flex items-center gap-3">
-          <BackButton onBack={() => navigate('devotional')} />
+          <BackButton onBack={() => goBack('devotional')} />
         </div>
         <div className="flex-1 flex flex-col items-center justify-center px-6 gap-6">
           <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: '#607255' }}>
@@ -110,7 +110,7 @@ export function ContextStudy() {
     return (
       <div className="flex flex-col h-full screen-enter" style={{ background: '#F7F1E7' }}>
         <div className="px-5 pt-14 pb-4 flex items-center gap-3">
-          <BackButton onBack={() => navigate('devotional')} />
+          <BackButton onBack={() => goBack('devotional')} />
           <div className="flex-1 text-center pr-10">
             <p className="text-[12px]" style={{ color: '#897A76' }}>{qIdx + 1} of {QUESTIONS.length}</p>
           </div>
@@ -155,7 +155,7 @@ export function ContextStudy() {
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
       {/* Header */}
       <div className="px-5 pt-14 pb-3 shrink-0 flex items-center justify-between">
-        <BackButton onBack={() => navigate('devotional')} />
+        <BackButton onBack={() => goBack('devotional')} />
         <div className="text-center">
           <p className="text-[13px] font-semibold" style={{ color: '#675A5D' }}>Explain this Scripture</p>
           <p className="text-[11px]" style={{ color: '#897A76' }}>{qIdx + 1} of {QUESTIONS.length}</p>

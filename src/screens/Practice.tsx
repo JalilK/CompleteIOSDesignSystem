@@ -86,7 +86,7 @@ function PracticeLearningSheet({ onClose }: { onClose: () => void }) {
 
 // PRAC-01 Practice Intro
 export function PracticeIntro() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   const [showLearning, setShowLearning] = useState(false)
 
   return (
@@ -95,7 +95,7 @@ export function PracticeIntro() {
         <img src={alignmentAssets.currentPath} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
         <div className="absolute top-14 left-5 flex items-center gap-3">
-          <BackButton onBack={() => navigate('home')} />
+          <BackButton onBack={() => goBack('home')} />
         </div>
         <div className="absolute bottom-4 left-5 right-5">
           <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>From: Trusting God Through Uncertainty</p>
@@ -325,7 +325,7 @@ function ScriptureReferenceSheet({ passage, onClose }: { passage: string; onClos
 
 // PRAC-03 Practice Question
 export function PracticeQuestion() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   const [questionIdx, setQuestionIdx] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [checked, setChecked] = useState(false)
@@ -364,7 +364,7 @@ export function PracticeQuestion() {
       {/* Header */}
       <div className="px-5 pt-14 pb-3 shrink-0">
         <div className="flex items-center justify-between mb-2">
-          <BackButton onBack={() => navigate('practice-intro')} />
+          <BackButton onBack={() => goBack('practice-intro')} />
           <div className="text-center">
             <p className="text-[13px] font-semibold" style={{ color: '#675A5D' }}>{q.passage}</p>
             <p className="text-[11px]" style={{ color: '#897A76' }}>Level 2 · Question {questionIdx + 1} of {QUESTIONS.length}</p>

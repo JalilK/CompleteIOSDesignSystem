@@ -19,7 +19,7 @@ function BackButton({ onBack }: { onBack: () => void }) {
 
 // ALN-02 Alignment Intake
 export function AlignmentIntake() {
-  const { navigate, alignmentText, setAlignmentText } = useApp()
+  const { navigate, goBack, alignmentText, setAlignmentText } = useApp()
   const [text, setText] = useState(alignmentText)
 
   return (
@@ -28,7 +28,7 @@ export function AlignmentIntake() {
         <img src={JOURNAL_IMG} alt="Journal and pen" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.3), rgba(247,241,231,1))' }} />
         <div className="absolute top-14 left-5 flex items-center gap-3">
-          <BackButton onBack={() => navigate('home')} />
+          <BackButton onBack={() => goBack('home')} />
           <h1 className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>New Alignment</h1>
         </div>
       </div>
@@ -106,7 +106,7 @@ export function AlignmentAnalyzing() {
     const timers = steps.map((_, i) =>
       setTimeout(() => setStep(i), i * 900)
     )
-    const done = setTimeout(() => navigate('alignment-report'), steps.length * 900 + 500)
+    const done = setTimeout(() => navigate('alignment-report', { replace: true }), steps.length * 900 + 500)
     return () => { timers.forEach(clearTimeout); clearTimeout(done) }
   }, [])
 
@@ -141,7 +141,7 @@ export function AlignmentAnalyzing() {
 
 // ALN-05 Alignment Report
 export function AlignmentReport() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -149,7 +149,7 @@ export function AlignmentReport() {
         <img src={REPORT_IMG} alt="Ancient cityscape at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
-          <BackButton onBack={() => navigate('home')} />
+          <BackButton onBack={() => goBack('home')} />
           <button className="w-10 h-10 flex items-center justify-center">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14M4 11h14M4 18h7" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" /></svg>
           </button>
@@ -253,13 +253,13 @@ export function AlignmentReport() {
 
 // ALN-06 Faithful Action
 export function FaithfulAction() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   const [chosen, setChosen] = useState(false)
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="px-5 pt-14 pb-4 flex items-center gap-3 shrink-0" style={{ background: '#F7F1E7' }}>
-        <BackButton onBack={() => navigate('alignment-report')} />
+        <BackButton onBack={() => goBack('alignment-report')} />
         <div>
           <h1 className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>Your next faithful step</h1>
           <p className="text-[12px]" style={{ color: '#897A76' }}>Based on Proverbs 3:5–6 · James 4:13–15</p>

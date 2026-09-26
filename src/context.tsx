@@ -24,6 +24,7 @@ export type Screen =
 
 interface AppState {
   screen: Screen
+  history: Screen[]
   tab: 'home' | 'library' | 'progress' | 'you'
   onboardingStep: number
   alignmentText: string
@@ -34,7 +35,8 @@ interface AppState {
 }
 
 interface AppContextType extends AppState {
-  navigate: (screen: Screen) => void
+  navigate: (screen: Screen, options?: { replace?: boolean }) => void
+  goBack: (fallback?: Screen) => void
   setTab: (tab: 'home' | 'library' | 'progress' | 'you') => void
   nextOnboardingStep: () => void
   prevOnboardingStep: () => void
@@ -84,6 +86,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const initialScreen = previewInitialScreen()
   const [state, setState] = useState<AppState>({
     screen: initialScreen,
+    history: [],
     tab: previewInitialTab(initialScreen),
     onboardingStep: 1,
     alignmentText: '',
@@ -93,8 +96,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     practiceLevel2Complete: false,
   })
 
-  const navigate = (screen: Screen) => setState(s => ({ ...s, screen }))
-  const setTab = (tab: 'home' | 'library' | 'progress' | 'you') => setState(s => ({ ...s, tab, screen: tab === 'home' ? 'home' : tab === 'library' ? 'library' : tab === 'progress' ? 'progress' : 'profile' }))
+  const navigate = (screen: Screen, options?: { replace?: boolean }) => setState(s => {
+    if (screen === s.screen) return s
+    return {
+      ...s,
+      screen,
+      history: options?.replace ? s.history : [...s.history, s.screen],
+    }
+  })
+  const goBack = (fallback: Screen = 'home') => setState(s => {
+    const previous = s.history.at(-1)
+    if (!previous) return { ...s, screen: fallback, history: [] }
+    return { ...s, screen: previous, history: s.history.slice(0, -1) }
+  })
+  const setTab = (tab: 'home' | 'library' | 'progress' | 'you') => setState(s => ({ ...s, tab, screen: tab === 'home' ? 'home' : tab === 'library' ? 'library' : tab === 'progress' ? 'progress' : 'profile', history: [] }))
   const nextOnboardingStep = () => setState(s => ({ ...s, onboardingStep: s.onboardingStep + 1 }))
   const prevOnboardingStep = () => setState(s => ({ ...s, onboardingStep: Math.max(1, s.onboardingStep - 1) }))
   const setAlignmentText = (t: string) => setState(s => ({ ...s, alignmentText: t }))
@@ -111,7 +126,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   })
 
   return (
-    <AppContext.Provider value={{ ...state, navigate, setTab, nextOnboardingStep, prevOnboardingStep, setAlignmentText, completePracticeLevel }}>
+    <AppContext.Provider value={{ ...state, navigate, goBack, setTab, nextOnboardingStep, prevOnboardingStep, setAlignmentText, completePracticeLevel }}>
       {children}
     </AppContext.Provider>
   )

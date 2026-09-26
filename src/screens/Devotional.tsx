@@ -21,7 +21,7 @@ function BackButton({ onBack }: { onBack: () => void }) {
 }
 
 export function Devotional() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -29,7 +29,7 @@ export function Devotional() {
         <img src={DEV_IMG} alt="Valley landscape with golden light" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
-          <BackButton onBack={() => navigate('home')} />
+          <BackButton onBack={() => goBack('home')} />
           <button className="w-10 h-10 flex items-center justify-center">
             <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
               <path d="M5 3h12a2 2 0 012 2v14l-7-3-7 3V5a2 2 0 012-2z" stroke="#675A5D" strokeWidth="1.8" strokeLinejoin="round" />
@@ -194,13 +194,13 @@ function PrayerIcon({ kind, color }: { kind: string; color: string }) {
 }
 
 export function PrayScriptureScreen() {
-  const { navigate } = useApp()
-  return <PrayScripture onBack={() => navigate('prayer-mode')} onFinish={() => navigate('meditation-player')} />
+  const { navigate, goBack } = useApp()
+  return <PrayScripture onBack={() => goBack('prayer-mode')} onFinish={() => navigate('meditation-player')} />
 }
 
 export function GuidedPrayerScreen() {
-  const { navigate } = useApp()
-  return <GuidedPrayer onBack={() => navigate('prayer-mode')} onFinish={() => navigate('meditation-player')} />
+  const { navigate, goBack } = useApp()
+  return <GuidedPrayer onBack={() => goBack('prayer-mode')} onFinish={() => navigate('meditation-player')} />
 }
 
 function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () => void }) {
@@ -294,14 +294,14 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
 }
 
 export function MeditationPlayer() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#111716' }}>
       <img src={DEV_IMG} alt="Still waters at sunrise" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,18,24,0.25) 0%, rgba(10,18,24,0.18) 42%, rgba(7,12,13,0.88) 100%)' }} />
       <div className="relative z-10 flex h-full flex-col px-6 pb-8 pt-14" style={{ color: '#FFFCF6' }}>
         <div className="flex items-center justify-between">
-          <button onClick={() => navigate('prayer-mode')} className="h-10 w-10" aria-label="Back"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 4l-7 7 7 7" stroke="#FFFCF6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+          <button onClick={() => goBack('prayer-mode')} className="h-10 w-10" aria-label="Back"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 4l-7 7 7 7" stroke="#FFFCF6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
           <button onClick={() => navigate('sound-controls')} className="h-10 w-10 text-[22px]" aria-label="Sound controls">...</button>
         </div>
         <div className="mt-14 text-center">
@@ -334,7 +334,7 @@ export function MeditationPlayer() {
 }
 
 export function SoundControls() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
   const [music, setMusic] = useState(true)
   const [soundscape, setSoundscape] = useState('Still Waters')
   const scapes = [
@@ -345,7 +345,7 @@ export function SoundControls() {
   return (
     <div className="flex h-full flex-col" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-4 flex items-center justify-between">
-        <button onClick={() => navigate('meditation-player')} className="h-10 w-10" aria-label="Back"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#24171A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+        <button onClick={() => goBack('meditation-player')} className="h-10 w-10" aria-label="Back"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#24171A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8">
         <h1 className="font-serif text-[30px] font-semibold leading-[36px]" style={{ color: '#24171A' }}>Sound for this moment</h1>

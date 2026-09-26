@@ -120,7 +120,7 @@ function ToggleRow({ icon, title, body, enabled, onToggle }: {
 }
 
 export function PrivacySettings() {
-  const { navigate } = useApp()
+  const { goBack } = useApp()
   const [recent, setRecent] = useState(true)
   const [path, setPath] = useState(true)
   const [why, setWhy] = useState(true)
@@ -128,7 +128,7 @@ export function PrivacySettings() {
   return (
     <div className="flex h-full flex-col" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-4">
-        <button onClick={() => navigate('profile')} className="mb-3 h-10 w-10" aria-label="Back">
+        <button onClick={() => goBack('profile')} className="mb-3 h-10 w-10" aria-label="Back">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#24171A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         <h1 className="font-serif text-[28px] font-semibold leading-[34px]" style={{ color: '#4B1021' }}>Personalization & privacy</h1>
