@@ -13,12 +13,84 @@ function BackButton({ onBack }: { onBack: () => void }) {
   )
 }
 
+function PracticeLearningSheet({ onClose }: { onClose: () => void }) {
+  const outcomes = [
+    {
+      icon: 'book' as const,
+      title: 'Understand the teaching',
+      body: 'Recognize what Proverbs 3:5–6 actually says about trusting the Lord as the final authority.',
+    },
+    {
+      icon: 'alert' as const,
+      title: 'Keep the boundary',
+      body: 'Separate faithful trust from the idea that God must give the specific outcome you prefer.',
+    },
+    {
+      icon: 'leaf' as const,
+      title: 'Choose faithfully',
+      body: 'Practice applying the passage to a real decision without letting fear or money master the choice.',
+    },
+  ]
+
+  return (
+    <div className="absolute inset-0 z-30 flex flex-col justify-end" style={{ background: 'rgba(36,23,26,0.34)' }}>
+      <button className="flex-1" onClick={onClose} aria-label="Close what you will learn" />
+      <div className="max-h-[76%] overflow-y-auto rounded-t-[28px] px-5 pb-10 pt-4 shadow-2xl" style={{ background: '#FFFCF6' }}>
+        <div className="mx-auto mb-4 h-1 w-12 rounded-full" style={{ background: '#D7C4AF' }} />
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: '#B68425' }}>Level 2 practice</p>
+            <h2 className="mt-1 font-serif text-[28px] font-bold leading-[34px]" style={{ color: '#24171A' }}>What you’ll learn</h2>
+            <p className="mt-2 text-[14px] leading-[20px]" style={{ color: '#675A5D' }}>
+              You identified what this passage says. Now practice recognizing what it means to trust God without treating trust as a guarantee of the outcome you want.
+            </p>
+          </div>
+          <button onClick={onClose} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full" style={{ background: '#F4EBDD' }} aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#675A5D" strokeWidth="1.8" strokeLinecap="round" /></svg>
+          </button>
+        </div>
+
+        <div className="rounded-[18px] p-4" style={{ background: '#F7F1E7', border: '1px solid #E5D7C6' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-[13px]" style={{ color: '#675A5D' }}>Passage Mastery</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>Level 2 of 5</span>
+          </div>
+          <div className="mt-3 h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
+            <div className="h-full rounded-full" style={{ width: '40%', background: '#741630' }} />
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3">
+          {outcomes.map(item => (
+            <div key={item.title} className="flex gap-3 rounded-[16px] p-4" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full" style={{ background: '#F4EBDD' }}>
+                <AppIcon name={item.icon} size={21} color="#7B4B16" />
+              </span>
+              <div>
+                <p className="font-semibold text-[14px]" style={{ color: '#24171A' }}>{item.title}</p>
+                <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={onClose}
+          className="mt-5 w-full rounded-full font-semibold text-[16px]"
+          style={{ height: 52, background: '#741630', color: '#FFFCF6' }}>
+          Got it
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // PRAC-01 Practice Intro
 export function PracticeIntro() {
   const { navigate } = useApp()
+  const [showLearning, setShowLearning] = useState(false)
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="relative flex flex-col h-full overflow-hidden">
       <div className="relative h-56 overflow-hidden shrink-0">
         <img src={alignmentAssets.currentPath} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
@@ -73,10 +145,12 @@ export function PracticeIntro() {
           style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
           Begin Practice →
         </button>
-        <button className="text-center text-[14px] font-medium" style={{ color: '#741630' }}>
+        <button onClick={() => setShowLearning(true)} className="text-center text-[14px] font-medium" style={{ color: '#741630' }}>
           What You'll Learn
         </button>
       </div>
+
+      {showLearning && <PracticeLearningSheet onClose={() => setShowLearning(false)} />}
     </div>
   )
 }
