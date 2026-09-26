@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useApp } from '../context'
 import activatedHomeCurrentPath from '../assets/alignment/activated-home-current-path-clean.png'
-import activatedHomeForYou from '../assets/alignment/activated-home-for-you-reference.png'
+import activatedHomeForYou from '../assets/alignment/activated-home-for-you-clean.png'
 import missionLandscape from '../assets/alignment/onboarding-native/mission-landscape.png'
 import methodBibleRoom from '../assets/alignment/onboarding-native/method-bible-room.png'
 import questionLandscape from '../assets/alignment/onboarding-native/question-landscape.png'
