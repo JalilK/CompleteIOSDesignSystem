@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-parchment: #F7F1E7;
+  --color-warm: #F2E8DB;
+  --color-surface: #FFFCF6;
+  --color-surface-secondary: #F4EBDD;
+  --color-surface-rose: #F3E1E3;
+  --color-surface-sage: #E6ECE2;
+  --color-text-primary: #24171A;
+  --color-text-secondary: #675A5D;
+  --color-text-muted: #897A76;
+  --color-burgundy: #741630;
+  --color-burgundy-dark: #4B1021;
+  --color-rose: #D8A8B1;
+  --color-gold: #B68425;
+  --color-gold-dark: #795719;
+  --color-gold-light: #E6C878;
+  --color-sage: #607255;
+  --color-sage-dark: #40513B;
+  --color-border: #DDD0C0;
+  --color-success: #58704E;
+  --color-warning: #A66F17;
+  --color-error: #A33A3A;
+  --color-overlay: #1E1512;
+
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-card: 24px;
+  --radius-card-sm: 18px;
+  --radius-control: 12px;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #1a1208;
+  color: var(--color-text-primary);
+  overscroll-behavior: none;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Scrollbar hiding */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Scripture card deckled texture */
+.scripture-card {
+  background: var(--color-surface-secondary);
+  border-radius: 20px;
+  position: relative;
+}
+
+/* Smooth transitions */
+.screen-enter {
+  animation: screenEnter 0.3s ease-out;
+}
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar fill animation */
+@keyframes fillBar {
+  from { width: 0%; }
+}
+.bar-fill {
+  animation: fillBar 0.8s ease-out forwards;
+}
+
+/* XP count-up */
+@keyframes xpPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.xp-pop {
+  animation: xpPop 0.5s ease-out forwards;
+}
+
+/* Medal rise */
+@keyframes medalRise {
+  from { transform: translateY(20px) scale(0.9); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+.medal-rise {
+  animation: medalRise 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+/* Button press */
+button:active:not(:disabled) {
+  transform: scale(0.97);
+  transition: transform 0.1s;
+}

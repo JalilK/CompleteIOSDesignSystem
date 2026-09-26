@@ -1,0 +1,10 @@
+{
+  "description": "This iOS app empowers believers to deepen their understanding of Scripture through personalized paths, guided practices, and meaningful reflections.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,361 @@
+import { useState } from 'react'
+import { useApp } from '../context'
+
+const UNSPLASH = 'https://images.unsplash.com'
+const VALLEY_IMG = `${UNSPLASH}/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&auto=format`
+const CITY_IMG = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=800&h=500&fit=crop&auto=format`
+
+function BackButton({ onBack }: { onBack: () => void }) {
+  return (
+    <button onClick={onBack} className="w-10 h-10 flex items-center justify-center rounded-full" aria-label="Back">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  )
+}
+
+// PRAC-01 Practice Intro
+export function PracticeIntro() {
+  const { navigate } = useApp()
+
+  return (
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="relative h-56 overflow-hidden shrink-0">
+        <img src={VALLEY_IMG} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
+        <div className="absolute top-14 left-5 flex items-center gap-3">
+          <BackButton onBack={() => navigate('home')} />
+        </div>
+        <div className="absolute bottom-4 left-5 right-5">
+          <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>From: Trusting God Through Uncertainty</p>
+          <h1 className="font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#24171A' }}>
+            Trust without demanding an outcome
+          </h1>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+        {/* Scripture card */}
+        <div className="rounded-[20px] p-5 relative overflow-hidden" style={{ background: '#F4EBDD' }}>
+          <div className="text-[28px] font-serif leading-none mb-2" style={{ color: '#741630' }}>"</div>
+          <p className="font-serif text-[18px] leading-[28px] italic" style={{ color: '#24171A' }}>
+            Trust in the LORD with all thine heart; and lean not unto thine own understanding.
+          </p>
+          <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5 · KJV</p>
+          <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[20px]" style={{ background: '#741630' }} />
+        </div>
+
+        <p className="text-[15px] leading-[23px]" style={{ color: '#675A5D' }}>
+          Trust places final confidence in the Lord. It does not turn the outcome we prefer into a promise.
+        </p>
+
+        {/* Practice metadata */}
+        <div className="rounded-[18px] p-4 flex flex-col gap-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+          <div className="flex justify-between">
+            <span className="text-[13px]" style={{ color: '#675A5D' }}>Passage Mastery</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>Level 2 · Proverbs 3:5–6</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[13px]" style={{ color: '#675A5D' }}>Questions</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>6 questions</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[13px]" style={{ color: '#675A5D' }}>Eligible XP</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#B68425' }}>Up to 50 XP</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[13px]" style={{ color: '#675A5D' }}>Duration</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>~4 minutes</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('practice-question')}
+          className="w-full rounded-full font-semibold text-[17px] flex items-center justify-center gap-2 transition-all"
+          style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
+          Begin Practice →
+        </button>
+        <button className="text-center text-[14px] font-medium" style={{ color: '#741630' }}>
+          What You'll Learn
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const QUESTIONS = [
+  {
+    passage: 'Proverbs 3:5–6',
+    prompt: 'Which explanation remains closest to what the passage says?',
+    answers: [
+      'Trust guarantees the outcome I want.',
+      'Trust means refusing to plan.',
+      'Trust refuses to make my own understanding the final authority.',
+    ],
+    correct: 2,
+    feedback: {
+      teaching: 'The passage calls you to trust the Lord rather than making your own understanding the final authority.',
+      boundary: 'It does not promise that trust will produce the particular outcome you prefer.',
+    },
+  },
+  {
+    passage: 'Proverbs 3:5–6',
+    prompt: 'What does "lean not unto thine own understanding" establish?',
+    answers: [
+      'Personal judgment is always wrong.',
+      'God\'s wisdom, not self-confidence, should be the final authority.',
+      'You should not think carefully before deciding.',
+    ],
+    correct: 1,
+    feedback: {
+      teaching: 'The passage establishes that God\'s wisdom—not your own certainty—should be the final arbiter in your decisions.',
+      boundary: 'It does not say careful reasoning is wrong. It says self-reliance as the final authority is wrong.',
+    },
+  },
+  {
+    passage: 'James 4:13–15',
+    prompt: 'Which response explains the teaching most faithfully?',
+    answers: [
+      'Trust means planning humbly without turning your preferred outcome into God\'s promise.',
+      'Trust guarantees the outcome.',
+      'No one should make plans.',
+    ],
+    correct: 0,
+    feedback: {
+      teaching: 'The passage calls believers to plan while acknowledging God\'s sovereign authority over the future.',
+      boundary: 'It does not forbid planning—it forbids making plans as though you control the outcome.',
+    },
+  },
+]
+
+// PRAC-03 Practice Question
+export function PracticeQuestion() {
+  const { navigate } = useApp()
+  const [questionIdx, setQuestionIdx] = useState(0)
+  const [selected, setSelected] = useState<number | null>(null)
+  const [checked, setChecked] = useState(false)
+
+  const q = QUESTIONS[questionIdx]
+  const isCorrect = selected === q.correct
+
+  const handleCheck = () => {
+    if (selected !== null) setChecked(true)
+  }
+
+  const handleNext = () => {
+    if (questionIdx < QUESTIONS.length - 1) {
+      setQuestionIdx(i => i + 1)
+      setSelected(null)
+      setChecked(false)
+    } else {
+      navigate('practice-level-complete')
+    }
+  }
+
+  if (checked) {
+    return <PracticeFeedback
+      correct={isCorrect}
+      teaching={q.feedback.teaching}
+      boundary={q.feedback.boundary}
+      onNext={handleNext}
+      questionIdx={questionIdx}
+      totalQuestions={QUESTIONS.length}
+    />
+  }
+
+  return (
+    <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
+      {/* Header */}
+      <div className="px-5 pt-14 pb-3 shrink-0">
+        <div className="flex items-center justify-between mb-2">
+          <BackButton onBack={() => navigate('practice-intro')} />
+          <div className="text-center">
+            <p className="text-[13px] font-semibold" style={{ color: '#675A5D' }}>{q.passage}</p>
+            <p className="text-[11px]" style={{ color: '#897A76' }}>Level 2 · Question {questionIdx + 1} of {QUESTIONS.length}</p>
+          </div>
+          <button className="text-[13px] font-medium" style={{ color: '#741630' }}>
+            View Scripture
+          </button>
+        </div>
+        {/* Progress bar */}
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
+          <div className="h-full rounded-full transition-all duration-500" style={{ width: `${(questionIdx / QUESTIONS.length) * 100}%`, background: '#741630' }} />
+        </div>
+      </div>
+
+      {/* Progress dots */}
+      <div className="px-5 flex gap-1.5 mb-4 shrink-0">
+        {QUESTIONS.map((_, i) => (
+          <div key={i} className="flex-1 h-1.5 rounded-full transition-all"
+            style={{ background: i < questionIdx ? '#741630' : i === questionIdx ? '#741630' : '#DDD0C0', opacity: i === questionIdx ? 1 : i < questionIdx ? 0.7 : 0.4 }} />
+        ))}
+      </div>
+
+      <div className="flex-1 px-5 flex flex-col gap-4 overflow-y-auto scrollbar-hide">
+        <h2 className="font-serif text-[24px] font-bold leading-[30px]" style={{ color: '#24171A' }}>
+          {q.prompt}
+        </h2>
+
+        <div className="flex flex-col gap-2.5">
+          {q.answers.map((a, i) => (
+            <button key={i} onClick={() => !checked && setSelected(i)}
+              className="flex items-center gap-4 rounded-[16px] px-5 py-4 text-left transition-all duration-200"
+              style={{
+                background: selected === i ? '#FDEEF1' : '#FFFCF6',
+                border: `1.5px solid ${selected === i ? '#741630' : '#DDD0C0'}`,
+              }}>
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all"
+                style={{ borderColor: selected === i ? '#741630' : '#DDD0C0' }}>
+                {selected === i && <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#741630' }} />}
+              </div>
+              <span className="text-[15px] leading-[21px]" style={{ color: '#24171A' }}>{a}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="px-5 pb-10 pt-4">
+        <button onClick={handleCheck} disabled={selected === null}
+          className="w-full rounded-full font-semibold text-[17px] transition-all duration-200"
+          style={{ height: 56, background: selected === null ? '#DDD0C0' : '#741630', color: selected === null ? '#897A76' : '#FFFCF6' }}>
+          Check Answer
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// PRAC-04/05 Feedback
+function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, totalQuestions }: {
+  correct: boolean; teaching: string; boundary: string; onNext: () => void; questionIdx: number; totalQuestions: number;
+}) {
+  const isLast = questionIdx === totalQuestions - 1
+
+  return (
+    <div className="flex flex-col h-full overflow-hidden screen-enter">
+      <div className="relative h-44 overflow-hidden shrink-0">
+        <img src={CITY_IMG} alt="Ancient city landscape" className="w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: correct ? 'rgba(88,112,78,0.6)' : 'rgba(163,58,58,0.5)' }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: correct ? '#607255' : '#A33A3A' }}>
+            {correct
+              ? <svg width="26" height="20" viewBox="0 0 26 20" fill="none"><path d="M1 10l8 8 16-17" stroke="#FFFCF6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              : <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="#FFFCF6" strokeWidth="2.5" strokeLinecap="round" /></svg>
+            }
+          </div>
+          <p className="font-serif text-[28px] font-bold" style={{ color: '#FFFCF6' }}>{correct ? 'Correct' : 'Not quite'}</p>
+          <div className="h-0.5 w-16 rounded-full" style={{ background: correct ? '#E6C878' : '#D8A8B1' }} />
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+        <div>
+          <p className="text-[12px] font-semibold uppercase tracking-wider mb-2" style={{ color: '#B68425', letterSpacing: '0.1em' }}>What the passage teaches</p>
+          <p className="text-[16px] leading-[24px]" style={{ color: '#24171A' }}>{teaching}</p>
+        </div>
+
+        {boundary && (
+          <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
+            <span className="text-[16px] shrink-0 mt-0.5">⚠️</span>
+            <div>
+              <p className="text-[12px] font-semibold mb-1" style={{ color: '#795719' }}>Important boundary</p>
+              <p className="text-[13px] leading-[20px]" style={{ color: '#795719' }}>{boundary}</p>
+            </div>
+          </div>
+        )}
+
+        {!correct && (
+          <div className="rounded-[14px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+            <p className="text-[12px] font-semibold mb-1" style={{ color: '#897A76' }}>Why that answer sounds plausible</p>
+            <p className="text-[13px] leading-[20px]" style={{ color: '#675A5D' }}>
+              Many people associate trust with guaranteed outcomes. The passage, however, calls you to trust the direction, not demand the result.
+            </p>
+          </div>
+        )}
+
+        <button onClick={onNext}
+          className="w-full rounded-full font-semibold text-[17px] flex items-center justify-center gap-2 transition-all"
+          style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
+          {isLast ? 'See Results →' : 'Next Question →'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// PRAC-07 Level Complete
+export function PracticeLevelComplete() {
+  const { navigate, addXP } = useApp()
+  const [xpShown] = useState(() => { return true })
+
+  return (
+    <div className="flex flex-col h-full overflow-hidden screen-enter">
+      <div className="relative h-52 overflow-hidden shrink-0">
+        <img src={CITY_IMG} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.1), rgba(247,241,231,1))' }} />
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col items-center gap-5" style={{ background: '#F7F1E7' }}>
+        <div className="medal-rise w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
+          <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3B1F0F 0%, #741630 100%)' }}>
+            <span className="text-[28px]">📖</span>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <h2 className="font-serif text-[32px] font-bold leading-[38px]" style={{ color: '#24171A' }}>Level 2 complete</h2>
+          <div className="h-0.5 w-16 rounded-full mx-auto mt-2" style={{ background: '#B68425' }} />
+        </div>
+
+        <p className="text-[15px] text-center leading-[23px]" style={{ color: '#675A5D' }}>
+          You can now <strong style={{ color: '#24171A' }}>recognize explanations</strong> that preserve both trust and the passage's boundaries.
+        </p>
+
+        <div className="w-full rounded-[20px] p-5 flex flex-col gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
+          <div className="flex items-center gap-3">
+            <span className="text-[20px]">📖</span>
+            <div className="flex-1">
+              <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Passage Mastery · 2 of 5</p>
+              <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
+                <div className="h-full rounded-full bar-fill" style={{ width: '40%', background: '#741630' }} />
+              </div>
+            </div>
+          </div>
+          <div className="h-px" style={{ background: '#DDD0C0' }} />
+          <div className="flex items-center gap-3">
+            <span className="text-[20px]">⭐</span>
+            <div className="flex-1">
+              <p className="text-[13px] font-semibold mb-1 xp-pop" style={{ color: '#B68425' }}>+50 XP · 325 XP total</p>
+              <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
+                <div className="h-full rounded-full bar-fill" style={{ width: '81%', background: '#B68425' }} />
+              </div>
+            </div>
+          </div>
+          <div className="h-px" style={{ background: '#DDD0C0' }} />
+          <div className="flex items-center gap-3">
+            <span className="text-[20px]">🌿</span>
+            <div className="flex-1">
+              <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Scripture in Context · 2 of 3</p>
+              <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
+                <div className="h-full rounded-full bar-fill" style={{ width: '66%', background: '#B68425' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col gap-2.5">
+          <button onClick={() => { addXP(50); navigate('home') }}
+            className="w-full rounded-full font-semibold text-[17px] transition-all"
+            style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
+            Return to Alignment
+          </button>
+          <button onClick={() => navigate('practice-intro')}
+            className="w-full rounded-full font-semibold text-[16px] transition-all"
+            style={{ height: 52, background: 'transparent', border: '1.5px solid #B68425', color: '#B68425' }}>
+            Continue to Level 3
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
