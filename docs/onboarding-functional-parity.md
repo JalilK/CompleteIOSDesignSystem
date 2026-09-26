@@ -44,10 +44,19 @@ The master Alignment spec remains authoritative for behavior, state, XP, StoreKi
 
 ## Implementation Notes
 
-- The current React/Figma Make prototype uses screenshot rasters as parity references with semantic click targets layered above them.
-- This is acceptable for visual handoff, but not sufficient for production parity.
+- The current React/Figma Make prototype uses native layout for the first four onboarding screens.
+- Extracted raster assets are limited to photographic/illustrative ingredients under `src/assets/alignment/onboarding-native/`.
+- Full-screen screenshot rasters are retained only as visual references under `src/assets/alignment/onboarding-reference/`; they must not be used as active screen implementations.
 - Production SwiftUI must rebuild these screens with editable text, real controls, accessible labels, dynamic type behavior, and state-driven progress.
 - Do not hardcode Bible edition labels in production; use the user's selected/current Bible edition.
 - Do not hardcode prices in production; use StoreKit product metadata.
 - Do not mark onboarding parity complete until a fresh-user screen recording proves: onboarding demo -> completion receipt -> recommended Path -> paywall -> entitlement -> activated Home.
 
+## Extracted Native Assets
+
+- `mission-landscape.png`: mission opener background photography.
+- `method-bible-room.png`: Scripture-before-advice background photography.
+- `question-landscape.png`: Proverbs 14 question landscape strip.
+- `completion-landscape.png`: completion hero background.
+
+The visible text, buttons, answer rows, progress dots, medallion, XP receipt, and navigation actions are native UI, not baked into those assets.
