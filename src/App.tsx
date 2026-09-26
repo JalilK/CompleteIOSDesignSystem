@@ -1,5 +1,6 @@
 import { AppProvider, useApp } from './context'
 import { BottomNav } from './components/BottomNav'
+import { HomeExactParity } from './screens/HomeExactParity'
 import { Onboarding } from './screens/Onboarding'
 import { Home } from './screens/Home'
 import { Library } from './screens/Library'
@@ -76,6 +77,17 @@ function AppShell() {
 }
 
 export default function App() {
+  // ?parity=true renders the ALIGN-GAP-006A handoff frame on a dark canvas
+  const isParity = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('parity') === 'true'
+
+  if (isParity) {
+    return (
+      <div className="min-h-screen flex items-center justify-center py-16" style={{ background: '#1a1208' }}>
+        <HomeExactParity />
+      </div>
+    )
+  }
+
   return (
     <AppProvider>
       <AppShell />
