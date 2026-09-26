@@ -59,22 +59,54 @@ function SecondaryButton({ label, onPress }: { label: string; onPress: () => voi
 function ReferenceOnboardingScreen({
   image,
   alt,
-  onNext,
+  controls,
 }: {
   image: string
   alt: string
-  onNext: () => void
+  controls: Array<{
+    label: string
+    onPress: () => void
+    frame: { left: string; top: string; width: string; height: string }
+    disabled?: boolean
+  }>
 }) {
   return (
     <div className="relative h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
       <img src={image} alt={alt} className="absolute inset-0 h-full w-full object-cover" />
-      <button
-        onClick={onNext}
-        className="absolute left-5 right-5 bottom-5 rounded-full"
-        style={{ height: 64 }}
-        aria-label="Continue onboarding"
-      />
+      {controls.map(control => (
+        <button
+          key={control.label}
+          onClick={control.onPress}
+          disabled={control.disabled}
+          className="absolute rounded-full"
+          style={{
+            left: control.frame.left,
+            top: control.frame.top,
+            width: control.frame.width,
+            height: control.frame.height,
+            background: 'transparent',
+            border: 0,
+          }}
+          aria-label={control.label}
+        />
+      ))}
     </div>
+  )
+}
+
+function ReferenceQuestionScreen({ onNext }: { onNext: () => void }) {
+  const [selected, setSelected] = useState<number | null>(null)
+  return (
+    <ReferenceOnboardingScreen
+      image={onboardingQuestion}
+      alt="Proverbs 14 question onboarding screen"
+      controls={[
+        { label: 'The strength of the feeling', onPress: () => setSelected(0), frame: { left: '8%', top: '58%', width: '84%', height: '7%' } },
+        { label: "The person's intention", onPress: () => setSelected(1), frame: { left: '8%', top: '67%', width: '84%', height: '7%' } },
+        { label: 'What Scripture establishes', onPress: () => setSelected(2), frame: { left: '8%', top: '76%', width: '84%', height: '7%' } },
+        { label: 'Check Answer', onPress: onNext, disabled: selected !== 2, frame: { left: '5%', top: '90%', width: '90%', height: '7%' } },
+      ]}
+    />
   )
 }
 
@@ -712,10 +744,22 @@ export function Onboarding() {
   }
 
   const steps: Record<number, React.ReactElement> = {
-    1: <ReferenceOnboardingScreen image={onboardingMission} alt="Bring the Word of God into real life onboarding screen" onNext={nextOnboardingStep} />,
-    2: <ReferenceOnboardingScreen image={onboardingMethod} alt="Scripture comes before advice onboarding screen" onNext={nextOnboardingStep} />,
-    3: <ReferenceOnboardingScreen image={onboardingQuestion} alt="Proverbs 14 question onboarding screen" onNext={nextOnboardingStep} />,
-    4: <ReferenceOnboardingScreen image={onboardingCompletion} alt="First Scripture practice complete onboarding screen" onNext={nextOnboardingStep} />,
+    1: <ReferenceOnboardingScreen
+      image={onboardingMission}
+      alt="Bring the Word of God into real life onboarding screen"
+      controls={[{ label: 'Begin', onPress: nextOnboardingStep, frame: { left: '5%', top: '86%', width: '90%', height: '8%' } }]}
+    />,
+    2: <ReferenceOnboardingScreen
+      image={onboardingMethod}
+      alt="Scripture comes before advice onboarding screen"
+      controls={[{ label: 'Try it', onPress: nextOnboardingStep, frame: { left: '5%', top: '86%', width: '90%', height: '8%' } }]}
+    />,
+    3: <ReferenceQuestionScreen onNext={nextOnboardingStep} />,
+    4: <ReferenceOnboardingScreen
+      image={onboardingCompletion}
+      alt="First Scripture practice complete onboarding screen"
+      controls={[{ label: 'Continue after first Scripture practice complete', onPress: nextOnboardingStep, frame: { left: '5%', top: '90%', width: '90%', height: '7%' } }]}
+    />,
     5: <StartingModeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
     6: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
     7: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
