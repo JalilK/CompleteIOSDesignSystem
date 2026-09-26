@@ -1,211 +1,122 @@
 import { useApp } from '../context'
+import { alignmentAssets } from '../assets/alignment/assets'
 
-const UNSPLASH = 'https://images.unsplash.com'
-const HERO_IMG = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=800&h=500&fit=crop&auto=format`
-const DEVOTIONAL_IMG = `${UNSPLASH}/photo-1464822759023-fed622ff2c3b?w=400&h=260&fit=crop&auto=format`
-const ALIGNMENT_IMG = `${UNSPLASH}/photo-1542314831-068cd1dbfeeb?w=400&h=260&fit=crop&auto=format`
-
-function LevelRing({ level, xp, maxXP }: { level: number; xp: number; maxXP: number }) {
-  const pct = xp / maxXP
-  const r = 14
-  const circ = 2 * Math.PI * r
+function ProfileButton({ onPress }: { onPress: () => void }) {
   return (
-    <div className="relative w-10 h-10">
-      <svg width="40" height="40" className="rotate-[-90deg]">
-        <circle cx="20" cy="20" r={r} fill="none" stroke="#DDD0C0" strokeWidth="2.5" />
-        <circle cx="20" cy="20" r={r} fill="none" stroke="#741630" strokeWidth="2.5"
-          strokeDasharray={circ} strokeDashoffset={circ * (1 - pct)} strokeLinecap="round" />
+    <button onClick={onPress} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1.5px solid #D4B070', background: '#FFF8ED' }} aria-label="Profile">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="7" r="3.2" stroke="#9B6B18" strokeWidth="1.4" />
+        <path d="M4.8 16c.9-3 2.6-4.6 5.2-4.6S14.3 13 15.2 16" stroke="#9B6B18" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-[11px] font-bold" style={{ color: '#741630' }}>{level}</span>
-      </div>
+    </button>
+  )
+}
+
+function SearchIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="8.5" cy="8.5" r="5" stroke="#8B6A3A" strokeWidth="1.6" />
+      <path d="M12.3 12.3L16 16" stroke="#8B6A3A" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function LeafDisc() {
+  return (
+    <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: '#E8EBDD' }}>
+      <svg width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M11.5 19V9.5" stroke="#607255" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M11.5 10c-2.3-2.3-5.4-3-7.8-2.2 1 3.8 4.1 6.1 7.8 6.5" fill="#607255" opacity="0.35" />
+        <path d="M11.5 10c2.4-2.7 5.6-3.6 8.1-3-1 4-4.4 6.4-8.1 7" fill="#607255" />
+      </svg>
     </div>
   )
 }
 
-function PathCard({ onContinue }: { onContinue: () => void }) {
+function ProgressStrip({ totalXP, passageMastery, onPress }: { totalXP: number; passageMastery: number; onPress: () => void }) {
+  const xpToNext = 400 - (totalXP % 400)
   return (
-    <div className="rounded-[24px] overflow-hidden" style={{ background: '#FFFCF6', boxShadow: '0 2px 20px rgba(30,21,18,0.10)' }}>
-      <div className="relative h-44 overflow-hidden">
-        <img src={HERO_IMG} alt="Ancient path at golden hour" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0) 40%, rgba(30,21,18,0.7) 100%)' }} />
-        <div className="absolute bottom-4 left-5 right-5">
-          <p className="text-[11px] font-semibold uppercase tracking-wider mb-1" style={{ color: '#E6C878', letterSpacing: '0.1em' }}>Your Path</p>
-          <p className="font-serif text-[20px] font-bold leading-[25px]" style={{ color: '#FFFCF6' }}>Trusting God Through Uncertainty</p>
-        </div>
+    <button onClick={onPress} className="w-full rounded-[12px] p-4 text-left flex items-center gap-4" style={{ background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.72)' }}>
+      <LeafDisc />
+      <div className="flex-1">
+        <p className="text-[13px] font-semibold" style={{ color: '#24171A' }}>Your progress is current</p>
+        <p className="text-[12px]" style={{ color: '#675A5D' }}>{totalXP} XP · {xpToNext} XP to next level · Passage Mastery {passageMastery} of 5</p>
       </div>
-      <div className="px-5 py-4">
-        <p className="text-[13px] mb-3" style={{ color: '#675A5D' }}>Session 2 of 7 · Trust without demanding an outcome · ~6 min</p>
-        <button onClick={onContinue} className="w-full rounded-full font-semibold text-[16px] flex items-center justify-center gap-2 transition-all"
-          style={{ height: 52, background: '#741630', color: '#FFFCF6' }}>
-          Continue Path
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M10 5l4 4-4 4" stroke="#FFFCF6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        </button>
-      </div>
-    </div>
-  )
-}
-
-function AlignmentCard({ onContinue }: { onContinue: () => void }) {
-  return (
-    <div className="rounded-[20px] overflow-hidden" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-      <div className="relative h-24 overflow-hidden">
-        <img src={ALIGNMENT_IMG} alt="Olive tree landscape" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'rgba(30,21,18,0.45)' }} />
-        <div className="absolute inset-0 px-4 flex items-center">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#E6C878', letterSpacing: '0.1em' }}>Your Current Alignment</p>
-            <p className="font-serif text-[17px] font-bold leading-[22px]" style={{ color: '#FFFCF6' }}>Deciding whether to accept this job</p>
-          </div>
-        </div>
-      </div>
-      <div className="px-4 py-3">
-        <p className="text-[12px] mb-3" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · James 4:13–15 · Next: Choose your faithful action</p>
-        <button onClick={onContinue} className="rounded-full font-semibold text-[14px] px-5 flex items-center gap-1.5 transition-all"
-          style={{ height: 40, border: '1.5px solid #741630', color: '#741630', background: 'transparent' }}>
-          Continue Alignment →
-        </button>
-      </div>
-    </div>
-  )
-}
-
-function DevotionalCard({ onBegin }: { onBegin: () => void }) {
-  return (
-    <div className="rounded-[20px] overflow-hidden" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-      <div className="relative h-32 overflow-hidden">
-        <img src={DEVOTIONAL_IMG} alt="Peaceful valley landscape" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0) 20%, rgba(30,21,18,0.65) 100%)' }} />
-        <div className="absolute bottom-3 left-4 right-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#E6C878', letterSpacing: '0.1em' }}>For You</p>
-          <p className="font-serif text-[18px] font-bold leading-[23px]" style={{ color: '#FFFCF6' }}>Trust Without Demanding an Outcome</p>
-        </div>
-      </div>
-      <div className="px-4 py-3 flex items-center justify-between">
-        <div>
-          <p className="text-[13px]" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · ~5 min</p>
-          <button className="text-[12px] font-medium" style={{ color: '#B68425' }}>Why this was selected</button>
-        </div>
-        <button onClick={onBegin}
-          className="rounded-full font-semibold text-[14px] px-4 transition-all"
-          style={{ height: 38, background: '#741630', color: '#FFFCF6' }}>
-          Begin
-        </button>
-      </div>
-    </div>
-  )
-}
-
-function ProgressCapsule({ level, totalXP }: { level: number; totalXP: number }) {
-  return (
-    <div className="rounded-[20px] p-5" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-      <p className="text-[13px] font-semibold uppercase tracking-wider mb-4" style={{ color: '#897A76', letterSpacing: '0.08em' }}>Your Progress</p>
-      <div className="flex gap-4">
-        <div className="flex-1 text-center">
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>{level}</p>
-          <p className="text-[11px]" style={{ color: '#897A76' }}>Level</p>
-        </div>
-        <div className="w-px" style={{ background: '#DDD0C0' }} />
-        <div className="flex-1 text-center">
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>{totalXP}</p>
-          <p className="text-[11px]" style={{ color: '#897A76' }}>XP</p>
-        </div>
-        <div className="w-px" style={{ background: '#DDD0C0' }} />
-        <div className="flex-1 text-center">
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#24171A' }}>1</p>
-          <p className="text-[11px]" style={{ color: '#897A76' }}>Mastered</p>
-        </div>
-      </div>
-      <div className="mt-4 flex items-center gap-2">
-        <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: '#F4EBDD' }}>
-          <span className="text-[14px]">📖</span>
-        </div>
-        <div className="flex-1">
-          <p className="text-[12px] font-medium" style={{ color: '#24171A' }}>Text Before Assumption · 1 of 3</p>
-          <div className="h-1.5 rounded-full mt-1 overflow-hidden" style={{ background: '#DDD0C0' }}>
-            <div className="h-full rounded-full" style={{ width: '33%', background: '#B68425' }} />
-          </div>
-        </div>
-      </div>
-    </div>
+      <span style={{ color: '#9B6B18' }}>›</span>
+    </button>
   )
 }
 
 export function Home() {
-  const { navigate, totalXP, level } = useApp()
-
-  const hour = new Date().getHours()
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
+  const { navigate, setTab, totalXP, level, passageMastery } = useApp()
 
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
-      {/* Header */}
-      <div className="relative">
-        <div className="relative h-48 overflow-hidden">
-          <img src={HERO_IMG} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.4) 0%, rgba(247,241,231,1) 100%)' }} />
+      <div className="px-6 pt-14 pb-4 flex items-start justify-between shrink-0">
+        <div>
+          <h1 className="font-serif text-[26px] leading-[31px] font-bold" style={{ color: '#24171A' }}>
+            Good morning, Jalil
+          </h1>
+          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Level {level} · {totalXP} XP</p>
         </div>
-        <div className="absolute top-0 left-0 right-0 px-5 pt-14 flex items-start justify-between">
-          <div>
-            <h1 className="font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#FFFCF6' }}>{greeting}, Jalil</h1>
-            <p className="text-[13px]" style={{ color: 'rgba(255,252,246,0.75)' }}>Continue growing in the Word</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <LevelRing level={level} xp={totalXP % 400} maxXP={400} />
-            <div className="w-9 h-9 rounded-full overflow-hidden" style={{ background: '#D8A8B1', border: '2px solid rgba(255,252,246,0.5)' }}>
-              <div className="w-full h-full flex items-center justify-center font-bold text-[14px]" style={{ color: '#741630' }}>J</div>
-            </div>
-          </div>
-        </div>
-        <div className="px-5 pt-1 pb-1">
-          <p className="text-[12px] font-medium" style={{ color: '#897A76' }}>Level {level} · {totalXP} XP</p>
-        </div>
+        <ProfileButton onPress={() => setTab('you')} />
       </div>
 
-      {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-6 flex flex-col gap-4 pt-2">
-        <PathCard onContinue={() => navigate('practice-intro')} />
-        <AlignmentCard onContinue={() => navigate('alignment-report')} />
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-6 flex flex-col gap-5">
+        <section className="relative rounded-[14px] overflow-hidden shrink-0" style={{ height: 306, boxShadow: '0 2px 18px rgba(30,21,18,0.12)' }}>
+          <img src={alignmentAssets.currentPath} alt="Stone path toward ancient hillside village" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.05) 0%, rgba(30,21,18,0.20) 45%, rgba(30,21,18,0.78) 100%)' }} />
+          <div className="absolute left-5 right-5 bottom-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] mb-2" style={{ color: '#E6C878' }}>Current Path</p>
+            <h2 className="font-serif text-[30px] leading-[35px] font-bold mb-2" style={{ color: '#FFFCF6' }}>
+              Bringing Scripture<br />Into Daily Decisions
+            </h2>
+            <p className="text-[15px] mb-5" style={{ color: 'rgba(255,252,246,0.9)' }}>
+              Session 1 of 7 · Trust Before You Choose
+            </p>
+            <button onClick={() => navigate('practice-intro')}
+              className="w-full rounded-[9px] font-semibold text-[16px] flex items-center justify-center"
+              style={{ height: 50, background: '#8E1F3D', color: '#FFFCF6' }}>
+              Begin Session 1
+            </button>
+          </div>
+        </section>
 
-        {/* Today's Devotionals */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <p className="font-semibold text-[16px]" style={{ color: '#24171A' }}>Today's Devotionals</p>
-            <button className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
-          </div>
-          <DevotionalCard onBegin={() => navigate('devotional')} />
-        </div>
-
-        {/* Pray or meditate */}
-        <div className="rounded-[18px] p-4 flex items-center gap-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-          <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: '#E6ECE2' }}>
-            <span className="text-[20px]">🙏</span>
-          </div>
-          <div className="flex-1">
-            <p className="font-semibold text-[15px]" style={{ color: '#24171A' }}>Pray or meditate with Scripture</p>
-            <p className="text-[12px]" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · Based on your current journey</p>
-          </div>
-          <button onClick={() => navigate('prayer-mode')}
-            className="rounded-full text-[13px] font-semibold px-3"
-            style={{ height: 36, background: '#E6ECE2', color: '#607255' }}>
-            Begin
+        <section>
+          <h2 className="font-serif text-[21px] leading-[26px] font-bold mb-3" style={{ color: '#24171A' }}>
+            What are you facing today?
+          </h2>
+          <button onClick={() => navigate('alignment-intake')} className="w-full rounded-[12px] px-4 flex items-center gap-3 text-left" style={{ height: 54, background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.7)' }}>
+            <SearchIcon />
+            <span className="flex-1 text-[14px]" style={{ color: '#897A76' }}>Share what’s on your heart...</span>
+            <span style={{ color: '#9B6B18' }}>›</span>
           </button>
-        </div>
+        </section>
 
-        <ProgressCapsule level={level} totalXP={totalXP} />
+        <section>
+          <h2 className="font-serif text-[22px] leading-[27px] font-bold mb-3" style={{ color: '#24171A' }}>For You</h2>
+          <button onClick={() => navigate('devotional')} className="relative w-full rounded-[12px] overflow-hidden text-left" style={{ height: 122, background: '#FFFCF6', boxShadow: '0 1px 10px rgba(30,21,18,0.08)' }}>
+            <img src={alignmentAssets.forYou} alt="Olive branch devotional recommendation" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(255,252,246,0.08) 0%, rgba(255,252,246,0.82) 54%, rgba(255,252,246,0.96) 100%)' }} />
+            <div className="absolute right-9 left-[42%] top-0 bottom-0 flex items-center">
+              <p className="font-serif text-[18px] leading-[23px] font-bold text-right" style={{ color: '#24171A' }}>
+                Trust Without<br />Demanding an Outcome
+              </p>
+            </div>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2" style={{ color: '#9B6B18' }}>›</span>
+          </button>
+        </section>
 
-        {/* Start new alignment */}
-        <button onClick={() => navigate('alignment-intake')}
-          className="w-full rounded-[18px] p-4 flex items-center gap-3 text-left transition-all"
-          style={{ background: '#FFFCF6', border: '1.5px dashed #DDD0C0' }}>
-          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: '#F4EBDD' }}>
-            <span className="text-[18px]">+</span>
+        <button onClick={() => navigate('prayer-mode')} className="rounded-[12px] p-4 flex items-center gap-4 text-left" style={{ background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.72)' }}>
+          <LeafDisc />
+          <div className="flex-1">
+            <p className="font-serif text-[17px] leading-[21px] font-semibold" style={{ color: '#24171A' }}>Pray or meditate with Scripture</p>
+            <p className="text-[12px] mt-1" style={{ color: '#675A5D' }}>Return to God’s presence through Proverbs 3:5–6.</p>
           </div>
-          <div>
-            <p className="font-semibold text-[14px]" style={{ color: '#24171A' }}>Start a new Alignment</p>
-            <p className="text-[12px]" style={{ color: '#897A76' }}>Bring a decision or burden under Scripture</p>
-          </div>
+          <span style={{ color: '#9B6B18' }}>›</span>
         </button>
+
+        <ProgressStrip totalXP={totalXP} passageMastery={passageMastery} onPress={() => setTab('progress')} />
       </div>
     </div>
   )

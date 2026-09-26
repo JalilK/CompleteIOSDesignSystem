@@ -1,18 +1,42 @@
 import React, { useState } from 'react'
 import { useApp } from '../context'
-import activatedHomeCurrentPath from '../assets/alignment/activated-home-current-path-clean.png'
-import activatedHomeForYou from '../assets/alignment/activated-home-for-you-clean.png'
-import missionLandscape from '../assets/alignment/onboarding-native/mission-landscape.png'
-import methodBibleRoom from '../assets/alignment/onboarding-native/method-bible-room.png'
-import questionLandscape from '../assets/alignment/onboarding-native/question-landscape.png'
-import completionLandscape from '../assets/alignment/onboarding-native/completion-landscape.png'
+import { alignmentAssets } from '../assets/alignment/assets'
 
-const UNSPLASH = 'https://images.unsplash.com'
+const HERO_LANDSCAPE = alignmentAssets.currentPath
+const INTERIOR_BIBLE = alignmentAssets.methodBibleRoom
+const STONE_PATH = alignmentAssets.currentPath
+const VALLEY_GOLDEN = alignmentAssets.currentPath
 
-const HERO_LANDSCAPE = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=800&h=1000&fit=crop&auto=format`
-const INTERIOR_BIBLE = `${UNSPLASH}/photo-1509021436665-8f07dbf5bf1d?w=800&h=600&fit=crop&auto=format`
-const STONE_PATH = `${UNSPLASH}/photo-1473448912268-2022ce9509d8?w=800&h=700&fit=crop&auto=format`
-const VALLEY_GOLDEN = `${UNSPLASH}/photo-1464822759023-fed622ff2c3b?w=800&h=700&fit=crop&auto=format`
+const ONBOARDING_LEVEL_1_QUESTIONS = [
+  {
+    passage: 'Proverbs 14:12',
+    verse: ['There is a way that seems', 'right to a man, but its end', 'is the way to death.'],
+    prompt: 'What should determine whether the belief is true?',
+    answers: ['The strength of the feeling', 'The person’s intention', 'What Scripture establishes'],
+    correct: 2,
+  },
+  {
+    passage: 'Proverbs 14:12',
+    verse: ['There is a way that seems', 'right to a man, but its end', 'is the way to death.'],
+    prompt: 'What does this passage warn against?',
+    answers: ['Treating inner certainty as proof', 'Asking wise people for counsel', 'Testing a belief against Scripture'],
+    correct: 0,
+  },
+  {
+    passage: 'Proverbs 3:5–6',
+    verse: ['Trust in the LORD with all thine heart;', 'and lean not unto thine own understanding.'],
+    prompt: 'Which response keeps the passage in bounds?',
+    answers: ['God must give me the outcome I want', 'Trust God without making my view final', 'Planning means I am not trusting'],
+    correct: 1,
+  },
+  {
+    passage: 'James 4:13–15',
+    verse: ['If the Lord will, we shall live,', 'and do this, or that.'],
+    prompt: 'What does humble planning sound like?',
+    answers: ['I control what happens next', 'I should never make a plan', 'I will plan while submitting the outcome to God'],
+    correct: 2,
+  },
+]
 
 function StepDots({ total, current }: { total: number; current: number }) {
   return (
@@ -82,7 +106,7 @@ function MissionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
   return (
     <div className="relative h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar />
-      <img src={missionLandscape} alt="Open Bible overlooking an ancient city at sunrise" className="absolute inset-0 h-full w-full object-cover" />
+      <img src={alignmentAssets.missionLandscape} alt="Open Bible overlooking an ancient city at sunrise" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(255,252,246,0.9) 0%, rgba(255,252,246,0.45) 35%, rgba(255,252,246,0.02) 60%, rgba(30,21,18,0.35) 100%)' }} />
       <div className="relative z-10 flex h-full flex-col items-center px-8 pb-8 pt-[106px] text-center">
         <h1 className="font-serif text-[33px] font-semibold leading-[39px]" style={{ color: '#3A0D18' }}>
@@ -103,7 +127,7 @@ function MethodReferenceNativeScreen({ onNext, onBack }: { onNext: () => void; o
   return (
     <div className="relative h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
-      <img src={methodBibleRoom} alt="Open Bible and cup in warm morning light" className="absolute inset-0 h-full w-full object-cover" />
+      <img src={alignmentAssets.methodBibleRoom} alt="Open Bible and cup in warm morning light" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(247,241,231,0.86) 0%, rgba(247,241,231,0.55) 48%, rgba(247,241,231,0.06) 100%)' }} />
       <button onClick={onBack} className="absolute left-5 top-[70px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -123,19 +147,15 @@ function MethodReferenceNativeScreen({ onNext, onBack }: { onNext: () => void; o
   )
 }
 
-function QuestionReferenceNativeScreen({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+function QuestionReferenceNativeScreen({ questionIndex, onCorrect, onBack }: { questionIndex: number; onCorrect: () => void; onBack: () => void }) {
   const [selected, setSelected] = useState<number | null>(null)
-  const answers = [
-    'The strength of the feeling',
-    "The person’s intention",
-    'What Scripture establishes',
-  ]
+  const question = ONBOARDING_LEVEL_1_QUESTIONS[questionIndex]
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar />
       <div className="absolute inset-x-0 top-0 h-[385px]" style={{ background: '#F1E5D2' }}>
         <div className="absolute inset-x-0 bottom-0 h-[130px] overflow-hidden">
-          <img src={questionLandscape} alt="Ancient hillside and city landscape" className="h-full w-full object-cover" />
+          <img src={alignmentAssets.questionLandscape} alt="Ancient hillside and city landscape" className="h-full w-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0) 0%, rgba(247,241,231,0.92) 100%)' }} />
         </div>
       </div>
@@ -143,16 +163,19 @@ function QuestionReferenceNativeScreen({ onNext, onBack }: { onNext: () => void;
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
       <div className="relative z-10 flex h-full flex-col px-7 pb-8 pt-[118px]">
-        <p className="text-center text-[12px] font-semibold uppercase tracking-[0.32em]" style={{ color: '#9B6B18' }}>Proverbs 14:12</p>
+        <p className="text-center text-[12px] font-semibold uppercase tracking-[0.32em]" style={{ color: '#9B6B18' }}>{question.passage}</p>
         <p className="mx-auto mt-5 max-w-[275px] text-center font-serif text-[20px] leading-[29px]" style={{ color: '#24171A' }}>
-          There is a way that seems<br />right to a man, but its end<br />is the way to death.
+          {question.verse.map((line, index) => (
+            <React.Fragment key={line}>{line}{index < question.verse.length - 1 && <br />}</React.Fragment>
+          ))}
         </p>
         <div className="mx-auto mt-3 h-px w-12" style={{ background: '#B68425' }} />
         <h2 className="mt-[86px] font-serif text-[27px] font-semibold leading-[33px]" style={{ color: '#24171A' }}>
-          What should determine<br />whether the belief is true?
+          {question.prompt}
         </h2>
+        <p className="mt-2 text-[12px]" style={{ color: '#897A76' }}>Question {questionIndex + 1} of {ONBOARDING_LEVEL_1_QUESTIONS.length}</p>
         <div className="mt-5 flex flex-col gap-2.5">
-          {answers.map((answer, index) => (
+          {question.answers.map((answer, index) => (
             <button
               key={answer}
               onClick={() => setSelected(index)}
@@ -171,7 +194,7 @@ function QuestionReferenceNativeScreen({ onNext, onBack }: { onNext: () => void;
           ))}
         </div>
         <div className="mt-8 shrink-0">
-          <PrimaryButton label="Check Answer" onPress={onNext} disabled={selected !== 2} />
+          <PrimaryButton label={questionIndex === ONBOARDING_LEVEL_1_QUESTIONS.length - 1 ? 'Complete Level 1' : 'Next Question'} onPress={onCorrect} disabled={selected !== question.correct} />
         </div>
       </div>
     </div>
@@ -183,7 +206,7 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
     <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
       <div className="relative h-[276px] overflow-hidden">
-        <img src={completionLandscape} alt="Ancient stone path and city at golden hour" className="h-full w-full object-cover" />
+        <img src={alignmentAssets.completionLandscape} alt="Ancient stone path and city at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.05) 0%, rgba(247,241,231,0.02) 48%, #F7F1E7 100%)' }} />
       </div>
       <div className="relative -mt-[66px] flex flex-col items-center px-6 pb-8 text-center">
@@ -430,7 +453,7 @@ function DemoScriptureScreen({ onNext, onBack }: { onNext: () => void; onBack: (
       <div className="flex-1 px-6 pt-2 flex flex-col gap-5">
         <div>
           <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: '#B68425' }}>Governing Scripture</p>
-          <p className="font-serif text-[13px] font-semibold" style={{ color: '#741630' }}>PROVERBS 14:12 · KJV</p>
+          <p className="font-serif text-[13px] font-semibold" style={{ color: '#741630' }}>PROVERBS 14:12 · Selected translation</p>
         </div>
         <div className="rounded-[20px] p-6 flex flex-col gap-4 relative overflow-hidden" style={{ background: '#F4EBDD' }}>
           <div className="text-center mb-2">
@@ -439,7 +462,7 @@ function DemoScriptureScreen({ onNext, onBack }: { onNext: () => void; onBack: (
           <p className="font-serif text-[20px] leading-[31px] italic text-center" style={{ color: '#24171A' }}>
             There is a way that seemeth right unto a man, but the end thereof are the ways of death.
           </p>
-          <p className="text-center text-[13px] font-semibold mt-2" style={{ color: '#675A5D' }}>Proverbs 14:12 · KJV</p>
+          <p className="text-center text-[13px] font-semibold mt-2" style={{ color: '#675A5D' }}>Proverbs 14:12 · Selected translation</p>
           <div className="absolute bottom-0 left-0 right-0 h-1 rounded-b-[20px]" style={{ background: '#741630' }} />
         </div>
         <div className="rounded-[14px] p-4" style={{ background: '#FFFCF6' }}>
@@ -469,7 +492,7 @@ function DemoQuestionScreen({ onNext, onBack }: { onNext: () => void; onBack: ()
         <BackButton onBack={onBack} />
         <div className="text-center">
           <p className="text-[12px] font-semibold" style={{ color: '#675A5D' }}>Proverbs 14:12</p>
-          <p className="text-[11px]" style={{ color: '#897A76' }}>Question 1 of 3</p>
+          <p className="text-[11px]" style={{ color: '#897A76' }}>Question 1 of 4</p>
         </div>
         <div className="w-10" />
       </div>
@@ -766,114 +789,37 @@ function PaywallScreen({ onNext, onBack }: { onNext: () => void; onBack: () => v
   )
 }
 
-// ONB-13 Activated Home
-function ActivatedHomeScreen({ onFinish }: { onFinish: () => void }) {
-  const { navigate, setTab } = useApp()
-  return (
-    <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
-      <div className="px-6 pt-14 pb-4 flex items-start justify-between shrink-0">
-        <div>
-          <h1 className="font-serif text-[26px] leading-[31px] font-bold" style={{ color: '#24171A' }}>
-            Good morning, Jalil
-          </h1>
-          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Level 1 · 25 XP</p>
-        </div>
-        <button onClick={() => setTab('you')} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ border: '1.5px solid #D4B070', background: '#FFF8ED' }} aria-label="Profile">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="7" r="3.2" stroke="#9B6B18" strokeWidth="1.4" />
-            <path d="M4.8 16c.9-3 2.6-4.6 5.2-4.6S14.3 13 15.2 16" stroke="#9B6B18" strokeWidth="1.4" strokeLinecap="round" />
-          </svg>
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-4 flex flex-col gap-5">
-        <div className="relative rounded-[14px] overflow-hidden shrink-0" style={{ height: 306, boxShadow: '0 2px 18px rgba(30,21,18,0.12)' }}>
-          <img src={activatedHomeCurrentPath} alt="Stone path toward ancient hillside village" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.05) 0%, rgba(30,21,18,0.20) 45%, rgba(30,21,18,0.78) 100%)' }} />
-          <div className="absolute left-5 right-5 bottom-5">
-            <h2 className="font-serif text-[30px] leading-[35px] font-bold mb-2" style={{ color: '#FFFCF6' }}>
-              Bringing Scripture<br />Into Daily Decisions
-            </h2>
-            <p className="text-[15px] mb-5" style={{ color: 'rgba(255,252,246,0.9)' }}>
-              Session 1 of 7 · Trust Before You Choose
-            </p>
-            <button onClick={onFinish}
-              className="w-full rounded-[9px] font-semibold text-[16px] flex items-center justify-center"
-              style={{ height: 50, background: '#8E1F3D', color: '#FFFCF6' }}>
-              Begin Session 1
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="font-serif text-[21px] leading-[26px] font-bold mb-3" style={{ color: '#24171A' }}>
-            What are you facing today?
-          </h2>
-          <button onClick={() => navigate('alignment-intake')} className="w-full rounded-[12px] px-4 flex items-center gap-3 text-left" style={{ height: 54, background: '#FFFCF6', border: '1px solid rgba(221,208,192,0.7)' }}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="8.5" cy="8.5" r="5" stroke="#8B6A3A" strokeWidth="1.6" />
-              <path d="M12.3 12.3L16 16" stroke="#8B6A3A" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-            <span className="flex-1 text-[14px]" style={{ color: '#897A76' }}>Share what’s on your heart...</span>
-            <span style={{ color: '#9B6B18' }}>›</span>
-          </button>
-        </div>
-
-        <div>
-          <h2 className="font-serif text-[22px] leading-[27px] font-bold mb-3" style={{ color: '#24171A' }}>For You</h2>
-          <button onClick={() => navigate('devotional')} className="relative w-full rounded-[12px] overflow-hidden text-left" style={{ height: 122, background: '#FFFCF6', boxShadow: '0 1px 10px rgba(30,21,18,0.08)' }}>
-            <img src={activatedHomeForYou} alt="Olive branch devotional recommendation" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(255,252,246,0.08) 0%, rgba(255,252,246,0.82) 54%, rgba(255,252,246,0.96) 100%)' }} />
-            <div className="absolute right-9 left-[42%] top-0 bottom-0 flex items-center">
-              <p className="font-serif text-[18px] leading-[23px] font-bold text-right" style={{ color: '#24171A' }}>
-                Trust Without<br />Demanding an Outcome
-              </p>
-            </div>
-            <span className="absolute right-4 top-1/2 -translate-y-1/2" style={{ color: '#9B6B18' }}>›</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-4 shrink-0 pt-2 pb-7" style={{ background: '#FFFCF6', borderTop: '1px solid #E7DCCE' }}>
-        {['Home', 'Paths', 'Explore', 'Profile'].map((label, index) => (
-          <button
-            key={label}
-            onClick={() => {
-              if (index === 0) setTab('home')
-              if (index === 1) setTab('library')
-              if (index === 2) setTab('progress')
-              if (index === 3) setTab('you')
-            }}
-            className="flex flex-col items-center gap-1"
-          >
-            <span className="text-[20px]" style={{ color: index === 0 ? '#8E1F3D' : '#675A5D' }}>
-              {index === 0 ? '⌂' : index === 1 ? '⌁' : index === 2 ? '□' : '♙'}
-            </span>
-            <span className="text-[10px] font-medium" style={{ color: index === 0 ? '#8E1F3D' : '#675A5D' }}>
-              {label}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function Onboarding() {
-  const { onboardingStep, nextOnboardingStep, prevOnboardingStep, navigate, setTab } = useApp()
+  const { onboardingStep, nextOnboardingStep, prevOnboardingStep, setTab } = useApp()
+  const [questionIndex, setQuestionIndex] = useState(0)
 
   const finishOnboarding = () => {
     setTab('home')
   }
 
+  const advanceOnboardingQuestion = () => {
+    if (questionIndex < ONBOARDING_LEVEL_1_QUESTIONS.length - 1) {
+      setQuestionIndex(index => index + 1)
+    } else {
+      nextOnboardingStep()
+    }
+  }
+
+  const backFromQuestion = () => {
+    if (questionIndex > 0) {
+      setQuestionIndex(index => index - 1)
+    } else {
+      prevOnboardingStep()
+    }
+  }
+
   const steps: Record<number, React.ReactElement> = {
     1: <MissionReferenceNativeScreen onNext={nextOnboardingStep} />,
     2: <MethodReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    3: <QuestionReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    3: <QuestionReferenceNativeScreen key={questionIndex} questionIndex={questionIndex} onCorrect={advanceOnboardingQuestion} onBack={backFromQuestion} />,
     4: <CompletionReferenceNativeScreen onNext={nextOnboardingStep} />,
     5: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    6: <PaywallScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    7: <ActivatedHomeScreen onFinish={finishOnboarding} />,
+    6: <PaywallScreen onNext={finishOnboarding} onBack={prevOnboardingStep} />,
   }
 
   return (

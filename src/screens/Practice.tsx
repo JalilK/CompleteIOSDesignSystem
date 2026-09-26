@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useApp } from '../context'
-
-const UNSPLASH = 'https://images.unsplash.com'
-const VALLEY_IMG = `${UNSPLASH}/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&auto=format`
-const CITY_IMG = `${UNSPLASH}/photo-1544441892-794166f1e3be?w=800&h=500&fit=crop&auto=format`
+import { alignmentAssets } from '../assets/alignment/assets'
 
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -22,7 +19,7 @@ export function PracticeIntro() {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="relative h-56 overflow-hidden shrink-0">
-        <img src={VALLEY_IMG} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
+        <img src={alignmentAssets.currentPath} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
         <div className="absolute top-14 left-5 flex items-center gap-3">
           <BackButton onBack={() => navigate('home')} />
@@ -42,7 +39,7 @@ export function PracticeIntro() {
           <p className="font-serif text-[18px] leading-[28px] italic" style={{ color: '#24171A' }}>
             Trust in the LORD with all thine heart; and lean not unto thine own understanding.
           </p>
-          <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5 · KJV</p>
+          <p className="text-[13px] font-semibold mt-3" style={{ color: '#675A5D' }}>Proverbs 3:5 · Selected translation</p>
           <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[20px]" style={{ background: '#741630' }} />
         </div>
 
@@ -124,6 +121,48 @@ const QUESTIONS = [
     feedback: {
       teaching: 'The passage calls believers to plan while acknowledging God\'s sovereign authority over the future.',
       boundary: 'It does not forbid planning—it forbids making plans as though you control the outcome.',
+    },
+  },
+  {
+    passage: 'Proverbs 3:5–6',
+    prompt: 'What does "in all thy ways acknowledge him" require?',
+    answers: [
+      'Invite God’s authority into every path, not only the parts that feel spiritual.',
+      'Wait until a decision becomes easy before acting.',
+      'Assume every open door is God’s endorsement.',
+    ],
+    correct: 0,
+    feedback: {
+      teaching: 'The passage calls for acknowledging the Lord across the whole decision, including motives, timing, responsibility, and desired outcomes.',
+      boundary: 'It does not make every available opportunity automatically faithful.',
+    },
+  },
+  {
+    passage: 'James 4:13–15',
+    prompt: 'Which sentence preserves both planning and surrender?',
+    answers: [
+      'I know this will work because I prayed about it.',
+      'If the Lord wills, I will pursue this wisely and receive His redirection.',
+      'Making a plan means I am relying on myself.',
+    ],
+    correct: 1,
+    feedback: {
+      teaching: 'James keeps planning under the phrase "if the Lord wills," so action remains humble instead of presumptuous.',
+      boundary: 'The passage does not condemn wise preparation. It corrects certainty that ignores God’s rule over tomorrow.',
+    },
+  },
+  {
+    passage: 'Proverbs 3:5–6 · James 4:13–15',
+    prompt: 'What faithful next step follows from these passages together?',
+    answers: [
+      'Choose the option with the highest salary so provision is secure.',
+      'Avoid deciding until fear disappears completely.',
+      'Compare the opportunity honestly, pray humbly, and refuse to make fear or money master.',
+    ],
+    correct: 2,
+    feedback: {
+      teaching: 'Together, the passages call you to plan honestly while making God—not fear, money, or self-certainty—the final authority.',
+      boundary: 'They do not promise a painless choice or a guaranteed preferred result.',
     },
   },
 ]
@@ -234,7 +273,7 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
   return (
     <div className="flex flex-col h-full overflow-hidden screen-enter">
       <div className="relative h-44 overflow-hidden shrink-0">
-        <img src={CITY_IMG} alt="Ancient city landscape" className="w-full h-full object-cover" />
+        <img src={alignmentAssets.currentPath} alt="Ancient city landscape" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: correct ? 'rgba(88,112,78,0.6)' : 'rgba(163,58,58,0.5)' }} />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
           <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: correct ? '#607255' : '#A33A3A' }}>
@@ -285,13 +324,15 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
 
 // PRAC-07 Level Complete
 export function PracticeLevelComplete() {
-  const { navigate, addXP } = useApp()
-  const [xpShown] = useState(() => { return true })
+  const { navigate, totalXP, passageMastery, practiceLevel2Complete, completePracticeLevel } = useApp()
+  const earnedXP = practiceLevel2Complete ? 0 : 50
+  const displayedTotal = totalXP + earnedXP
+  const displayedMastery = Math.max(passageMastery, 2)
 
   return (
     <div className="flex flex-col h-full overflow-hidden screen-enter">
       <div className="relative h-52 overflow-hidden shrink-0">
-        <img src={CITY_IMG} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
+        <img src={alignmentAssets.completionLandscape} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.1), rgba(247,241,231,1))' }} />
       </div>
 
@@ -315,9 +356,9 @@ export function PracticeLevelComplete() {
           <div className="flex items-center gap-3">
             <span className="text-[20px]">📖</span>
             <div className="flex-1">
-              <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Passage Mastery · 2 of 5</p>
+              <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Passage Mastery · {displayedMastery} of 5</p>
               <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
-                <div className="h-full rounded-full bar-fill" style={{ width: '40%', background: '#741630' }} />
+                <div className="h-full rounded-full bar-fill" style={{ width: `${(displayedMastery / 5) * 100}%`, background: '#741630' }} />
               </div>
             </div>
           </div>
@@ -325,9 +366,9 @@ export function PracticeLevelComplete() {
           <div className="flex items-center gap-3">
             <span className="text-[20px]">⭐</span>
             <div className="flex-1">
-              <p className="text-[13px] font-semibold mb-1 xp-pop" style={{ color: '#B68425' }}>+50 XP · 325 XP total</p>
+              <p className="text-[13px] font-semibold mb-1 xp-pop" style={{ color: '#B68425' }}>+{earnedXP} XP · {displayedTotal} XP total</p>
               <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
-                <div className="h-full rounded-full bar-fill" style={{ width: '81%', background: '#B68425' }} />
+                <div className="h-full rounded-full bar-fill" style={{ width: `${Math.min(100, (displayedTotal % 400) / 4)}%`, background: '#B68425' }} />
               </div>
             </div>
           </div>
@@ -344,7 +385,7 @@ export function PracticeLevelComplete() {
         </div>
 
         <div className="w-full flex flex-col gap-2.5">
-          <button onClick={() => { addXP(50); navigate('home') }}
+          <button onClick={() => { completePracticeLevel(); navigate('home') }}
             className="w-full rounded-full font-semibold text-[17px] transition-all"
             style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
             Return to Alignment

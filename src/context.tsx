@@ -35,6 +35,7 @@ interface AppState {
   totalXP: number
   level: number
   passageMastery: number
+  practiceLevel2Complete: boolean
 }
 
 interface AppContextType extends AppState {
@@ -46,6 +47,7 @@ interface AppContextType extends AppState {
   setAnsweredCorrect: (v: boolean) => void
   setAlignmentText: (t: string) => void
   addXP: (amount: number) => void
+  completePracticeLevel: () => void
 }
 
 const AppContext = createContext<AppContextType | null>(null)
@@ -101,6 +103,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     totalXP: 25,
     level: 1,
     passageMastery: 1,
+    practiceLevel2Complete: false,
   })
 
   const navigate = (screen: Screen) => setState(s => ({ ...s, screen }))
@@ -111,9 +114,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setAnsweredCorrect = (v: boolean) => setState(s => ({ ...s, answeredCorrect: v }))
   const setAlignmentText = (t: string) => setState(s => ({ ...s, alignmentText: t }))
   const addXP = (amount: number) => setState(s => ({ ...s, totalXP: s.totalXP + amount }))
+  const completePracticeLevel = () => setState(s => {
+    if (s.practiceLevel2Complete) return s
+    const totalXP = s.totalXP + 50
+    return {
+      ...s,
+      totalXP,
+      level: totalXP >= 400 ? 2 : s.level,
+      passageMastery: Math.max(s.passageMastery, 2),
+      practiceLevel2Complete: true,
+    }
+  })
 
   return (
-    <AppContext.Provider value={{ ...state, navigate, setTab, nextOnboardingStep, prevOnboardingStep, setSelectedAnswer, setAnsweredCorrect, setAlignmentText, addXP }}>
+    <AppContext.Provider value={{ ...state, navigate, setTab, nextOnboardingStep, prevOnboardingStep, setSelectedAnswer, setAnsweredCorrect, setAlignmentText, addXP, completePracticeLevel }}>
       {children}
     </AppContext.Provider>
   )
