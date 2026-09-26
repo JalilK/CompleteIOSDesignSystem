@@ -33,7 +33,7 @@ export function PracticeIntro() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
         {/* Scripture card */}
         <div className="rounded-[20px] p-5 relative overflow-hidden" style={{ background: '#F4EBDD' }}>
           <div className="text-[28px] font-serif leading-none mb-2" style={{ color: '#741630' }}>"</div>
@@ -372,7 +372,7 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
         <div>
           <p className="text-[12px] font-semibold uppercase tracking-wider mb-2" style={{ color: '#B68425', letterSpacing: '0.1em' }}>What the passage teaches</p>
           <p className="text-[16px] leading-[24px]" style={{ color: '#24171A' }}>{teaching}</p>
