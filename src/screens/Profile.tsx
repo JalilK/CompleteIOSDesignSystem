@@ -28,6 +28,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export function Profile() {
   const { totalXP, level, navigate } = useApp()
+  const [notice, setNotice] = useState<string | null>(null)
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
@@ -59,35 +60,40 @@ export function Profile() {
         </div>
 
         <Section title="Scripture">
-          <SettingsRow icon="book" label="Translation" value="Selected" />
-          <SettingsRow icon="leaf" label="Personalization" />
+          <SettingsRow icon="book" label="Translation" value="Selected" onPress={() => setNotice('Translation preferences will open from here in the native build.')} />
+          <SettingsRow icon="leaf" label="Personalization" onPress={() => navigate('privacy-settings')} />
         </Section>
 
         <Section title="Experience">
-          <SettingsRow icon="info" label="Notifications" />
+          <SettingsRow icon="info" label="Notifications" onPress={() => setNotice('Notification controls are previewed here and map to iOS notification settings.')} />
           <SettingsRow icon="music" label="Sensory Preferences" onPress={() => navigate('sound-controls')} />
-          <SettingsRow icon="settings" label="Accessibility" />
+          <SettingsRow icon="settings" label="Accessibility" onPress={() => setNotice('Accessibility follows Dynamic Type, Reduce Motion, and VoiceOver checks in the native app.')} />
         </Section>
 
         <Section title="Subscription">
-          <SettingsRow icon="card" label="Subscription" value="Annual · Active" />
-          <SettingsRow icon="sync" label="Restore Purchases" />
+          <SettingsRow icon="card" label="Subscription" value="Annual · Active" onPress={() => navigate('paywall')} />
+          <SettingsRow icon="sync" label="Restore Purchases" onPress={() => setNotice('Purchases restored for this preview session.')} />
         </Section>
 
         <Section title="Privacy & Data">
           <SettingsRow icon="lock" label="How Personalization Works" onPress={() => navigate('privacy-settings')} />
-          <SettingsRow icon="upload" label="Download My Data" />
+          <SettingsRow icon="upload" label="Download My Data" onPress={() => setNotice('A downloadable data export would be prepared from this control.')} />
           <SettingsRow icon="broom" label="Clear Personalization" onPress={() => navigate('privacy-settings')} />
-          <SettingsRow icon="trash" label="Delete Account" destructive />
+          <SettingsRow icon="trash" label="Delete Account" destructive onPress={() => setNotice('Delete account requires a confirmation step in the native app.')} />
         </Section>
 
         <Section title="Help">
-          <SettingsRow icon="help" label="Help & Support" />
-          <SettingsRow icon="alert" label="Report a Problem" />
-          <SettingsRow icon="shield" label="Safety Information" />
+          <SettingsRow icon="help" label="Help & Support" onPress={() => setNotice('Help and support opens contact options in the native app.')} />
+          <SettingsRow icon="alert" label="Report a Problem" onPress={() => setNotice('Problem report started. Native builds attach device and app diagnostics.')} />
+          <SettingsRow icon="shield" label="Safety Information" onPress={() => setNotice('Safety information explains crisis boundaries and pastoral limits.')} />
         </Section>
 
-        <button className="w-full rounded-full font-semibold text-[16px] transition-all"
+        {notice && (
+          <p role="status" className="rounded-[14px] px-4 py-3 text-[13px] leading-[18px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>
+        )}
+
+        <button onClick={() => setNotice('Signed out of the preview session.')}
+          className="w-full rounded-full font-semibold text-[16px] transition-all"
           style={{ height: 52, border: '1.5px solid #DDD0C0', color: '#675A5D', background: 'transparent' }}>
           Sign Out
         </button>
@@ -124,6 +130,7 @@ export function PrivacySettings() {
   const [recent, setRecent] = useState(true)
   const [path, setPath] = useState(true)
   const [why, setWhy] = useState(true)
+  const [notice, setNotice] = useState<string | null>(null)
 
   return (
     <div className="flex h-full flex-col" style={{ background: '#F7F1E7' }}>
@@ -145,14 +152,15 @@ export function PrivacySettings() {
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Prayer and meditation history</p>
         <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <SettingsRow icon="sync" label="Clear prayer and meditation history" value="Remove past sessions" />
+          <SettingsRow icon="sync" label="Clear prayer and meditation history" value="Remove past sessions" onPress={() => setNotice('Prayer and meditation history cleared for this preview.')} />
         </div>
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Audio preferences</p>
         <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-          <SettingsRow icon="music" label="Preferred voice" value="A gentle, steady pace" />
-          <SettingsRow icon="trash" label="Delete personalization data" value="Remove saved preferences" destructive />
+          <SettingsRow icon="music" label="Preferred voice" value="A gentle, steady pace" onPress={() => setNotice('Preferred voice selector opens from here in the native app.')} />
+          <SettingsRow icon="trash" label="Delete personalization data" value="Remove saved preferences" destructive onPress={() => setNotice('Personalization data deletion requires confirmation in the native app.')} />
         </div>
+        {notice && <p role="status" className="mt-5 rounded-[14px] px-4 py-3 text-[13px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>}
       </div>
     </div>
   )

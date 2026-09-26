@@ -21,6 +21,11 @@ function BackButton({ onBack }: { onBack: () => void }) {
 export function AlignmentIntake() {
   const { navigate, goBack, alignmentText, setAlignmentText } = useApp()
   const [text, setText] = useState(alignmentText)
+  const [notice, setNotice] = useState<string | null>(null)
+  const useExample = () => {
+    setText("I'm anxious about whether to accept a new job. I don't want fear or money to make the decision for me.")
+    setNotice('Example added. You can edit it before continuing.')
+  }
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -49,9 +54,10 @@ export function AlignmentIntake() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <button className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#741630' }}><AppIcon name="info" size={14} color="#741630" /> Choose an example situation</button>
-          <button className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#897A76' }}><AppIcon name="lock" size={14} color="#897A76" /> How Alignment uses this information</button>
+          <button onClick={useExample} className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#741630' }}><AppIcon name="info" size={14} color="#741630" /> Choose an example situation</button>
+          <button onClick={() => setNotice('Alignment text is used only to recommend Scripture, teaching, and a faithful next step for this session.')} className="text-[13px] text-left inline-flex items-center gap-1.5" style={{ color: '#897A76' }}><AppIcon name="lock" size={14} color="#897A76" /> How Alignment uses this information</button>
         </div>
+        {notice && <p role="status" className="rounded-[12px] px-3 py-2 text-[12px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>}
 
         {/* Recent Alignments */}
         <div>
@@ -142,6 +148,8 @@ export function AlignmentAnalyzing() {
 // ALN-05 Alignment Report
 export function AlignmentReport() {
   const { navigate, goBack } = useApp()
+  const [saved, setSaved] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -150,7 +158,7 @@ export function AlignmentReport() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
           <BackButton onBack={() => goBack('home')} />
-          <button className="w-10 h-10 flex items-center justify-center">
+          <button onClick={() => setMenuOpen(v => !v)} className="w-10 h-10 flex items-center justify-center" aria-label="Alignment options">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14M4 11h14M4 18h7" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" /></svg>
           </button>
         </div>
@@ -163,6 +171,13 @@ export function AlignmentReport() {
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+        {menuOpen && (
+          <div className="rounded-[14px] p-3 text-[13px]" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', color: '#675A5D' }}>
+            <button onClick={() => setSaved(v => !v)} className="block w-full py-2 text-left" style={{ color: '#24171A' }}>{saved ? 'Remove saved Alignment' : 'Save Alignment'}</button>
+            <button onClick={() => setMenuOpen(false)} className="block w-full py-2 text-left" style={{ color: '#24171A' }}>Close options</button>
+          </div>
+        )}
+        {saved && <p role="status" className="rounded-[12px] px-3 py-2 text-[12px]" style={{ background: '#E6ECE2', color: '#40513B' }}>Alignment saved to your Library.</p>}
         {/* What seems to be happening */}
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#897A76', letterSpacing: '0.1em' }}>What seems to be happening</p>

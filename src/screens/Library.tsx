@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useApp } from '../context'
 import { IconDisc } from '../components/AppIcon'
 import { alignmentAssets } from '../assets/alignment/assets'
@@ -18,13 +19,21 @@ const mastered = [
 
 export function Library() {
   const { navigate } = useApp()
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [showProgress, setShowProgress] = useState(false)
+  const [showMastered, setShowMastered] = useState(false)
+  const visiblePassages = showProgress ? passages.slice(1) : passages.slice(1, 3)
+  const filteredPassages = query.trim()
+    ? [...passages, ...mastered].filter(p => `${p.ref} ${p.context}`.toLowerCase().includes(query.toLowerCase()))
+    : []
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
       {/* Header */}
       <div className="px-5 pt-14 pb-4 flex items-center justify-between" style={{ background: '#F7F1E7' }}>
         <h1 className="font-serif text-[30px] font-bold" style={{ color: '#24171A' }}>Scripture Library</h1>
-        <button className="w-10 h-10 flex items-center justify-center">
+        <button onClick={() => setSearchOpen(v => !v)} className="w-10 h-10 flex items-center justify-center" aria-label="Search library">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             <circle cx="9.5" cy="9.5" r="6.5" stroke="#675A5D" strokeWidth="1.8" />
             <path d="M14.5 14.5L20 20" stroke="#675A5D" strokeWidth="1.8" strokeLinecap="round" />
@@ -33,11 +42,39 @@ export function Library() {
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {searchOpen && (
+          <div className="px-5 pb-4">
+            <input
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              autoFocus
+              placeholder="Search Scripture, alignments, devotionals..."
+              className="h-12 w-full rounded-[14px] px-4 text-[15px] outline-none"
+              style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', color: '#24171A' }}
+            />
+            {query.trim() && (
+              <div className="mt-3 rounded-[14px] overflow-hidden" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+                {filteredPassages.length ? filteredPassages.map((p, index) => (
+                  <button key={`${p.ref}-${index}`} onClick={() => navigate('practice-intro')} className="flex w-full items-center gap-3 px-3 py-3 text-left" style={{ borderBottom: index < filteredPassages.length - 1 ? '1px solid #DDD0C0' : 'none' }}>
+                    <img src={p.img} alt="" className="h-12 w-12 rounded-[9px] object-cover" />
+                    <span>
+                      <span className="block font-serif text-[15px] font-semibold" style={{ color: '#24171A' }}>{p.ref}</span>
+                      <span className="block text-[12px]" style={{ color: '#675A5D' }}>{p.context}</span>
+                    </span>
+                  </button>
+                )) : (
+                  <p className="px-4 py-3 text-[13px]" style={{ color: '#897A76' }}>No matching Scripture found.</p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Ready for Review */}
         <div className="px-5 mb-2">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Ready for Review</p>
-            <button className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
+            <button onClick={() => navigate('practice-intro')} className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
           </div>
           <div className="rounded-[20px] overflow-hidden relative" style={{ height: 160, background: '#1a1208' }}>
             <img src={IMG1} alt="Valley landscape" className="w-full h-full object-cover opacity-80" />
@@ -61,11 +98,11 @@ export function Library() {
         <div className="px-5 mt-5">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Passages in Progress</p>
-            <button className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
+            <button onClick={() => setShowProgress(v => !v)} className="text-[13px] font-medium" style={{ color: '#741630' }}>{showProgress ? 'Show Less' : 'See All'}</button>
           </div>
           <div className="flex flex-col gap-2.5">
-            {passages.slice(1).map((p, i) => (
-              <div key={i} className="rounded-[16px] flex items-center gap-4 overflow-hidden p-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+            {visiblePassages.map((p, i) => (
+              <button key={i} onClick={() => navigate('practice-intro')} className="rounded-[16px] flex items-center gap-4 overflow-hidden p-3 text-left" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
                 <div className="w-16 h-16 rounded-[12px] overflow-hidden shrink-0">
                   <img src={p.img} alt={p.ref} className="w-full h-full object-cover" />
                 </div>
@@ -82,7 +119,7 @@ export function Library() {
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0">
                   <path d="M6 4l4 4-4 4" stroke="#DDD0C0" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -91,10 +128,10 @@ export function Library() {
         <div className="px-5 mt-5 pb-6">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Mastered</p>
-            <button className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
+            <button onClick={() => setShowMastered(v => !v)} className="text-[13px] font-medium" style={{ color: '#741630' }}>{showMastered ? 'Show Less' : 'See All'}</button>
           </div>
-          {mastered.map((p, i) => (
-            <div key={i} className="rounded-[16px] flex items-center gap-4 p-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+          {(showMastered ? mastered : mastered.slice(0, 1)).map((p, i) => (
+            <button key={i} onClick={() => navigate('context-study')} className="rounded-[16px] flex w-full items-center gap-4 p-3 text-left" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
               <div className="w-16 h-16 rounded-[12px] overflow-hidden shrink-0">
                 <img src={p.img} alt={p.ref} className="w-full h-full object-cover" />
               </div>
@@ -106,7 +143,7 @@ export function Library() {
               <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: '#E6ECE2' }}>
                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5l4 4 8-9" stroke="#607255" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 

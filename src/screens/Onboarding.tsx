@@ -356,7 +356,7 @@ function RecommendedPathScreen({ onNext, onBack }: { onNext: () => void; onBack:
         <p className="-mt-1 text-[17px] leading-[24px]" style={{ color: '#30272A' }}>
           Learn to understand what Scripture establishes and choose one faithful next step.
         </p>
-        <button className="mt-5 flex min-h-[90px] items-center gap-4 rounded-[11px] p-3 text-left" style={{ background: 'rgba(255,252,246,0.82)', border: '1px solid rgba(221,208,192,0.72)', boxShadow: '0 1px 9px rgba(30,21,18,0.05)' }}>
+        <button onClick={onNext} className="mt-5 flex min-h-[90px] items-center gap-4 rounded-[11px] p-3 text-left" style={{ background: 'rgba(255,252,246,0.82)', border: '1px solid rgba(221,208,192,0.72)', boxShadow: '0 1px 9px rgba(30,21,18,0.05)' }}>
           <span className="relative h-[66px] w-[88px] shrink-0 overflow-hidden rounded-[8px]">
             <img src={STONE_PATH} alt="" className="h-full w-full object-cover" />
             <span className="absolute inset-0 flex items-center justify-center">

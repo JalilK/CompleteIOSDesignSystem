@@ -22,6 +22,8 @@ function BackButton({ onBack }: { onBack: () => void }) {
 
 export function Devotional() {
   const { navigate, goBack } = useApp()
+  const [saved, setSaved] = useState(false)
+  const [whyOpen, setWhyOpen] = useState(false)
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -30,9 +32,9 @@ export function Devotional() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
           <BackButton onBack={() => goBack('home')} />
-          <button className="w-10 h-10 flex items-center justify-center">
+          <button onClick={() => setSaved(v => !v)} className="w-10 h-10 flex items-center justify-center" aria-label={saved ? 'Remove saved devotional' : 'Save devotional'}>
             <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
-              <path d="M5 3h12a2 2 0 012 2v14l-7-3-7 3V5a2 2 0 012-2z" stroke="#675A5D" strokeWidth="1.8" strokeLinejoin="round" />
+              <path d="M5 3h12a2 2 0 012 2v14l-7-3-7 3V5a2 2 0 012-2z" stroke="#675A5D" fill={saved ? '#E6C878' : 'none'} strokeWidth="1.8" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
@@ -46,10 +48,15 @@ export function Devotional() {
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
         {/* Why selected */}
-        <button className="flex items-center gap-2 text-[13px] font-medium" style={{ color: '#B68425' }}>
+        <button onClick={() => setWhyOpen(v => !v)} className="flex items-center gap-2 text-[13px] font-medium" style={{ color: '#B68425' }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#B68425" strokeWidth="1.5" /><path d="M7 5v3M7 9.5v.5" stroke="#B68425" strokeWidth="1.5" strokeLinecap="round" /></svg>
           Why this was selected for you
         </button>
+        {whyOpen && (
+          <div className="rounded-[14px] p-4 text-[13px] leading-[19px]" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', color: '#675A5D' }}>
+            Selected because your current Path is Trusting God Through Uncertainty and your recent Alignment mentions making a decision without fear becoming the final authority.
+          </div>
+        )}
 
         {/* Scripture */}
         <div>
@@ -123,7 +130,7 @@ export function Devotional() {
               style={{ height: 48, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
               <AppIcon name="prayer" size={17} color="#675A5D" /> Pray Scripture
             </button>
-            <button className="flex-1 rounded-full font-semibold text-[14px] transition-all flex items-center justify-center gap-2"
+            <button onClick={() => navigate('meditation-player')} className="flex-1 rounded-full font-semibold text-[14px] transition-all flex items-center justify-center gap-2"
               style={{ height: 48, background: 'transparent', border: '1.5px solid #DDD0C0', color: '#675A5D' }}>
               <AppIcon name="audio" size={17} color="#675A5D" /> Listen
             </button>
@@ -209,6 +216,7 @@ function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () 
     { ref: 'Proverbs 3:5–6', text: 'In all thy ways acknowledge him, and he shall direct thy paths.' },
   ]
   const [idx, setIdx] = useState(0)
+  const [notice, setNotice] = useState<string | null>(null)
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
@@ -219,13 +227,14 @@ function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () 
         <div>
           <span className="block h-1 w-8 rounded-full" style={{ background: '#DDD0C0' }} />
         </div>
-        <button className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
+        <button onClick={() => setNotice('Prayer options: save, share, or restart this prayer practice.')} className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
       </div>
       <div className="px-7">
         <h1 className="font-serif text-[37px] font-semibold leading-[44px]" style={{ color: '#24171A' }}>Pray Scripture</h1>
         <p className="mt-3 text-[16px] leading-[22px]" style={{ color: '#30272A' }}>Read slowly. Pause where the words meet your need.</p>
       </div>
       <div className="flex-1 px-7 pt-5 flex flex-col gap-6">
+        {notice && <p role="status" className="rounded-[12px] px-3 py-2 text-[12px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>}
         <div className="rounded-[15px] p-6" style={{ background: '#F4EBDD', border: '1px solid #E5D7C6' }}>
           <p className="font-serif text-[22px] leading-[34px]" style={{ color: '#24171A' }}>
             {verses.map(v => v.text).join(' ')}
@@ -247,13 +256,17 @@ function PrayScripture({ onBack, onFinish }: { onBack: () => void; onFinish: () 
 }
 
 function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () => void }) {
+  const [editing, setEditing] = useState(false)
+  const [prayer, setPrayer] = useState('Lord, I choose to trust You with all my heart. Help me to let go of my own understanding and to acknowledge You in all my ways. Direct my paths, and give me the courage to follow You today. Amen.')
+  const [notice, setNotice] = useState<string | null>(null)
+
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-4 flex items-center justify-between shrink-0">
         <button onClick={onBack} className="w-10 h-10 flex items-center justify-center rounded-full" aria-label="Back">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
-        <button className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
+        <button onClick={() => setNotice('Guided prayer options: save prayer, share, or regenerate in the native app.')} className="w-10 h-10 flex items-center justify-center" aria-label="More"><span className="text-[20px]" style={{ color: '#24171A' }}>...</span></button>
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-6 flex flex-col gap-5">
         <div className="text-center">
@@ -269,10 +282,13 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
           </div>
         </div>
         <div className="rounded-[20px] p-5 flex flex-col gap-4" style={{ background: '#FFFCF6' }}>
-          <p className="text-[15px] leading-[24px]" style={{ color: '#24171A' }}>
-            Lord, I choose to trust You with all my heart. Help me to let go of my own understanding and to acknowledge You in all my ways. Direct my paths, and give me the courage to follow You today. Amen.
-          </p>
+          {editing ? (
+            <textarea value={prayer} onChange={event => setPrayer(event.target.value)} className="min-h-[150px] w-full resize-none bg-transparent text-[15px] leading-[24px] outline-none" style={{ color: '#24171A' }} />
+          ) : (
+            <p className="text-[15px] leading-[24px]" style={{ color: '#24171A' }}>{prayer}</p>
+          )}
         </div>
+        {notice && <p role="status" className="rounded-[12px] px-3 py-2 text-[12px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>}
         <div className="rounded-[13px] p-4 flex gap-3" style={{ background: '#F4EBDD' }}>
           <IconDisc name="info" size={32} iconSize={18} bg="#B68425" color="#FFFCF6" />
           <p className="text-[13px] leading-[18px]" style={{ color: '#30272A' }}>This prayer is shaped by the displayed Scripture.</p>
@@ -284,9 +300,9 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
           style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
           <AppIcon name="play" size={18} color="#FFFCF6" /> Listen
         </button>
-        <button className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
+        <button onClick={() => setEditing(v => !v)} className="w-full rounded-full font-semibold text-[16px] transition-all flex items-center justify-center gap-2"
           style={{ height: 52, background: 'transparent', border: '1.5px solid #9B6B18', color: '#7B4B16' }}>
-          <AppIcon name="edit" size={18} color="#7B4B16" /> Edit prayer
+          <AppIcon name="edit" size={18} color="#7B4B16" /> {editing ? 'Save edits' : 'Edit prayer'}
         </button>
       </div>
     </div>
@@ -295,6 +311,14 @@ function GuidedPrayer({ onBack, onFinish }: { onBack: () => void; onFinish: () =
 
 export function MeditationPlayer() {
   const { navigate, goBack } = useApp()
+  const [playing, setPlaying] = useState(true)
+  const [position, setPosition] = useState(134)
+  const [speedIndex, setSpeedIndex] = useState(0)
+  const [transcriptOpen, setTranscriptOpen] = useState(false)
+  const speeds = ['1×', '1.25×', '1.5×', '2×']
+  const progress = `${Math.min(90, Math.max(6, (position / 360) * 100))}%`
+  const time = `${Math.floor(position / 60)}:${String(position % 60).padStart(2, '0')}`
+
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#111716' }}>
       <img src={DEV_IMG} alt="Still waters at sunrise" className="absolute inset-0 h-full w-full object-cover" />
@@ -315,18 +339,23 @@ export function MeditationPlayer() {
           </div>
           <div className="mt-7">
             <div className="relative h-[3px] rounded-full" style={{ background: 'rgba(255,252,246,0.42)' }}>
-              <div className="absolute left-0 top-0 h-full w-[42%] rounded-full" style={{ background: '#FFFCF6' }} />
-              <div className="absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full" style={{ left: '42%', background: '#FFFCF6' }} />
+              <div className="absolute left-0 top-0 h-full rounded-full" style={{ width: progress, background: '#FFFCF6' }} />
+              <div className="absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full" style={{ left: progress, background: '#FFFCF6' }} />
             </div>
-            <div className="mt-3 flex justify-between text-[12px]"><span>2:14</span><span>6:00</span></div>
+            <div className="mt-3 flex justify-between text-[12px]"><span>{time}</span><span>6:00</span></div>
           </div>
           <div className="mt-7 flex items-center justify-center gap-8">
-            <button className="h-11 w-11 rounded-full border border-white/35">↶<span className="text-[10px]">15</span></button>
-            <button className="h-[66px] w-[66px] rounded-full text-[30px]" style={{ background: '#FFFCF6', color: '#24171A' }}>Ⅱ</button>
-            <button className="h-11 w-11 rounded-full border border-white/35">↷<span className="text-[10px]">15</span></button>
-            <button className="h-11 w-11 rounded-full border border-white/25">1×</button>
+            <button onClick={() => setPosition(v => Math.max(0, v - 15))} className="h-11 w-11 rounded-full border border-white/35" aria-label="Rewind 15 seconds">↶<span className="text-[10px]">15</span></button>
+            <button onClick={() => setPlaying(v => !v)} className="h-[66px] w-[66px] rounded-full text-[30px]" style={{ background: '#FFFCF6', color: '#24171A' }} aria-label={playing ? 'Pause meditation' : 'Play meditation'}>{playing ? 'Ⅱ' : '▶'}</button>
+            <button onClick={() => setPosition(v => Math.min(360, v + 15))} className="h-11 w-11 rounded-full border border-white/35" aria-label="Forward 15 seconds">↷<span className="text-[10px]">15</span></button>
+            <button onClick={() => setSpeedIndex(v => (v + 1) % speeds.length)} className="h-11 w-11 rounded-full border border-white/25" aria-label="Change playback speed">{speeds[speedIndex]}</button>
           </div>
-          <button className="mt-7 h-11 w-full rounded-full border border-white/35 text-[14px]">▤ View transcript</button>
+          <button onClick={() => setTranscriptOpen(v => !v)} className="mt-7 h-11 w-full rounded-full border border-white/35 text-[14px]">▤ {transcriptOpen ? 'Hide transcript' : 'View transcript'}</button>
+          {transcriptOpen && (
+            <div className="mt-4 rounded-[16px] p-4 text-[13px] leading-[19px]" style={{ background: 'rgba(255,252,246,0.14)', border: '1px solid rgba(255,252,246,0.25)' }}>
+              Trust in the Lord with all your heart. Breathe slowly. Release the need to control the outcome, and ask for courage to choose the next faithful step.
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -379,7 +408,7 @@ export function SoundControls() {
           <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="music" size={17} color="#24171A" /> Music off</span>
           <span className="h-5 w-5 rounded-full border" style={{ borderColor: soundscape === 'Music off' ? '#B68425' : '#A99B8B' }} />
         </button>
-        <button className="mt-5 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+        <button onClick={() => navigate('privacy-settings')} className="mt-5 flex h-52 w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="settings" size={17} color="#24171A" /> Sensory settings</span>
           <span>›</span>
         </button>

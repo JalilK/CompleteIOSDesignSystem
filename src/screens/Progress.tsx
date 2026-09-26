@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useApp } from '../context'
 import { AppIcon, type AppIconName } from '../components/AppIcon'
 
@@ -62,7 +63,8 @@ function RhythmDots() {
 }
 
 export function Progress() {
-  const { totalXP, level } = useApp()
+  const { totalXP, level, navigate } = useApp()
+  const [showAll, setShowAll] = useState(false)
   const xpToNext = 400 - (totalXP % 400)
   const pct = ((totalXP % 400) / 400) * 100
 
@@ -70,7 +72,7 @@ export function Progress() {
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-4 flex items-center justify-between" style={{ background: '#F7F1E7' }}>
         <h1 className="font-serif text-[30px] font-bold" style={{ color: '#24171A' }}>Your Progress</h1>
-        <button className="w-10 h-10 flex items-center justify-center">
+        <button onClick={() => navigate('profile')} className="w-10 h-10 flex items-center justify-center" aria-label="Progress settings">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             <circle cx="11" cy="11" r="9" stroke="#675A5D" strokeWidth="1.8" />
             <path d="M8 8.5C8 7 9.5 6 11 6s3 1 3 2.5c0 2-3 2.5-3 4.5" stroke="#675A5D" strokeWidth="1.5" strokeLinecap="round" />
@@ -131,10 +133,10 @@ export function Progress() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Achievements</p>
-            <button className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
+            <button onClick={() => setShowAll(v => !v)} className="text-[13px] font-medium" style={{ color: '#741630' }}>{showAll ? 'Show Less' : 'See All'}</button>
           </div>
           <div className="grid grid-cols-4 gap-3">
-            {achievements.slice(0, 8).map(a => <MedalBadge key={a.id} a={a} />)}
+            {achievements.slice(0, showAll ? achievements.length : 8).map(a => <MedalBadge key={a.id} a={a} />)}
           </div>
         </div>
 
@@ -152,7 +154,7 @@ export function Progress() {
         </div>
 
         {/* All achievements */}
-        <div>
+        {showAll && <div>
           <p className="text-[17px] font-semibold mb-4" style={{ color: '#24171A' }}>All Achievements</p>
           <div className="flex flex-col gap-3">
             {achievements.map(a => (
@@ -179,7 +181,7 @@ export function Progress() {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   )
