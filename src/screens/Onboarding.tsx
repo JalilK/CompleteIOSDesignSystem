@@ -180,15 +180,15 @@ function QuestionReferenceNativeScreen({ onNext, onBack }: { onNext: () => void;
 
 function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
+    <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
-      <div className="relative h-[314px] shrink-0 overflow-hidden">
+      <div className="relative h-[276px] overflow-hidden">
         <img src={completionLandscape} alt="Ancient stone path and city at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.05) 0%, rgba(247,241,231,0.02) 48%, #F7F1E7 100%)' }} />
       </div>
-      <div className="relative -mt-[74px] flex flex-1 flex-col items-center px-6 pb-8 text-center">
-        <div className="relative flex h-[112px] w-[112px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
-          <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
+      <div className="relative -mt-[66px] flex flex-col items-center px-6 pb-8 text-center">
+        <div className="relative flex h-[104px] w-[104px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
+          <div className="flex h-[82px] w-[82px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
               <path d="M23 38V12" stroke="#DDB761" strokeWidth="2.2" strokeLinecap="round" />
               <path d="M23 29c-6-7-6-13-2-20 5 6 6 13 2 20z" fill="#DDB761" opacity="0.86" />
@@ -196,7 +196,7 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
             </svg>
           </div>
         </div>
-        <h2 className="mt-9 font-serif text-[33px] font-semibold leading-[38px]" style={{ color: '#3A0D18' }}>
+        <h2 className="mt-7 font-serif text-[31px] font-semibold leading-[36px]" style={{ color: '#3A0D18' }}>
           First Scripture<br />practice <em className="font-medium" style={{ color: '#7B4B16' }}>complete</em>
         </h2>
         <p className="mt-5 text-[14px]" style={{ color: '#30272A' }}>Passage Mastery · Level 1 of 5</p>
@@ -215,7 +215,7 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
           </span>
           <span className="text-[13px] font-medium" style={{ color: '#30272A' }}>Text Before Assumption · 1 of 3</span>
         </div>
-        <div className="mt-auto w-full">
+        <div className="mt-7 w-full">
           <PrimaryButton label="Continue" onPress={onNext} />
         </div>
       </div>
