@@ -46,34 +46,61 @@ const DEVOTIONALS: DevotionalCardSpec[] = [
     image: STILL_WATERS_IMG,
     icon: 'tree',
   },
+  {
+    label: 'Prayer',
+    title: 'Plan Humbly, Pray Honestly',
+    subtitle: 'A prayer-shaped devotional',
+    passage: 'James 4:13-15',
+    image: PRAYER_IMG,
+    icon: 'leaf',
+  },
+  {
+    label: 'Scripture',
+    title: 'The Way That Seems Right',
+    subtitle: 'A short text-first reflection',
+    passage: 'Proverbs 14:12',
+    image: MORNING_PATH_IMG,
+    icon: 'tree',
+  },
 ]
 
 export function DevotionalsIndex() {
   const { navigate, goBack } = useApp()
+  const [filter, setFilter] = useState('All')
+  const filters = ['All', 'For You', 'Scripture', 'Prayer', 'Recent']
+  const visibleDevotionals = filter === 'All'
+    ? DEVOTIONALS
+    : DEVOTIONALS.filter(item => item.label === filter || (filter === 'Scripture' && item.passage.includes('Proverbs')))
 
   return (
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <div className="px-5 pt-14 pb-3 flex items-center gap-3 shrink-0">
         <BackButton onBack={() => goBack('home')} />
         <div>
-          <h1 className="font-serif text-[31px] leading-[36px] font-semibold" style={{ color: '#3A0D18' }}>Library</h1>
-          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Saved Scripture, devotionals, prayer, and journeys.</p>
+          <h1 className="font-serif text-[31px] leading-[36px] font-semibold" style={{ color: '#3A0D18' }}>Devotionals</h1>
+          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Teaching that leads back into Scripture practice.</p>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-4">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col gap-4" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 34px)' }}>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-          {['All', 'Scripture', 'Alignments', 'Devotionals', 'Prayer'].map((label, index) => (
-            <button key={label} className="shrink-0 rounded-full px-4 py-2 text-[12px] font-medium" style={{ background: index === 0 ? '#741630' : '#F4EBDD', color: index === 0 ? '#FFFCF6' : '#4A3D3A' }}>
+          {filters.map(label => (
+            <button key={label} onClick={() => setFilter(label)} className="shrink-0 rounded-full px-4 py-2 text-[12px] font-medium" style={{ background: filter === label ? '#741630' : '#F4EBDD', color: filter === label ? '#FFFCF6' : '#4A3D3A' }}>
               {label}
             </button>
           ))}
         </div>
 
-        <p className="font-serif text-[20px] font-semibold" style={{ color: '#3A0D18' }}>Continue</p>
-        {DEVOTIONALS.map(item => (
+        <div className="rounded-[14px] p-4" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+          <p className="text-[11px] font-semibold uppercase" style={{ color: '#B68425', letterSpacing: '0.12em' }}>Today’s emphasis</p>
+          <h2 className="mt-1 font-serif text-[22px] leading-[27px] font-semibold" style={{ color: '#3A0D18' }}>Trust does not demand the outcome</h2>
+          <p className="mt-2 text-[13px] leading-[19px]" style={{ color: '#675A5D' }}>Open a devotional, read the Scripture, then continue into validated practice when you are ready.</p>
+        </div>
+
+        <p className="font-serif text-[20px] font-semibold" style={{ color: '#3A0D18' }}>{filter === 'All' ? 'Continue' : filter}</p>
+        {visibleDevotionals.map(item => (
           <button key={item.label} onClick={() => navigate('devotional')} className="overflow-hidden rounded-[8px] text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6', boxShadow: '0 1px 14px rgba(30,21,18,0.08)' }}>
-            <div className="relative h-[172px] overflow-hidden">
+            <div className="relative h-[154px] overflow-hidden">
               <img src={item.image} alt="" className="h-full w-full object-cover" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.02) 0%, rgba(30,21,18,0.72) 100%)' }} />
               <div className="absolute left-4 right-4 bottom-4">
@@ -116,7 +143,7 @@ export function Devotional() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <div className="relative h-[318px] overflow-hidden shrink-0">
+      <div className="relative h-[286px] overflow-hidden shrink-0">
         <img src={DEV_IMG} alt="Valley landscape with golden light" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.12) 0%, rgba(30,21,18,0.08) 42%, rgba(247,241,231,0.88) 80%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
@@ -136,7 +163,7 @@ export function Devotional() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-3 flex flex-col gap-5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 34px)' }}>
         {/* Why selected */}
         <button onClick={() => setWhyOpen(v => !v)} className="flex items-center gap-2 text-[13px] font-medium" style={{ color: '#B68425' }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#B68425" strokeWidth="1.5" /><path d="M7 5v3M7 9.5v.5" stroke="#B68425" strokeWidth="1.5" strokeLinecap="round" /></svg>
@@ -237,7 +264,7 @@ export function PrayerMode() {
 
   return (
     <div className="relative flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
-      <div className="absolute inset-x-0 top-0 h-[220px]">
+      <div className="absolute inset-x-0 top-0 h-[188px]">
         <img src={PRAYER_IMG} alt="" className="h-full w-full object-cover opacity-80" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.34) 0%, #F7F1E7 100%)' }} />
       </div>
@@ -250,7 +277,7 @@ export function PrayerMode() {
         <h1 className="font-serif text-[35px] font-semibold leading-[40px]" style={{ color: '#24171A' }}>Pray or meditate</h1>
       </div>
 
-      <div className="relative flex-1 overflow-y-auto scrollbar-hide px-5 pb-7 flex flex-col gap-5">
+      <div className="relative flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col gap-5" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 34px)' }}>
         <button onClick={() => navigate('devotional')} className="rounded-[14px] p-3 flex items-center gap-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <div className="h-[86px] w-[105px] rounded-[9px] overflow-hidden shrink-0">
             <img src={PRAYER_IMG} alt="Open Bible in quiet light" className="h-full w-full object-cover" />
@@ -301,7 +328,7 @@ function PrayerIcon({ kind, color }: { kind: string; color: string }) {
 
 export function PrayScriptureScreen() {
   const { navigate, goBack } = useApp()
-  return <PrayScripture onBack={() => goBack('prayer-mode')} onFinish={() => navigate('meditation-player')} />
+  return <PrayScripture onBack={() => goBack('prayer-mode')} onFinish={() => navigate('guided-prayer')} />
 }
 
 export function GuidedPrayerScreen() {
@@ -464,6 +491,8 @@ export function MeditationPlayer() {
 export function SoundControls() {
   const { navigate, goBack } = useApp()
   const [music, setMusic] = useState(true)
+  const [effects, setEffects] = useState(true)
+  const [reduceMotion, setReduceMotion] = useState(false)
   const [narration, setNarration] = useState(80)
   const [musicLevel, setMusicLevel] = useState(35)
   const [soundscape, setSoundscape] = useState('Still Waters')
@@ -494,6 +523,20 @@ export function SoundControls() {
           <label className="mt-8 flex items-center justify-between">
             <span className="text-[15px]" style={{ color: '#24171A' }}>Background music</span>
             <button onClick={() => setMusic(v => !v)} className="h-8 w-14 rounded-full p-1" style={{ background: music ? '#40513B' : '#DDD0C0' }} aria-label="Toggle background music"><span className="block h-6 w-6 rounded-full bg-white transition-transform" style={{ transform: music ? 'translateX(24px)' : 'translateX(0)' }} /></button>
+          </label>
+          <label className="mt-4 flex items-center justify-between">
+            <span>
+              <span className="block text-[15px]" style={{ color: '#24171A' }}>Sound effects</span>
+              <span className="block text-[12px]" style={{ color: '#675A5D' }}>Gentle confirmations for taps and completions</span>
+            </span>
+            <button onClick={() => setEffects(v => !v)} className="h-8 w-14 rounded-full p-1" style={{ background: effects ? '#40513B' : '#DDD0C0' }} aria-label="Toggle sound effects"><span className="block h-6 w-6 rounded-full bg-white transition-transform" style={{ transform: effects ? 'translateX(24px)' : 'translateX(0)' }} /></button>
+          </label>
+          <label className="mt-4 flex items-center justify-between">
+            <span>
+              <span className="block text-[15px]" style={{ color: '#24171A' }}>Reduce motion</span>
+              <span className="block text-[12px]" style={{ color: '#675A5D' }}>Use calmer transitions and progress animations</span>
+            </span>
+            <button onClick={() => setReduceMotion(v => !v)} className="h-8 w-14 rounded-full p-1" style={{ background: reduceMotion ? '#40513B' : '#DDD0C0' }} aria-label="Toggle reduce motion"><span className="block h-6 w-6 rounded-full bg-white transition-transform" style={{ transform: reduceMotion ? 'translateX(24px)' : 'translateX(0)' }} /></button>
           </label>
           {soundMixControls.map(({ label, value, setValue, icon }) => (
             <div key={label} className="mt-7">
@@ -527,7 +570,7 @@ export function SoundControls() {
             <span className="h-5 w-5 rounded-full border" style={{ borderColor: soundscape === 'Music off' ? '#B68425' : '#A99B8B' }} />
           </button>
           <button onClick={() => navigate('privacy-settings')} className="mt-5 flex w-full items-center justify-between rounded-[12px] px-4" style={{ height: 52, background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-            <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="settings" size={17} color="#24171A" /> Sensory settings</span>
+            <span className="flex items-center gap-2 text-[14px]" style={{ color: '#24171A' }}><AppIcon name="settings" size={17} color="#24171A" /> Privacy and sensory settings</span>
             <span>›</span>
           </button>
         </div>

@@ -41,7 +41,7 @@ export function Library() {
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 24px)' }}>
         {searchOpen && (
           <div className="px-5 pb-4">
             <input
@@ -74,9 +74,9 @@ export function Library() {
         <div className="px-5 mb-2">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Ready for Review</p>
-            <button onClick={() => navigate('practice-intro')} className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
+            <button onClick={() => setSearchOpen(true)} className="text-[13px] font-medium" style={{ color: '#741630' }}>See All</button>
           </div>
-          <div className="rounded-[20px] overflow-hidden relative" style={{ height: 160, background: '#1a1208' }}>
+          <div className="rounded-[14px] overflow-hidden relative" style={{ height: 154, background: '#1a1208' }}>
             <img src={IMG1} alt="Valley landscape" className="w-full h-full object-cover opacity-80" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(30,21,18,0.85) 0%, rgba(30,21,18,0.1) 100%)' }} />
             <div className="absolute bottom-4 left-4 right-4">
@@ -125,7 +125,7 @@ export function Library() {
         </div>
 
         {/* Mastered */}
-        <div className="px-5 mt-5 pb-6">
+        <div className="px-5 mt-5 pb-2">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[17px] font-semibold" style={{ color: '#24171A' }}>Mastered</p>
             <button onClick={() => setShowMastered(v => !v)} className="text-[13px] font-medium" style={{ color: '#741630' }}>{showMastered ? 'Show Less' : 'See All'}</button>
@@ -148,21 +148,21 @@ export function Library() {
         </div>
 
         {/* Recent Alignments */}
-        <div className="px-5 pb-6">
+        <div className="px-5 pb-8">
           <p className="text-[17px] font-semibold mb-3" style={{ color: '#24171A' }}>Recent Alignments</p>
           {[
             { title: 'Deciding whether to accept this job', time: 'Today', status: 'Faithful action waiting' },
             { title: 'Navigating conflict with a friend', time: '3 days ago', status: 'Complete' },
             { title: 'Finding contentment in this season', time: '1 week ago', status: 'Complete' },
           ].map((a, i) => (
-            <div key={i} className="flex items-center gap-3 py-3" style={{ borderBottom: i < 2 ? '1px solid #DDD0C0' : 'none' }}>
+            <button key={i} onClick={() => navigate(i === 0 ? 'faithful-action' : 'alignment-report')} className="flex w-full items-center gap-3 py-3 text-left" style={{ borderBottom: i < 2 ? '1px solid #DDD0C0' : 'none' }}>
               <IconDisc name="leaf" size={32} iconSize={17} bg="#F4EBDD" color="#607255" />
               <div className="flex-1">
                 <p className="text-[14px] font-medium" style={{ color: '#24171A' }}>{a.title}</p>
                 <p className="text-[12px]" style={{ color: '#897A76' }}>{a.time} · <span style={{ color: a.status === 'Complete' ? '#607255' : '#A66F17' }}>{a.status}</span></p>
               </div>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#DDD0C0" strokeWidth="1.5" strokeLinecap="round" /></svg>
-            </div>
+            </button>
           ))}
         </div>
       </div>

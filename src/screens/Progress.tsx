@@ -56,7 +56,7 @@ export function Progress() {
 
   return (
     <div className="relative flex flex-col h-full" style={{ background: '#F7F1E7' }}>
-      <div className="absolute left-0 right-0 top-0 h-[345px] overflow-hidden">
+      <div className="absolute left-0 right-0 top-0 h-[292px] overflow-hidden">
         <img src={alignmentAssets.currentPath} alt="" className="h-full w-full object-cover opacity-75" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(247,241,231,0.18), rgba(247,241,231,0.68) 55%, #F7F1E7 100%)' }} />
       </div>
@@ -72,9 +72,9 @@ export function Progress() {
         </button>
       </div>
 
-      <div className="relative z-10 flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5">
+      <div className="relative z-10 flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col gap-5" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 34px)' }}>
         {/* Level ring */}
-        <div className="rounded-[8px] p-6 flex flex-col items-center gap-4" style={{ background: 'rgba(255,252,246,0.78)', boxShadow: '0 8px 30px rgba(30,21,18,0.10)', backdropFilter: 'blur(14px)', border: '1px solid rgba(221,208,192,0.62)' }}>
+        <div className="rounded-[8px] p-5 flex flex-col items-center gap-4" style={{ background: 'rgba(255,252,246,0.78)', boxShadow: '0 8px 30px rgba(30,21,18,0.10)', backdropFilter: 'blur(14px)', border: '1px solid rgba(221,208,192,0.62)' }}>
           <div className="relative w-32 h-32">
             <svg width="128" height="128" className="rotate-[-90deg]">
               <circle cx="64" cy="64" r="54" fill="none" stroke="#DDD0C0" strokeWidth="8" />
@@ -114,15 +114,18 @@ export function Progress() {
         </div>
 
         {/* Path Progress */}
-        <div className="rounded-[8px] p-5" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+        <button onClick={() => navigate('path-overview')} className="rounded-[8px] p-5 text-left" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
           <p className="text-[12px] font-semibold uppercase tracking-[0.16em] mb-3" style={{ color: '#B68425' }}>Active Path</p>
-          <p className="font-serif text-[17px] font-semibold mb-1" style={{ color: '#24171A' }}>Trusting God Through Uncertainty</p>
+          <div className="flex items-start justify-between gap-3">
+            <p className="font-serif text-[17px] font-semibold mb-1" style={{ color: '#24171A' }}>Trusting God Through Uncertainty</p>
+            <span className="text-[22px] leading-none" style={{ color: '#9B6B18' }}>›</span>
+          </div>
           <p className="text-[13px] mb-3" style={{ color: '#675A5D' }}>Session 2 of 7</p>
           <div className="h-2.5 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
             <div className="h-full rounded-full bar-fill" style={{ width: '28%', background: '#741630' }} />
           </div>
           <p className="text-[12px] mt-1.5" style={{ color: '#897A76' }}>2 of 7 sessions complete</p>
-        </div>
+        </button>
 
         {/* Achievements */}
         <div>
