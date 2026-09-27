@@ -91,7 +91,7 @@ function previewInitialTab(screen: Screen): AppState['tab'] {
 function previewInitialOnboardingStep(): number {
   if (typeof window === 'undefined') return 1
   const requested = Number(new URLSearchParams(window.location.search).get('onboardingStep'))
-  return Number.isInteger(requested) && requested >= 1 && requested <= 7 ? requested : 1
+  return Number.isInteger(requested) && requested >= 1 && requested <= 8 ? requested : 1
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {

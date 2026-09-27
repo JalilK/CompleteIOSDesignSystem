@@ -341,6 +341,60 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
   )
 }
 
+function AccountLevelUpScreen({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+  return (
+    <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
+      <NativeStatusBar light />
+      <div className="relative h-[286px] overflow-hidden">
+        <img src={alignmentAssets.completionLandscape} alt="Jerusalem hillside at sunrise" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.02) 0%, rgba(247,241,231,0.04) 45%, #F7F1E7 100%)' }} />
+        <button onClick={onBack} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#FFFCF6" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
+      </div>
+      <div className="relative -mt-[68px] flex flex-col items-center px-6 pb-8 text-center">
+        <div className="relative flex h-[108px] w-[108px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 48%, #F5D98A 100%)', boxShadow: '0 8px 28px rgba(182,132,37,0.38)' }}>
+          <div className="flex h-[84px] w-[84px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.52)' }}>
+            <span className="font-serif text-[38px] leading-none" style={{ color: '#F9E8B9' }}>2</span>
+          </div>
+        </div>
+        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: '#B18423' }}>Account Level Up</p>
+        <h2 className="mt-2 font-serif text-[31px] font-semibold leading-[36px]" style={{ color: '#3A0D18' }}>
+          Alignment Level 2<br />reached
+        </h2>
+        <p className="mt-3 text-[15px] leading-[22px]" style={{ color: '#30272A' }}>
+          Text Observer · your first verified Scripture Practice moved your account progress forward.
+        </p>
+
+        <div className="mt-5 flex w-full flex-col gap-2 rounded-[10px] px-5 py-4 text-left" style={{ background: 'rgba(255,252,246,0.68)', border: '1px solid rgba(221,208,192,0.86)' }}>
+          <span className="text-center font-serif text-[30px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
+          <XPBar totalXP={25} awardedXP={25} id="onboarding-level-up-xp" compact />
+          <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 2 reached · 225 XP to Level 3</span>
+        </div>
+
+        <div className="mt-4 grid w-full gap-2 text-left">
+          {[
+            ['What changed', 'Your account level advanced from Level 1 to Level 2.'],
+            ['Unlocked', 'Level 2 Scripture Practice and the next Path recommendation.'],
+            ['Next', 'Continue to the Path chosen from your onboarding situation.'],
+          ].map(([title, detail]) => (
+            <div key={title} className="rounded-[10px] px-4 py-3" style={{ background: 'rgba(255,252,246,0.54)', border: '1px solid rgba(221,208,192,0.72)' }}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: '#B18423' }}>{title}</p>
+              <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#30272A' }}>{detail}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-[12px] italic leading-[18px]" style={{ color: '#897A76' }}>
+          Level reflects verified learning progress, not spiritual worth.
+        </p>
+        <div className="mt-4 w-full">
+          <PrimaryButton label="See My Path" onPress={onNext} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ONB-11 Recommended Path
 function RecommendedPathScreen({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
@@ -539,9 +593,10 @@ export function Onboarding() {
     2: <MethodReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
     3: <QuestionReferenceNativeScreen key={questionIndex} questionIndex={questionIndex} onCorrect={advanceOnboardingQuestion} onBack={backFromQuestion} />,
     4: <CompletionReferenceNativeScreen onNext={nextOnboardingStep} />,
-    5: <PurposeSelectionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    6: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    7: <PaywallScreen onNext={finishOnboarding} onBack={prevOnboardingStep} />,
+    5: <AccountLevelUpScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    6: <PurposeSelectionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    7: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    8: <PaywallScreen onNext={finishOnboarding} onBack={prevOnboardingStep} />,
   }
 
   return (
