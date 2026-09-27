@@ -62,14 +62,19 @@ export function Home() {
           <img src={alignmentAssets.currentPath} alt="Stone path toward ancient hillside village" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.02) 0%, rgba(30,21,18,0.16) 38%, rgba(30,21,18,0.82) 100%)' }} />
           <div className="absolute left-5 right-5 bottom-4">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.11em] mb-2" style={{ color: '#E0B95F' }}>Your Path</p>
-            <h2 className="font-serif text-[26px] leading-[31px] font-normal mb-2" style={{ color: '#FFFCF6' }}>
-              Trusting God Through<br />Uncertainty
-            </h2>
-            <p className="text-[14px] leading-[19px] mb-4" style={{ color: 'rgba(255,252,246,0.94)' }}>
-              Session 2 of 7 · Trust without demanding<br />an outcome
-            </p>
-            <button onClick={() => navigate('practice-intro')}
+            <button onClick={() => navigate('path-overview')} className="text-left">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.11em] mb-2" style={{ color: '#E0B95F' }}>Your Path</p>
+              <h2 className="font-serif text-[26px] leading-[31px] font-normal mb-2" style={{ color: '#FFFCF6' }}>
+                Trusting God Through<br />Uncertainty
+              </h2>
+              <p className="text-[14px] leading-[19px] mb-3" style={{ color: 'rgba(255,252,246,0.94)' }}>
+                Session 2 of 7 · Trust without demanding<br />an outcome
+              </p>
+            </button>
+            <div className="mb-3 h-1.5 overflow-hidden rounded-full" style={{ background: 'rgba(255,252,246,0.32)' }}>
+              <div className="h-full rounded-full" style={{ width: '28.5%', background: '#E6C878' }} />
+            </div>
+            <button onClick={() => navigate('path-cover')}
               className="w-full rounded-[24px] font-semibold text-[15px] flex items-center justify-center gap-2"
               style={{ height: 50, background: '#8E1F3D', color: '#FFFCF6' }}>
               Continue Path <span className="text-[24px] leading-none">›</span>

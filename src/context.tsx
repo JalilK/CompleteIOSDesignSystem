@@ -12,6 +12,16 @@ export type Screen =
   | 'practice-intro'
   | 'practice-question'
   | 'practice-level-complete'
+  | 'path-cover'
+  | 'path-teaching'
+  | 'path-practice-handoff'
+  | 'path-practice-return'
+  | 'path-prayer-handoff'
+  | 'path-prayer-return'
+  | 'path-session-complete'
+  | 'path-overview'
+  | 'path-paused'
+  | 'path-complete'
   | 'library'
   | 'progress'
   | 'profile'
@@ -61,6 +71,16 @@ const screens: Screen[] = [
   'practice-intro',
   'practice-question',
   'practice-level-complete',
+  'path-cover',
+  'path-teaching',
+  'path-practice-handoff',
+  'path-practice-return',
+  'path-prayer-handoff',
+  'path-prayer-return',
+  'path-session-complete',
+  'path-overview',
+  'path-paused',
+  'path-complete',
   'library',
   'progress',
   'profile',

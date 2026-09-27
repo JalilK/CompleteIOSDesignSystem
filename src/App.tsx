@@ -9,6 +9,7 @@ import { Devotional, DevotionalsIndex, GuidedPrayerScreen, MeditationPlayer, Pra
 import { ContextStudy } from './screens/ContextStudy'
 import { AlignmentIntake, AlignmentAnalyzing, AlignmentReport, FaithfulAction } from './screens/Alignment'
 import { PracticeIntro, PracticeQuestion, PracticeLevelComplete } from './screens/Practice'
+import { PathComplete, PathCover, PathOverview, PathPaused, PathPracticeHandoff, PathPracticeReturn, PathPrayerHandoff, PathPrayerReturn, PathSessionComplete, PathTeaching } from './screens/Path'
 
 const SHOW_BOTTOM_NAV = new Set([
   'home', 'library', 'progress', 'profile',
@@ -44,6 +45,16 @@ function AppShell() {
       case 'practice-intro': return <PracticeIntro />
       case 'practice-question': return <PracticeQuestion />
       case 'practice-level-complete': return <PracticeLevelComplete />
+      case 'path-cover': return <PathCover />
+      case 'path-teaching': return <PathTeaching />
+      case 'path-practice-handoff': return <PathPracticeHandoff />
+      case 'path-practice-return': return <PathPracticeReturn />
+      case 'path-prayer-handoff': return <PathPrayerHandoff />
+      case 'path-prayer-return': return <PathPrayerReturn />
+      case 'path-session-complete': return <PathSessionComplete />
+      case 'path-overview': return <PathOverview />
+      case 'path-paused': return <PathPaused />
+      case 'path-complete': return <PathComplete />
       default: return <Home />
     }
   }
