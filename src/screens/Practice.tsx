@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
 import { AppIcon } from '../components/AppIcon'
+import { XPBar } from '../components/XPBar'
 
 function BackButton({ onBack }: { onBack: () => void }) {
   return (
@@ -525,10 +526,8 @@ export function PracticeLevelComplete() {
           <div className="flex items-center gap-3">
             <AppIcon name="star" size={22} color="#B68425" />
             <div className="flex-1">
-              <p className="text-[13px] font-semibold mb-1 xp-pop" style={{ color: '#B68425' }}>+{earnedXP} XP · {displayedTotal} XP total</p>
-              <div className="h-2 rounded-full overflow-hidden" style={{ background: '#DDD0C0' }}>
-                <div className="h-full rounded-full bar-fill" style={{ width: `${Math.min(100, (displayedTotal % 400) / 4)}%`, background: '#B68425' }} />
-              </div>
+              <p className="text-[13px] font-semibold mb-2 xp-pop" style={{ color: '#B68425' }}>+{earnedXP} verified XP · {displayedTotal} XP total</p>
+              <XPBar totalXP={displayedTotal} awardedXP={earnedXP} id="completion-xp-bar" compact />
             </div>
           </div>
           <div className="h-px" style={{ background: '#DDD0C0' }} />

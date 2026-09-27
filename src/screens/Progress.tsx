@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useApp } from '../context'
 import { AppIcon, type AppIconName } from '../components/AppIcon'
+import { XPBar, levelForXP } from '../components/XPBar'
 
 const achievements = [
   { id: 'tba', name: 'Text Before Assumption', desc: 'Read deeply, act wisely', unlocked: true, icon: 'book' as AppIconName, req: 'Answer 3 boundary questions correctly', progress: 3, total: 3 },
@@ -63,10 +64,12 @@ function RhythmDots() {
 }
 
 export function Progress() {
-  const { totalXP, level, navigate } = useApp()
+  const { totalXP, level, navigate, recentXPGain } = useApp()
   const [showAll, setShowAll] = useState(false)
-  const xpToNext = 400 - (totalXP % 400)
-  const pct = ((totalXP % 400) / 400) * 100
+  const levelNode = levelForXP(totalXP)
+  const nextThreshold = levelNode.level === 1 ? 100 : levelNode.level === 2 ? 250 : levelNode.level === 3 ? 500 : 850
+  const previousThreshold = levelNode.min
+  const pct = Math.min(100, ((totalXP - previousThreshold) / Math.max(1, nextThreshold - previousThreshold)) * 100)
 
   return (
     <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
@@ -104,7 +107,7 @@ export function Progress() {
               <p className="text-[11px]" style={{ color: '#897A76' }}>{totalXP} XP</p>
             </div>
           </div>
-          <p className="text-[14px]" style={{ color: '#675A5D' }}>{totalXP} XP · {xpToNext} XP to Level {level + 1}</p>
+          <XPBar totalXP={totalXP} awardedXP={recentXPGain} id="progress-verified-xp" />
           <div className="flex gap-6">
             <div className="text-center">
               <p className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>4</p>

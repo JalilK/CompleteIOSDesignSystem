@@ -85,6 +85,51 @@ body {
   animation: fillBar 0.8s ease-out forwards;
 }
 
+.xp-fill {
+  height: 100%;
+  width: var(--xp-to);
+  border-radius: 999px;
+  background: linear-gradient(90deg, #B68425 0%, #E6C878 100%);
+  box-shadow: 0 0 10px rgba(182,132,37,0.24);
+}
+
+.xp-fill-gain {
+  animation: xpBarGain 0.72s cubic-bezier(0.22, 0.9, 0.32, 1) forwards;
+}
+
+.xp-fill-level-cross {
+  animation: xpBarLevelCross 1.05s cubic-bezier(0.22, 0.9, 0.32, 1) forwards;
+}
+
+@keyframes xpBarGain {
+  from { width: var(--xp-from); }
+  to { width: var(--xp-to); }
+}
+
+@keyframes xpBarLevelCross {
+  0% { width: var(--xp-from); }
+  48% { width: 100%; }
+  54% { width: 0%; }
+  100% { width: var(--xp-to); }
+}
+
+.xp-award-chip {
+  animation: xpPop 0.5s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-fill-gain,
+  .xp-fill-level-cross,
+  .xp-award-chip,
+  .bar-fill,
+  .xp-pop,
+  .medal-rise,
+  .screen-enter,
+  .slide-up {
+    animation: none !important;
+  }
+}
+
 /* XP count-up */
 @keyframes xpPop {
   0% { transform: scale(0.8); opacity: 0; }

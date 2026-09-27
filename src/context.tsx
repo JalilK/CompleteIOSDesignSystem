@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react'
+import { levelForXP } from './components/XPBar'
 
 export type Screen =
   | 'onboarding'
@@ -31,6 +32,7 @@ interface AppState {
   alignmentText: string
   totalXP: number
   level: number
+  recentXPGain: number
   passageMastery: number
   practiceLevel2Complete: boolean
 }
@@ -100,6 +102,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     alignmentText: '',
     totalXP: 275,
     level: 3,
+    recentXPGain: 0,
     passageMastery: 2,
     practiceLevel2Complete: false,
   })
@@ -127,7 +130,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return {
       ...s,
       totalXP,
-      level: totalXP >= 400 ? 2 : s.level,
+      level: levelForXP(totalXP).level,
+      recentXPGain: 50,
       passageMastery: Math.max(s.passageMastery, 2),
       practiceLevel2Complete: true,
     }

@@ -47,6 +47,7 @@ Paywall now has a direct preview route at `/?screen=paywall`, with unavailable p
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
 - Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
+- Home, Progress, and Practice completion now share a native verified XP bar that animates earned XP from the prior total to the new committed total, including level-crossing fill behavior and reduced-motion fallback.
 - Onboarding now uses direct preview routes for each step, includes mission/method/demo/completion/purpose/recommended Path states, and provides Scripture-based feedback after checked demo answers.
 - Paywall now uses the September 25 scenic continuation layout, direct QA route, explicit unavailable-product state, restore/terms/privacy preview notices, and activation to Home.
 - `Home -> Devotional -> Practice -> Back` was manually verified to return to Devotional.

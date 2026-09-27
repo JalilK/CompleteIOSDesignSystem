@@ -1,5 +1,6 @@
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
+import { XPBar } from '../components/XPBar'
 
 function ProfileButton({ onPress }: { onPress: () => void }) {
   return (
@@ -39,7 +40,7 @@ function DevotionalTile({ label, title, image, onPress }: { label: string; title
 }
 
 export function Home() {
-  const { navigate, setTab, totalXP, level } = useApp()
+  const { navigate, setTab, totalXP, level, recentXPGain } = useApp()
 
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
@@ -48,7 +49,10 @@ export function Home() {
           <h1 className="font-serif text-[26px] leading-[31px] font-normal" style={{ color: '#24171A' }}>
             Good morning, Jalil
           </h1>
-          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Level {level} · {totalXP} XP</p>
+          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Level {level} · {totalXP} verified XP</p>
+          <div className="mt-2 w-32">
+            <XPBar totalXP={totalXP} awardedXP={recentXPGain} compact id="home-header-xp" />
+          </div>
         </div>
         <ProfileButton onPress={() => setTab('you')} />
       </div>
