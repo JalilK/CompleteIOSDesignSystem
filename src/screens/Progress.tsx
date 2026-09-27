@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useApp } from '../context'
 import { AppIcon, type AppIconName } from '../components/AppIcon'
 import { XPBar, levelForXP } from '../components/XPBar'
+import { alignmentAssets } from '../assets/alignment/assets'
 
 const achievements = [
   { id: 'tba', name: 'Text Before Assumption', desc: 'Read deeply, act wisely', unlocked: true, icon: 'book' as AppIconName, req: 'Answer 3 boundary questions correctly', progress: 3, total: 3 },
@@ -72,10 +73,15 @@ export function Progress() {
   const pct = Math.min(100, ((totalXP - previousThreshold) / Math.max(1, nextThreshold - previousThreshold)) * 100)
 
   return (
-    <div className="flex flex-col h-full" style={{ background: '#F7F1E7' }}>
-      <div className="px-5 pt-14 pb-4 flex items-center justify-between" style={{ background: '#F7F1E7' }}>
+    <div className="relative flex flex-col h-full" style={{ background: '#F7F1E7' }}>
+      <div className="absolute left-0 right-0 top-0 h-[270px] overflow-hidden">
+        <img src={alignmentAssets.currentPath} alt="" className="h-full w-full object-cover opacity-75" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(247,241,231,0.05), rgba(247,241,231,0.62) 54%, #F7F1E7 100%)' }} />
+      </div>
+
+      <div className="relative z-10 px-5 pt-14 pb-3 flex items-center justify-between">
         <h1 className="font-serif text-[30px] font-bold" style={{ color: '#24171A' }}>Your Progress</h1>
-        <button onClick={() => navigate('profile')} className="w-10 h-10 flex items-center justify-center" aria-label="Progress settings">
+        <button onClick={() => navigate('profile')} className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,252,246,0.76)', border: '1px solid rgba(221,208,192,0.8)' }} aria-label="Progress settings">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             <circle cx="11" cy="11" r="9" stroke="#675A5D" strokeWidth="1.8" />
             <path d="M8 8.5C8 7 9.5 6 11 6s3 1 3 2.5c0 2-3 2.5-3 4.5" stroke="#675A5D" strokeWidth="1.5" strokeLinecap="round" />
@@ -84,9 +90,9 @@ export function Progress() {
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5">
+      <div className="relative z-10 flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-5">
         {/* Level ring */}
-        <div className="rounded-[24px] p-6 flex flex-col items-center gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
+        <div className="rounded-[24px] p-6 flex flex-col items-center gap-4" style={{ background: 'rgba(255,252,246,0.9)', boxShadow: '0 8px 30px rgba(30,21,18,0.10)', backdropFilter: 'blur(14px)' }}>
           <div className="relative w-32 h-32">
             <svg width="128" height="128" className="rotate-[-90deg]">
               <circle cx="64" cy="64" r="54" fill="none" stroke="#DDD0C0" strokeWidth="8" />

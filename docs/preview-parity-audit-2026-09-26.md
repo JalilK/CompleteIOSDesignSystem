@@ -48,6 +48,9 @@ Paywall now has a direct preview route at `/?screen=paywall`, with unavailable p
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
 - Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
 - Home, Progress, and Practice completion now share a native verified XP bar that animates earned XP from the prior total to the new committed total, including level-crossing fill behavior and reduced-motion fallback.
+- Progress now uses the shared scenic visual system behind the level ring so the route moves closer to the September 25 Progress board rather than a flat utility page.
+- Practice completion now uses a compact verified XP meter inside the medallion/progress card, preserving the completion actions on the first scrollable surface.
+- Practice completion `Return to Alignment` now routes back to the active faithful-action/alignment surface instead of Home.
 - Onboarding now uses direct preview routes for each step, includes mission/method/demo/completion/purpose/recommended Path states, and provides Scripture-based feedback after checked demo answers.
 - Paywall now uses the September 25 scenic continuation layout, direct QA route, explicit unavailable-product state, restore/terms/privacy preview notices, and activation to Home.
 - `Home -> Devotional -> Practice -> Back` was manually verified to return to Devotional.
@@ -110,6 +113,10 @@ Home completion evidence proves:
 - `pnpm build` passed before audit regeneration and after the Home and Onboarding parity updates.
 - Browser accessibility inspection confirmed routeable native headings/buttons/controls for all direct preview routes listed above.
 - Browser inspection of `/?screen=home` confirmed the target Home copy stack, CTA labels, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` nav.
+- Manual click audit on 2026-09-27 confirmed Home primary controls route or toggle: Profile -> You, Continue Path -> Practice intro, Current Alignment/Continue Alignment -> faithful action, devotional tiles/See All -> Devotional, bottom nav -> Home/Align/Devotionals/More.
+- Manual click audit on 2026-09-27 confirmed Progress controls route or toggle: settings -> You, Achievements `See All` -> expanded achievements, bottom nav -> Home/Align/Devotionals/More.
+- Manual click audit on 2026-09-27 confirmed Practice controls route or toggle: intro Back -> Home fallback, Begin Practice -> question, `What You'll Learn` -> native sheet, `View Scripture` -> native Scripture sheet, selecting an answer enables Check Answer, Check Answer -> feedback, completion `Return to Alignment` -> faithful action, completion `Continue to Level 3` -> next practice intro placeholder.
+- Known remaining Practice interaction gap from the 2026-09-27 audit: `Continue to Level 3` is routeable, but still opens the same hardcoded Level 2 practice-intro content. It needs a real Level 3 state/content model before `ALIGN-GAP-006E Practice` can be marked complete.
 - Visual preview at 390 x 844 confirmed the Home screen fits with the devotional section visible above the bottom navigation.
 - Saved Home evidence: `.qa/home_parity_2026_09_26/home_390x844.png` and `.qa/home_parity_2026_09_26/home_390x844.ax.txt`. Desktop copy: `/Users/jalilkennedy/Desktop/alignment-home-parity-2026-09-26.png`.
 - Saved Onboarding evidence: `.qa/onboarding_parity_2026_09_26/01_mission.png`, `02_method.png`, `03_question_1.png`, `04_question_1_feedback.png`, `05_completion.png`, `06_purpose_selection.png`, and `07_recommended_path.png`, each with matching `.ax.txt` files.
