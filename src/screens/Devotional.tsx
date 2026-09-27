@@ -233,7 +233,7 @@ export function Devotional() {
 
 // Prayer mode
 export function PrayerMode() {
-  const { navigate } = useApp()
+  const { navigate, goBack } = useApp()
 
   return (
     <div className="relative flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
@@ -241,7 +241,12 @@ export function PrayerMode() {
         <img src={PRAYER_IMG} alt="" className="h-full w-full object-cover opacity-80" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.34) 0%, #F7F1E7 100%)' }} />
       </div>
-      <div className="relative px-5 pt-16 pb-5">
+      <div className="relative px-5 pt-14 pb-5">
+        <button onClick={() => goBack('devotional')} className="mb-4 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
         <h1 className="font-serif text-[35px] font-semibold leading-[40px]" style={{ color: '#24171A' }}>Pray or meditate</h1>
       </div>
 
