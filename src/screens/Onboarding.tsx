@@ -168,56 +168,61 @@ function QuestionReferenceNativeScreen({ questionIndex, onCorrect, onBack }: { q
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar />
-      <div className="absolute inset-x-0 top-0 h-[385px]" style={{ background: '#F1E5D2' }}>
-        <div className="absolute inset-x-0 bottom-0 h-[130px] overflow-hidden">
-          <img src={alignmentAssets.questionLandscape} alt="Ancient hillside and city landscape" className="h-full w-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0) 0%, rgba(247,241,231,0.92) 100%)' }} />
-        </div>
-      </div>
       <button onClick={onBack} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
-      <div className="relative z-10 flex h-full flex-col px-7 pb-8 pt-[118px]">
-        <p className="text-center text-[12px] font-semibold uppercase tracking-[0.32em]" style={{ color: '#9B6B18' }}>{question.passage}</p>
-        <p className="mx-auto mt-5 max-w-[275px] text-center font-serif text-[20px] leading-[29px]" style={{ color: '#24171A' }}>
-          {question.verse.map((line, index) => (
-            <React.Fragment key={line}>{line}{index < question.verse.length - 1 && <br />}</React.Fragment>
-          ))}
-        </p>
-        <div className="mx-auto mt-3 h-px w-12" style={{ background: '#B68425' }} />
-        <h2 className={`${checked ? 'mt-[50px]' : 'mt-[86px]'} font-serif text-[27px] font-semibold leading-[33px]`} style={{ color: '#24171A' }}>
-          {question.prompt}
-        </h2>
-        <p className="mt-2 text-[12px]" style={{ color: '#897A76' }}>Question {questionIndex + 1} of {ONBOARDING_LEVEL_1_QUESTIONS.length}</p>
-        <div className="mt-5 flex flex-col gap-2.5">
-          {question.answers.map((answer, index) => (
-            <button
-              key={answer}
-              onClick={() => {
-                setSelected(index)
-                setChecked(false)
-              }}
-              className={`${checked ? 'h-[50px]' : 'h-[54px]'} flex items-center gap-4 rounded-[10px] px-4 text-left`}
-              style={{
-                background: selected === index ? checked && isCorrect ? '#F2F6EA' : checked && !isCorrect ? '#FFF1F1' : '#FFF6F0' : 'rgba(255,252,246,0.72)',
-                border: `1px solid ${selected === index ? checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' : '#E0CDB8'}`,
-                boxShadow: '0 1px 5px rgba(30,21,18,0.04)',
-              }}
-            >
-              <span className="flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full" style={{ border: `1.5px solid ${selected === index ? checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' : '#9A8B7C'}` }}>
-                {selected === index && <span className="h-[9px] w-[9px] rounded-full" style={{ background: checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' }} />}
-              </span>
-              <span className="text-[13px] font-medium" style={{ color: '#30272A' }}>{answer}</span>
-            </button>
-          ))}
-        </div>
-        {checked && (
-          <div className="mt-3 rounded-[12px] p-3 text-left" style={{ background: isCorrect ? '#F2F6EA' : '#FFF1F1', border: `1px solid ${isCorrect ? '#B7C4A4' : '#E4B2B2'}` }}>
-            <p className="text-[13px] font-semibold" style={{ color: isCorrect ? '#40513B' : '#7A1E1E' }}>{isCorrect ? question.feedbackTitle : 'Try the Scripture boundary'}</p>
-            <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#30272A' }}>{isCorrect ? question.feedback : 'Pause and look again at what the passage itself establishes.'}</p>
+      <div className="relative z-10 flex h-full flex-col px-7 pb-6 pt-[76px]">
+        <section className="relative -mx-7 h-[242px] shrink-0 overflow-hidden" style={{ background: '#F1E5D2' }}>
+          <div className="relative z-10 mx-7 flex h-[128px] flex-col items-center justify-center">
+            <p className="text-center text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: '#9B6B18' }}>{question.passage}</p>
+            <p className="mx-auto mt-3 max-w-[285px] text-center font-serif text-[17px] leading-[23px]" style={{ color: '#24171A' }}>
+              {question.verse.map((line, index) => (
+                <React.Fragment key={line}>{line}{index < question.verse.length - 1 && <br />}</React.Fragment>
+              ))}
+            </p>
+            <div className="mx-auto mt-2.5 h-px w-12" style={{ background: '#B68425' }} />
           </div>
-        )}
-        <div className="mt-auto shrink-0 pt-4">
+          <div className="absolute inset-x-0 bottom-0 h-[128px] overflow-hidden">
+            <img src={alignmentAssets.questionLandscape} alt="Ancient hillside and city landscape" className="h-full w-full object-cover" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(241,229,210,0.18) 0%, rgba(247,241,231,0.18) 48%, rgba(247,241,231,0.9) 100%)' }} />
+          </div>
+        </section>
+
+        <div className="flex-1 overflow-y-auto scrollbar-hide pt-5">
+          <h2 className="font-serif text-[25px] font-semibold leading-[30px]" style={{ color: '#24171A' }}>
+            {question.prompt}
+          </h2>
+          <p className="mt-2 text-[12px]" style={{ color: '#897A76' }}>Question {questionIndex + 1} of {ONBOARDING_LEVEL_1_QUESTIONS.length}</p>
+          <div className="mt-4 flex flex-col gap-2 pb-4">
+            {question.answers.map((answer, index) => (
+              <button
+                key={answer}
+                onClick={() => {
+                  setSelected(index)
+                  setChecked(false)
+                }}
+                className={`${checked ? 'min-h-[46px]' : 'min-h-[48px]'} flex items-center gap-4 rounded-[10px] px-4 py-2 text-left`}
+                style={{
+                  background: selected === index ? checked && isCorrect ? '#F2F6EA' : checked && !isCorrect ? '#FFF1F1' : '#FFF6F0' : 'rgba(255,252,246,0.72)',
+                  border: `1px solid ${selected === index ? checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' : '#E0CDB8'}`,
+                  boxShadow: '0 1px 5px rgba(30,21,18,0.04)',
+                }}
+              >
+                <span className="flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full" style={{ border: `1.5px solid ${selected === index ? checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' : '#9A8B7C'}` }}>
+                  {selected === index && <span className="h-[9px] w-[9px] rounded-full" style={{ background: checked && isCorrect ? '#607255' : checked && !isCorrect ? '#A33A3A' : '#741630' }} />}
+                </span>
+                <span className="text-[13px] font-medium" style={{ color: '#30272A' }}>{answer}</span>
+              </button>
+            ))}
+          </div>
+          {checked && (
+            <div className="mt-3 rounded-[12px] p-3 text-left" style={{ background: isCorrect ? '#F2F6EA' : '#FFF1F1', border: `1px solid ${isCorrect ? '#B7C4A4' : '#E4B2B2'}` }}>
+              <p className="text-[13px] font-semibold" style={{ color: isCorrect ? '#40513B' : '#7A1E1E' }}>{isCorrect ? question.feedbackTitle : 'Try the Scripture boundary'}</p>
+              <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#30272A' }}>{isCorrect ? question.feedback : 'Pause and look again at what the passage itself establishes.'}</p>
+            </div>
+          )}
+        </div>
+        <div className="shrink-0 pt-4">
           <PrimaryButton label={checked && !isCorrect ? 'Try Again' : continueLabel} onPress={handlePrimary} disabled={selected === null} />
         </div>
       </div>
