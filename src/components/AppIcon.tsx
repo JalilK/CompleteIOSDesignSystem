@@ -125,3 +125,60 @@ export function IconDisc({
     </span>
   )
 }
+
+export function AchievementMedallion({
+  name,
+  unlocked = true,
+  size = 70,
+  iconSize = 30,
+  tone = 'burgundy',
+  className,
+}: {
+  name: AppIconName
+  unlocked?: boolean
+  size?: number
+  iconSize?: number
+  tone?: 'burgundy' | 'sage' | 'gold'
+  className?: string
+}) {
+  const inner = unlocked
+    ? tone === 'sage'
+      ? 'linear-gradient(145deg, #40513B 0%, #687B56 100%)'
+      : tone === 'gold'
+        ? 'linear-gradient(145deg, #9B6B18 0%, #D8AF4A 100%)'
+        : 'linear-gradient(145deg, #741630 0%, #4B1021 100%)'
+    : 'linear-gradient(145deg, #B8B0A4 0%, #D6CEC3 100%)'
+  const iconColor = unlocked ? '#F5D98A' : '#7E766B'
+
+  return (
+    <span
+      className={`relative inline-flex shrink-0 items-center justify-center rounded-full medal-rise ${className ?? ''}`}
+      style={{
+        width: size,
+        height: size,
+        background: unlocked
+          ? 'linear-gradient(145deg, #F9E8B9 0%, #B68425 45%, #F5D98A 100%)'
+          : 'linear-gradient(145deg, #EFE9DF 0%, #B8B0A4 52%, #F7F1E7 100%)',
+        boxShadow: unlocked ? '0 5px 18px rgba(182,132,37,0.34)' : '0 2px 9px rgba(30,21,18,0.08)',
+      }}
+      aria-hidden="true"
+    >
+      <span
+        className="inline-flex items-center justify-center rounded-full"
+        style={{
+          width: size - 16,
+          height: size - 16,
+          background: inner,
+          border: '1px solid rgba(255,252,246,0.45)',
+        }}
+      >
+        <AppIcon name={name} size={iconSize} color={iconColor} strokeWidth={1.55} />
+      </span>
+      {unlocked && (
+        <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full" style={{ background: '#607255', border: '2px solid #F7F1E7' }}>
+          <AppIcon name="check" size={10} color="#FFFCF6" strokeWidth={2.2} />
+        </span>
+      )}
+    </span>
+  )
+}

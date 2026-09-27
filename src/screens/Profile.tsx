@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useApp } from '../context'
-import { AppIcon, type AppIconName } from '../components/AppIcon'
+import { AppIcon, IconDisc, type AppIconName } from '../components/AppIcon'
 
 function SettingsRow({ icon, label, value, destructive, onPress }: { icon: AppIconName; label: string; value?: string; destructive?: boolean; onPress?: () => void }) {
   return (
-    <button onClick={onPress} className="flex w-full items-center gap-3 py-3.5 text-left" style={{ borderBottom: '1px solid #DDD0C0' }}>
-      <span className="w-7 shrink-0 text-center">
-        <AppIcon name={icon} size={20} color={destructive ? '#A33A3A' : '#7B4B16'} />
+    <button onClick={onPress} className="flex w-full items-center gap-3 py-3.5 text-left" style={{ borderBottom: '1px solid #E5D7C6', background: destructive ? '#FFF0EE' : 'transparent' }}>
+      <IconDisc name={icon} size={38} iconSize={19} bg={destructive ? '#F8D8D5' : '#F4EBDD'} color={destructive ? '#A33A3A' : '#7B4B16'} />
+      <span className="min-w-0 flex-1">
+        <span className="block text-[15px]" style={{ color: destructive ? '#A33A3A' : '#24171A' }}>{label}</span>
+        {value && <span className="mt-0.5 block truncate text-[12px]" style={{ color: destructive ? '#A33A3A' : '#897A76' }}>{value}</span>}
       </span>
-      <span className="flex-1 text-[15px]" style={{ color: destructive ? '#A33A3A' : '#24171A' }}>{label}</span>
-      {value && <span className="text-[13px]" style={{ color: '#897A76' }}>{value}</span>}
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M6 4l4 4-4 4" stroke={destructive ? '#A33A3A' : '#DDD0C0'} strokeWidth="1.5" strokeLinecap="round" />
       </svg>
@@ -19,8 +19,8 @@ function SettingsRow({ icon, label, value, destructive, onPress }: { icon: AppIc
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-[20px] px-4 pt-1 pb-1" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-      <p className="text-[12px] font-semibold uppercase tracking-wider pt-3 pb-2" style={{ color: '#897A76', letterSpacing: '0.08em' }}>{title}</p>
+    <div className="overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', boxShadow: '0 1px 12px rgba(30,21,18,0.05)' }}>
+      <p className="px-4 text-[11px] font-semibold uppercase pt-4 pb-2" style={{ color: '#B68425', letterSpacing: '0.12em' }}>{title}</p>
       {children}
     </div>
   )
@@ -38,7 +38,7 @@ export function Profile() {
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-4">
         {/* Profile card */}
-        <div className="rounded-[24px] p-5 flex items-center gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
+        <div className="rounded-[8px] p-5 flex items-center gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
           <div className="w-16 h-16 rounded-full flex items-center justify-center font-bold text-[24px]" style={{ background: 'linear-gradient(135deg, #D8A8B1, #741630)', color: '#FFFCF6' }}>
             J
           </div>
@@ -50,8 +50,8 @@ export function Profile() {
         </div>
 
         {/* Active Path */}
-        <div className="rounded-[18px] p-4 flex items-center gap-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-          <AppIcon name="path" size={22} color="#7B4B16" />
+        <div className="rounded-[8px] p-4 flex items-center gap-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+          <IconDisc name="path" size={42} iconSize={22} bg="#F3E6C9" color="#9B6B18" />
           <div className="flex-1">
             <p className="font-semibold text-[14px]" style={{ color: '#24171A' }}>Trusting God Through Uncertainty</p>
             <p className="text-[12px]" style={{ color: '#675A5D' }}>Session 2 of 7 · Active Path</p>
@@ -113,7 +113,7 @@ function ToggleRow({ icon, title, body, enabled, onToggle }: {
 }) {
   return (
     <button onClick={onToggle} className="flex w-full items-center gap-3 px-4 py-3.5 text-left" style={{ borderBottom: '1px solid #E5D7C6' }}>
-      <span className="w-8 shrink-0 text-center"><AppIcon name={icon} size={21} color="#7B4B16" /></span>
+      <IconDisc name={icon} size={38} iconSize={19} bg="#F4EBDD" color="#40513B" />
       <span className="flex-1">
         <span className="block text-[15px] font-medium" style={{ color: '#24171A' }}>{title}</span>
         <span className="mt-0.5 block text-[12px] leading-[16px]" style={{ color: '#675A5D' }}>{body}</span>
@@ -139,24 +139,24 @@ export function PrivacySettings() {
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10l6 6" stroke="#24171A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         <h1 className="font-serif text-[28px] font-semibold leading-[34px]" style={{ color: '#4B1021' }}>Personalization & privacy</h1>
-        <p className="mt-1 text-[15px] leading-[20px]" style={{ color: '#24171A' }}>Your content is shaped by what’s meaningful to you, and you’re always in control.</p>
+        <p className="mt-1 max-w-[320px] text-[15px] leading-[20px]" style={{ color: '#24171A' }}>Your content is shaped by what’s meaningful to you, and you’re always in control.</p>
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8">
         <p className="mb-2 text-[15px] font-medium" style={{ color: '#24171A' }}>Used for recommendations</p>
-        <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+        <div className="overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <ToggleRow icon="leaf" title="Use recent Alignments" body="Include your latest Alignments in recommendations" enabled={recent} onToggle={() => setRecent(v => !v)} />
           <ToggleRow icon="path" title="Use active Path" body="Include your current Path in recommendations" enabled={path} onToggle={() => setPath(v => !v)} />
           <ToggleRow icon="info" title="Explain why content was selected" body="Show a short note when we recommend content for you" enabled={why} onToggle={() => setWhy(v => !v)} />
         </div>
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Prayer and meditation history</p>
-        <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+        <div className="overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <SettingsRow icon="sync" label="Clear prayer and meditation history" value="Remove past sessions" onPress={() => setNotice('Prayer and meditation history cleared for this preview.')} />
         </div>
 
         <p className="mb-2 mt-7 text-[15px] font-medium" style={{ color: '#24171A' }}>Audio preferences</p>
-        <div className="overflow-hidden rounded-[15px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+        <div className="overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
           <SettingsRow icon="music" label="Preferred voice" value="A gentle, steady pace" onPress={() => setNotice('Preferred voice selector opens from here in the native app.')} />
           <SettingsRow icon="trash" label="Delete personalization data" value="Remove saved preferences" destructive onPress={() => setNotice('Personalization data deletion requires confirmation in the native app.')} />
         </div>
