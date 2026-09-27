@@ -171,15 +171,15 @@ export function AlignmentReport() {
     <div className="flex flex-col h-full overflow-hidden">
       <div className="relative h-52 overflow-hidden shrink-0">
         <img src={REPORT_IMG} alt="Ancient cityscape at golden hour" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.22) 0%, rgba(247,241,231,0.48) 62%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
           <BackButton onBack={() => goBack('home')} />
           <button onClick={() => setMenuOpen(v => !v)} className="w-10 h-10 flex items-center justify-center" aria-label="Alignment options">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14M4 11h14M4 18h7" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" /></svg>
           </button>
         </div>
-        <div className="absolute bottom-5 left-5 right-5">
-          <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#E6C878', letterSpacing: '0.1em' }}>Your Alignment</p>
+        <div className="absolute bottom-5 left-5 right-5 rounded-[16px] px-4 py-3" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(221,208,192,0.78)', boxShadow: '0 10px 24px rgba(30,21,18,0.08)', backdropFilter: 'blur(10px)' }}>
+          <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>Your Alignment</p>
           <p className="font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#24171A' }}>
             Making a decision without letting fear or money become your master
           </p>

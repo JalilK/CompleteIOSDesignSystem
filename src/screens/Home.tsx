@@ -29,10 +29,10 @@ function DevotionalTile({ label, title, image, onPress }: { label: string; title
   return (
     <button onClick={onPress} className="relative rounded-[9px] overflow-hidden text-left" style={{ height: 128, boxShadow: '0 1px 10px rgba(30,21,18,0.14)' }}>
       <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.06) 0%, rgba(30,21,18,0.52) 56%, rgba(30,21,18,0.86) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.12) 0%, rgba(30,21,18,0.58) 54%, rgba(30,21,18,0.90) 100%)' }} />
       <div className="absolute left-3 right-3 bottom-3">
-        <p className="text-[13px] font-semibold leading-[16px]" style={{ color: '#FFFCF6' }}>{label}</p>
-        <p className="text-[12px] leading-[16px] mt-0.5" style={{ color: 'rgba(255,252,246,0.93)' }}>{title}</p>
+        <p className="text-[13px] font-semibold leading-[16px]" style={{ color: '#FFFCF6', textShadow: '0 1px 8px rgba(0,0,0,0.58)' }}>{label}</p>
+        <p className="text-[12px] leading-[16px] mt-0.5" style={{ color: 'rgba(255,252,246,0.94)', textShadow: '0 1px 8px rgba(0,0,0,0.58)' }}>{title}</p>
       </div>
       <span className="absolute right-3 bottom-5 text-[22px]" style={{ color: '#FFFCF6' }}>›</span>
     </button>
@@ -60,14 +60,14 @@ export function Home() {
       <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-6 flex flex-col gap-5">
         <section className="relative rounded-[14px] overflow-hidden shrink-0" style={{ height: 315, boxShadow: '0 2px 18px rgba(30,21,18,0.14)' }}>
           <img src={alignmentAssets.currentPath} alt="Stone path toward ancient hillside village" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.02) 0%, rgba(30,21,18,0.16) 38%, rgba(30,21,18,0.82) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.08) 0%, rgba(30,21,18,0.26) 38%, rgba(30,21,18,0.88) 100%)' }} />
           <div className="absolute left-5 right-5 bottom-4">
             <button onClick={() => navigate('path-overview')} className="text-left">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.11em] mb-2" style={{ color: '#E0B95F' }}>Your Path</p>
-              <h2 className="font-serif text-[26px] leading-[31px] font-normal mb-2" style={{ color: '#FFFCF6' }}>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.11em] mb-2" style={{ color: '#E0B95F', textShadow: '0 1px 8px rgba(0,0,0,0.60)' }}>Your Path</p>
+              <h2 className="font-serif text-[26px] leading-[31px] font-normal mb-2" style={{ color: '#FFFCF6', textShadow: '0 2px 12px rgba(0,0,0,0.64)' }}>
                 Trusting God Through<br />Uncertainty
               </h2>
-              <p className="text-[14px] leading-[19px] mb-3" style={{ color: 'rgba(255,252,246,0.94)' }}>
+              <p className="text-[14px] leading-[19px] mb-3" style={{ color: 'rgba(255,252,246,0.94)', textShadow: '0 1px 8px rgba(0,0,0,0.60)' }}>
                 Session 2 of 7 · Trust without demanding<br />an outcome
               </p>
             </button>

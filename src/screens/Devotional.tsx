@@ -102,10 +102,10 @@ export function DevotionalsIndex() {
           <button key={item.label} onClick={() => navigate('devotional')} className="overflow-hidden rounded-[8px] text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6', boxShadow: '0 1px 14px rgba(30,21,18,0.08)' }}>
             <div className="relative h-[154px] overflow-hidden">
               <img src={item.image} alt="" className="h-full w-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.02) 0%, rgba(30,21,18,0.72) 100%)' }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.10) 0%, rgba(30,21,18,0.55) 55%, rgba(30,21,18,0.88) 100%)' }} />
               <div className="absolute left-4 right-4 bottom-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: '#E6C878' }}>{item.label}</p>
-                <h2 className="font-serif text-[24px] leading-[29px] mt-1" style={{ color: '#FFFCF6' }}>{item.title}</h2>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: '#E6C878', textShadow: '0 1px 8px rgba(0,0,0,0.55)' }}>{item.label}</p>
+                <h2 className="font-serif text-[24px] leading-[29px] mt-1" style={{ color: '#FFFCF6', textShadow: '0 2px 10px rgba(0,0,0,0.62)' }}>{item.title}</h2>
               </div>
             </div>
             <div className="p-4 flex items-center gap-3">
@@ -145,7 +145,7 @@ export function Devotional() {
     <div className="flex flex-col h-full overflow-hidden">
       <div className="relative h-[286px] overflow-hidden shrink-0">
         <img src={DEV_IMG} alt="Valley landscape with golden light" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.12) 0%, rgba(30,21,18,0.08) 42%, rgba(247,241,231,0.88) 80%, rgba(247,241,231,1) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.12) 0%, rgba(30,21,18,0.08) 38%, rgba(247,241,231,0.74) 72%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 right-5 flex items-start justify-between">
           <BackButton onBack={() => goBack('home')} />
           <button onClick={() => setSaved(v => !v)} className="w-10 h-10 flex items-center justify-center" aria-label={saved ? 'Remove saved devotional' : 'Save devotional'}>
@@ -154,7 +154,7 @@ export function Devotional() {
             </svg>
           </button>
         </div>
-        <div className="absolute bottom-6 left-5 right-5 text-center">
+        <div className="absolute bottom-5 left-5 right-5 rounded-[16px] px-4 py-3 text-center" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(229,215,198,0.78)', boxShadow: '0 10px 24px rgba(30,21,18,0.08)', backdropFilter: 'blur(10px)' }}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] mb-2" style={{ color: '#B68425' }}>For You</p>
           <h1 className="font-serif text-[27px] font-semibold leading-[32px]" style={{ color: '#3A0D18' }}>
             Trust Without<br />Demanding the Outcome

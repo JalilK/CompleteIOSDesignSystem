@@ -76,17 +76,19 @@ function PathFrame({ children, image = PATH_IMG, title = 'Trusting God Through U
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <div className="relative shrink-0 overflow-hidden" style={{ height: imageHeight }}>
         <img src={image} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.05) 0%, rgba(247,241,231,0.20) 48%, #F7F1E7 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.14) 0%, rgba(247,241,231,0.10) 42%, rgba(247,241,231,0.96) 100%)' }} />
         <div className="absolute left-5 right-5 top-14 flex items-start justify-between">
           <PathBack />
           <button className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: 'rgba(255,252,246,0.72)' }} aria-label="Save Path">
             <AppIcon name="book" size={19} color="#3A0D18" />
           </button>
         </div>
-        <div className="absolute inset-x-5 bottom-8 text-center">
-          <p className="text-[12px] font-semibold" style={{ color: '#675A5D' }}>{title}</p>
-          <p className="mt-1 text-[13px]" style={{ color: '#675A5D' }}>{subtitle}</p>
-          <div className="mt-3"><SessionDots /></div>
+        <div className="absolute inset-x-5 bottom-6 flex justify-center">
+          <div className="max-w-[285px] rounded-[14px] px-4 py-2.5 text-center" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(221,208,192,0.78)', boxShadow: '0 8px 24px rgba(30,21,18,0.10)', backdropFilter: 'blur(10px)' }}>
+            <p className="text-[12px] font-semibold" style={{ color: '#24171A' }}>{title}</p>
+            <p className="mt-1 text-[13px]" style={{ color: '#4A3D3A' }}>{subtitle}</p>
+            <div className="mt-2"><SessionDots /></div>
+          </div>
         </div>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto scrollbar-hide px-6 pb-12 pt-6" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 48px)' }}>

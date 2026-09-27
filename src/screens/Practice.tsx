@@ -94,11 +94,11 @@ export function PracticeIntro() {
     <div className="relative flex flex-col h-full overflow-hidden">
       <div className="relative h-[208px] overflow-hidden shrink-0">
         <img src={alignmentAssets.currentPath} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.22) 0%, rgba(247,241,231,0.48) 60%, rgba(247,241,231,1) 100%)' }} />
         <div className="absolute top-14 left-5 flex items-center gap-3">
           <BackButton onBack={() => goBack('home')} />
         </div>
-        <div className="absolute bottom-4 left-5 right-5">
+        <div className="absolute bottom-4 left-5 right-5 rounded-[16px] px-4 py-3" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(229,215,198,0.78)', boxShadow: '0 10px 24px rgba(30,21,18,0.08)', backdropFilter: 'blur(10px)' }}>
           <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>From: Trusting God Through Uncertainty</p>
           <h1 className="font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#24171A' }}>
             Trust without demanding an outcome
