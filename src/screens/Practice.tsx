@@ -92,7 +92,7 @@ export function PracticeIntro() {
 
   return (
     <div className="relative flex flex-col h-full overflow-hidden">
-      <div className="relative h-56 overflow-hidden shrink-0">
+      <div className="relative h-[208px] overflow-hidden shrink-0">
         <img src={alignmentAssets.currentPath} alt="Valley landscape at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.2) 0%, rgba(247,241,231,1) 95%)' }} />
         <div className="absolute top-14 left-5 flex items-center gap-3">
@@ -106,7 +106,7 @@ export function PracticeIntro() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-7 flex flex-col gap-5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
         {/* Scripture card */}
         <div className="rounded-[20px] p-5 relative overflow-hidden" style={{ background: '#F4EBDD' }}>
           <div className="text-[28px] font-serif leading-none mb-2" style={{ color: '#741630' }}>"</div>
@@ -447,7 +447,7 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-5 pb-8 flex flex-col gap-5" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-7 flex flex-col gap-5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
         <div>
           <p className="text-[12px] font-semibold uppercase tracking-wider mb-2" style={{ color: '#B68425', letterSpacing: '0.1em' }}>What the passage teaches</p>
           <p className="text-[16px] leading-[24px]" style={{ color: '#24171A' }}>{teaching}</p>
@@ -491,28 +491,28 @@ export function PracticeLevelComplete() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden screen-enter">
-      <div className="relative h-48 overflow-hidden shrink-0">
+      <div className="relative h-[154px] overflow-hidden shrink-0">
         <img src={alignmentAssets.completionLandscape} alt="Ancient city at golden hour" className="w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.1), rgba(247,241,231,1))' }} />
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-6 flex flex-col items-center gap-4" style={{ background: '#F7F1E7' }}>
-        <div className="medal-rise w-[74px] h-[74px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
-          <div className="w-[58px] h-[58px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3B1F0F 0%, #741630 100%)' }}>
-            <AppIcon name="book" size={28} color="#E6C878" />
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col items-center gap-3.5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
+        <div className="medal-rise w-[68px] h-[68px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
+          <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3B1F0F 0%, #741630 100%)' }}>
+            <AppIcon name="book" size={25} color="#E6C878" />
           </div>
         </div>
 
         <div className="text-center">
-          <h2 className="font-serif text-[32px] font-bold leading-[38px]" style={{ color: '#24171A' }}>Level 2 complete</h2>
+          <h2 className="font-serif text-[30px] font-bold leading-[35px]" style={{ color: '#24171A' }}>Level 2 complete</h2>
           <div className="h-0.5 w-16 rounded-full mx-auto mt-2" style={{ background: '#B68425' }} />
         </div>
 
-        <p className="text-[15px] text-center leading-[23px]" style={{ color: '#675A5D' }}>
+        <p className="text-[14px] text-center leading-[20px]" style={{ color: '#675A5D' }}>
           You can now <strong style={{ color: '#24171A' }}>recognize explanations</strong> that preserve both trust and the passage's boundaries.
         </p>
 
-        <div className="w-full rounded-[20px] p-4 flex flex-col gap-3.5" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
+        <div className="w-full rounded-[18px] p-3.5 flex flex-col gap-3" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
           <div className="flex items-center gap-3">
             <AppIcon name="book" size={22} color="#B68425" />
             <div className="flex-1">
@@ -545,12 +545,12 @@ export function PracticeLevelComplete() {
         <div className="w-full flex flex-col gap-2.5">
           <button onClick={() => { completePracticeLevel(); navigate('faithful-action') }}
             className="w-full rounded-full font-semibold text-[17px] transition-all"
-            style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
+            style={{ height: 54, background: '#741630', color: '#FFFCF6' }}>
             Return to Alignment
           </button>
           <button onClick={() => navigate('practice-intro')}
             className="w-full rounded-full font-semibold text-[16px] transition-all"
-            style={{ height: 52, background: 'transparent', border: '1.5px solid #B68425', color: '#B68425' }}>
+            style={{ height: 48, background: 'transparent', border: '1.5px solid #B68425', color: '#B68425' }}>
             Continue to Level 3
           </button>
         </div>

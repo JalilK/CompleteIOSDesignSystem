@@ -298,13 +298,13 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
   return (
     <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
-      <div className="relative h-[250px] overflow-hidden">
+      <div className="relative h-[222px] overflow-hidden">
         <img src={alignmentAssets.completionLandscape} alt="Ancient stone path and city at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.05) 0%, rgba(247,241,231,0.02) 48%, #F7F1E7 100%)' }} />
       </div>
-      <div className="relative -mt-[58px] flex flex-col items-center px-6 pb-8 text-center">
-        <div className="relative flex h-[96px] w-[96px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
-          <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
+      <div className="relative -mt-[44px] flex flex-col items-center px-6 text-center" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
+        <div className="relative flex h-[88px] w-[88px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
+          <div className="flex h-[70px] w-[70px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
             <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
               <path d="M23 38V12" stroke="#DDB761" strokeWidth="2.2" strokeLinecap="round" />
               <path d="M23 29c-6-7-6-13-2-20 5 6 6 13 2 20z" fill="#DDB761" opacity="0.86" />
@@ -312,16 +312,16 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
             </svg>
           </div>
         </div>
-        <h2 className="mt-5 font-serif text-[30px] font-semibold leading-[35px]" style={{ color: '#3A0D18' }}>
+        <h2 className="mt-4 font-serif text-[29px] font-semibold leading-[34px]" style={{ color: '#3A0D18' }}>
           First Scripture<br />practice <em className="font-medium" style={{ color: '#7B4B16' }}>complete</em>
         </h2>
-        <p className="mt-4 text-[14px]" style={{ color: '#30272A' }}>Account Level 2 reached · Passage Mastery Level 1 of 5</p>
-        <div className="mt-3 flex items-center justify-center gap-3">
+        <p className="mt-3 text-[14px]" style={{ color: '#30272A' }}>Account Level 2 reached · Passage Mastery Level 1 of 5</p>
+        <div className="mt-2.5 flex items-center justify-center gap-3">
           {Array.from({ length: 5 }).map((_, index) => (
             <span key={index} className="h-[13px] w-[13px] rounded-full" style={{ background: index === 0 ? '#B68425' : '#D8CDBC' }} />
           ))}
         </div>
-        <div className="mt-5 flex w-full flex-col gap-2 rounded-[9px] px-5 py-3 text-left" style={{ background: 'rgba(255,252,246,0.56)', border: '1px solid rgba(221,208,192,0.78)' }}>
+        <div className="mt-4 flex w-full flex-col gap-2 rounded-[9px] px-5 py-3 text-left" style={{ background: 'rgba(255,252,246,0.56)', border: '1px solid rgba(221,208,192,0.78)' }}>
           <span className="text-center font-serif text-[28px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
           <XPBar totalXP={25} awardedXP={25} id="onboarding-completion-xp" compact />
           <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 2 reached · 225 XP to Level 3</span>
@@ -342,52 +342,54 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
 }
 
 function AccountLevelUpScreen({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+  const milestones = [
+    ['Changed', 'Level 1 to Level 2'],
+    ['Unlocked', 'Level 2 Practice'],
+    ['Next', 'Start your Path'],
+  ]
+
   return (
     <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
-      <div className="relative h-[286px] overflow-hidden">
+      <div className="relative h-[156px] overflow-hidden">
         <img src={alignmentAssets.completionLandscape} alt="Jerusalem hillside at sunrise" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.02) 0%, rgba(247,241,231,0.04) 45%, #F7F1E7 100%)' }} />
         <button onClick={onBack} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#FFFCF6" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
       </div>
-      <div className="relative -mt-[68px] flex flex-col items-center px-6 pb-8 text-center">
-        <div className="relative flex h-[108px] w-[108px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 48%, #F5D98A 100%)', boxShadow: '0 8px 28px rgba(182,132,37,0.38)' }}>
-          <div className="flex h-[84px] w-[84px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.52)' }}>
-            <span className="font-serif text-[38px] leading-none" style={{ color: '#F9E8B9' }}>2</span>
+      <div className="relative -mt-[30px] flex flex-col items-center px-6 text-center" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
+        <div className="relative flex h-[68px] w-[68px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 48%, #F5D98A 100%)', boxShadow: '0 8px 28px rgba(182,132,37,0.38)' }}>
+          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.52)' }}>
+            <span className="font-serif text-[27px] leading-none" style={{ color: '#F9E8B9' }}>2</span>
           </div>
         </div>
-        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: '#B18423' }}>Account Level Up</p>
-        <h2 className="mt-2 font-serif text-[31px] font-semibold leading-[36px]" style={{ color: '#3A0D18' }}>
+        <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.26em]" style={{ color: '#B18423' }}>Account Level Up</p>
+        <h2 className="mt-1 font-serif text-[27px] font-semibold leading-[31px]" style={{ color: '#3A0D18' }}>
           Alignment Level 2<br />reached
         </h2>
-        <p className="mt-3 text-[15px] leading-[22px]" style={{ color: '#30272A' }}>
+        <p className="mt-1.5 text-[13px] leading-[18px]" style={{ color: '#30272A' }}>
           Text Observer · your first verified Scripture Practice moved your account progress forward.
         </p>
 
-        <div className="mt-5 flex w-full flex-col gap-2 rounded-[10px] px-5 py-4 text-left" style={{ background: 'rgba(255,252,246,0.68)', border: '1px solid rgba(221,208,192,0.86)' }}>
-          <span className="text-center font-serif text-[30px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
+        <div className="mt-3 flex w-full flex-col gap-1.5 rounded-[10px] px-5 py-2.5 text-left" style={{ background: 'rgba(255,252,246,0.68)', border: '1px solid rgba(221,208,192,0.86)' }}>
+          <span className="text-center font-serif text-[26px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
           <XPBar totalXP={25} awardedXP={25} id="onboarding-level-up-xp" compact />
           <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 2 reached · 225 XP to Level 3</span>
         </div>
 
-        <div className="mt-4 grid w-full gap-2 text-left">
-          {[
-            ['What changed', 'Your account level advanced from Level 1 to Level 2.'],
-            ['Unlocked', 'Level 2 Scripture Practice and the next Path recommendation.'],
-            ['Next', 'Continue to the Path chosen from your onboarding situation.'],
-          ].map(([title, detail]) => (
-            <div key={title} className="rounded-[10px] px-4 py-3" style={{ background: 'rgba(255,252,246,0.54)', border: '1px solid rgba(221,208,192,0.72)' }}>
+        <div className="mt-2.5 grid w-full gap-1.5 text-left">
+          {milestones.map(([title, detail]) => (
+            <div key={title} className="flex items-center justify-between gap-3 rounded-[10px] px-4 py-2" style={{ background: 'rgba(255,252,246,0.54)', border: '1px solid rgba(221,208,192,0.72)' }}>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: '#B18423' }}>{title}</p>
-              <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#30272A' }}>{detail}</p>
+              <p className="text-right text-[13px] leading-[18px]" style={{ color: '#30272A' }}>{detail}</p>
             </div>
           ))}
         </div>
-        <p className="mt-4 text-[12px] italic leading-[18px]" style={{ color: '#897A76' }}>
+        <p className="mt-2.5 text-[11px] italic leading-[16px]" style={{ color: '#897A76' }}>
           Level reflects verified learning progress, not spiritual worth.
         </p>
-        <div className="mt-4 w-full">
+        <div className="mt-2.5 w-full">
           <PrimaryButton label="See My Path" onPress={onNext} />
         </div>
       </div>

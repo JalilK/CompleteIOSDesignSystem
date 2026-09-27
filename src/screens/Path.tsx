@@ -65,15 +65,16 @@ function StageRail({ active, complete = [] }: { active: 'Learn' | 'Practice' | '
   )
 }
 
-function PathFrame({ children, image = PATH_IMG, title = 'Trusting God Through Uncertainty', subtitle = 'Session 2 of 7' }: {
+function PathFrame({ children, image = PATH_IMG, title = 'Trusting God Through Uncertainty', subtitle = 'Session 2 of 7', imageHeight = 204 }: {
   children: React.ReactNode
   image?: string
   title?: string
   subtitle?: string
+  imageHeight?: number
 }) {
   return (
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
-      <div className="relative h-[220px] shrink-0 overflow-hidden">
+      <div className="relative shrink-0 overflow-hidden" style={{ height: imageHeight }}>
         <img src={image} alt="" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.05) 0%, rgba(247,241,231,0.20) 48%, #F7F1E7 100%)' }} />
         <div className="absolute left-5 right-5 top-14 flex items-start justify-between">
@@ -88,7 +89,7 @@ function PathFrame({ children, image = PATH_IMG, title = 'Trusting God Through U
           <div className="mt-3"><SessionDots /></div>
         </div>
       </div>
-      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-hide px-6 pb-8">
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-hide px-6 pb-12 pt-6" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 48px)' }}>
         {children}
       </div>
     </div>
@@ -99,7 +100,7 @@ export function PathCover() {
   const { navigate } = useApp()
   return (
     <PathFrame image={TEACHING_IMG}>
-      <div className="-mt-2 text-center">
+      <div className="text-center">
         <p className="text-[11px] font-semibold uppercase" style={{ color: '#B68425', letterSpacing: '0.2em' }}>Session 2</p>
         <h1 className="mt-3 font-serif text-[33px] font-semibold leading-[39px]" style={{ color: '#3A0D18' }}>Trust without<br />demanding an<br />outcome</h1>
         <div className="mx-auto mt-4 h-px w-16" style={{ background: '#B68425' }} />
@@ -117,7 +118,7 @@ export function PathTeaching() {
   const { navigate } = useApp()
   return (
     <PathFrame image={PATH_IMG}>
-      <div className="-mt-2 text-center">
+      <div className="text-center">
         <h1 className="font-serif text-[28px] font-semibold leading-[32px]" style={{ color: '#3A0D18' }}>How the passages<br />teach together</h1>
         <div className="mx-auto mt-4 h-px w-16" style={{ background: '#B68425' }} />
         <div className="mt-6 rounded-[8px] p-5 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
@@ -185,11 +186,11 @@ export function PathPracticeReturn() {
 
 function ReceiptRow({ icon, label, value }: { icon: 'book' | 'star' | 'leaf' | 'path'; label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3 rounded-[8px] px-4 py-3 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
-      <IconDisc name={icon} size={40} iconSize={21} bg="#F3E6C9" color="#9B6B18" />
+    <div className="flex items-center gap-3 rounded-[8px] px-4 py-2.5 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+      <IconDisc name={icon} size={36} iconSize={19} bg="#F3E6C9" color="#9B6B18" />
       <div>
-        <p className="text-[10px] font-semibold uppercase" style={{ color: '#B68425', letterSpacing: '0.14em' }}>{label}</p>
-        <p className="text-[14px]" style={{ color: '#24171A' }}>{value}</p>
+        <p className="text-[9px] font-semibold uppercase" style={{ color: '#B68425', letterSpacing: '0.14em' }}>{label}</p>
+        <p className="text-[13px] leading-[17px]" style={{ color: '#24171A' }}>{value}</p>
       </div>
     </div>
   )
@@ -240,19 +241,19 @@ export function PathPrayerReturn() {
 export function PathSessionComplete() {
   const { navigate } = useApp()
   return (
-    <PathFrame image={CITY_IMG} title="Session 2 Complete" subtitle="Trust without demanding an outcome">
+    <PathFrame image={CITY_IMG} title="Session 2 Complete" subtitle="Trust without demanding an outcome" imageHeight={124}>
       <div className="text-center">
-        <AchievementMedallion name="leaf" size={100} iconSize={42} tone="gold" />
-        <h1 className="mt-5 font-serif text-[28px] font-semibold uppercase" style={{ color: '#3A0D18' }}>Session 2 Complete</h1>
+        <AchievementMedallion name="leaf" size={64} iconSize={28} tone="gold" />
+        <h1 className="mt-3 font-serif text-[24px] font-semibold uppercase" style={{ color: '#3A0D18' }}>Session 2 Complete</h1>
         <p className="mt-1 font-serif italic" style={{ color: '#3A0D18' }}>Trust without demanding an outcome</p>
-        <div className="mt-6 flex flex-col gap-2">
+        <div className="mt-3 flex flex-col gap-1.5">
           <ReceiptRow icon="path" label="Path Progress" value="2 of 7 sessions" />
           <ReceiptRow icon="book" label="Passage Mastery" value="Proverbs 3:5-6 · Level 2 of 5" />
           <ReceiptRow icon="star" label="XP Earned" value="+50 XP · 325 XP total" />
           <ReceiptRow icon="leaf" label="Achievement Progress" value="Scripture in Context · 2 of 3" />
         </div>
-        <div className="mt-5"><XPBar totalXP={325} awardedXP={50} id="path-session-xp" compact /></div>
-        <div className="mt-6 flex flex-col gap-2.5">
+        <div className="mt-2.5"><XPBar totalXP={325} awardedXP={50} id="path-session-xp" compact /></div>
+        <div className="mt-3 flex flex-col gap-2">
           <Primary onClick={() => navigate('home')}>Return Home</Primary>
           <Secondary onClick={() => navigate('path-cover')}>Continue to Session 3</Secondary>
         </div>
