@@ -403,19 +403,19 @@ function RecommendedPathScreen({ onNext, onBack }: { onNext: () => void; onBack:
       <button onClick={onBack} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
-      <div className="px-7 pt-[102px] text-center">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.26em]" style={{ color: '#B18423' }}>Recommended for you</p>
-        <h2 className="mt-3 font-serif text-[29px] leading-[34px]" style={{ color: '#3A0D18' }}>
-          Bringing Scripture<br />Into Daily Decisions
-        </h2>
-        <p className="mt-2 text-[13px]" style={{ color: '#675A5D' }}>7 sessions · About 5 minutes each</p>
+      <div className="relative h-[462px] shrink-0 overflow-hidden">
+        <img src={STONE_PATH} alt="Stone path through ancient landscape" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.94) 0%, rgba(247,241,231,0.78) 35%, rgba(247,241,231,0.26) 64%, #F7F1E7 100%)' }} />
+        <div className="absolute inset-x-7 top-[102px] text-center">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.26em]" style={{ color: '#B18423' }}>Recommended for you</p>
+          <h2 className="mt-3 font-serif text-[29px] leading-[34px]" style={{ color: '#3A0D18' }}>
+            Bringing Scripture<br />Into Daily Decisions
+          </h2>
+          <p className="mt-2 text-[13px]" style={{ color: '#675A5D' }}>7 sessions · About 5 minutes each</p>
+        </div>
       </div>
-      <div className="relative mt-4 h-[292px] shrink-0 overflow-hidden">
-        <img src={STONE_PATH} alt="Stone path through ancient landscape" className="h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.02) 0%, rgba(247,241,231,0.12) 58%, #F7F1E7 100%)' }} />
-      </div>
-      <div className="flex flex-1 flex-col px-7 pb-8">
-        <p className="-mt-1 text-[17px] leading-[24px]" style={{ color: '#30272A' }}>
+      <div className="-mt-2 flex flex-1 flex-col px-7 pb-8">
+        <p className="text-[17px] leading-[24px]" style={{ color: '#30272A' }}>
           Learn to understand what Scripture establishes and choose one faithful next step.
         </p>
         <button onClick={onNext} className="mt-5 flex min-h-[90px] items-center gap-4 rounded-[11px] p-3 text-left" style={{ background: 'rgba(255,252,246,0.82)', border: '1px solid rgba(221,208,192,0.72)', boxShadow: '0 1px 9px rgba(30,21,18,0.05)' }}>
