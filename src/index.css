@@ -77,6 +77,25 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.sheet-backdrop {
+  animation: sheetBackdropFade 0.18s ease-out both;
+}
+
+.bottom-sheet-rise {
+  animation: bottomSheetRise 0.38s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+  transform-origin: bottom center;
+}
+
+@keyframes sheetBackdropFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bottomSheetRise {
+  from { opacity: 0.96; transform: translateY(92px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Progress bar fill animation */
 @keyframes fillBar {
   from { width: 0%; }
@@ -125,7 +144,9 @@ body {
   .xp-pop,
   .medal-rise,
   .screen-enter,
-  .slide-up {
+  .slide-up,
+  .sheet-backdrop,
+  .bottom-sheet-rise {
     animation: none !important;
   }
 }

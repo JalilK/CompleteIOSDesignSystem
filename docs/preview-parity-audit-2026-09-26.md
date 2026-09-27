@@ -42,7 +42,7 @@ Paywall now has a direct preview route at `/?screen=paywall`, with unavailable p
 - Active screens no longer expose `KJV` or `King James Version`; visible edition labels use the selected-edition placeholder.
 - Emoji placeholder icons have been replaced with the shared native `AppIcon` system on audited screens.
 - Practice now exposes a six-question level.
-- `View Scripture` on Practice question opens a native Scripture reference sheet.
+- `View Scripture` on Practice question opens a native Scripture reference bottom sheet with dimmed backdrop and upward sheet entrance motion.
 - `What You'll Learn` on Practice entrance opens a native Level 2 learning sheet.
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
@@ -115,7 +115,7 @@ Home completion evidence proves:
 - Browser inspection of `/?screen=home` confirmed the target Home copy stack, CTA labels, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` nav.
 - Manual click audit on 2026-09-27 confirmed Home primary controls route or toggle: Profile -> You, Continue Path -> Practice intro, Current Alignment/Continue Alignment -> faithful action, devotional tiles/See All -> Devotional, bottom nav -> Home/Align/Devotionals/More.
 - Manual click audit on 2026-09-27 confirmed Progress controls route or toggle: settings -> You, Achievements `See All` -> expanded achievements, bottom nav -> Home/Align/Devotionals/More.
-- Manual click audit on 2026-09-27 confirmed Practice controls route or toggle: intro Back -> Home fallback, Begin Practice -> question, `What You'll Learn` -> native sheet, `View Scripture` -> native Scripture sheet, selecting an answer enables Check Answer, Check Answer -> feedback, completion `Return to Alignment` -> faithful action, completion `Continue to Level 3` -> next practice intro placeholder.
+- Manual click audit on 2026-09-27 confirmed Practice controls route or toggle: intro Back -> Home fallback, Begin Practice -> question, `What You'll Learn` -> native sheet, `View Scripture` -> native Scripture reference bottom sheet, selecting an answer enables Check Answer, Check Answer -> feedback, completion `Return to Alignment` -> faithful action, completion `Continue to Level 3` -> next practice intro placeholder.
 - Known remaining Practice interaction gap from the 2026-09-27 audit: `Continue to Level 3` is routeable, but still opens the same hardcoded Level 2 practice-intro content. It needs a real Level 3 state/content model before `ALIGN-GAP-006E Practice` can be marked complete.
 - Visual preview at 390 x 844 confirmed the Home screen fits with the devotional section visible above the bottom navigation.
 - Saved Home evidence: `.qa/home_parity_2026_09_26/home_390x844.png` and `.qa/home_parity_2026_09_26/home_390x844.ax.txt`. Desktop copy: `/Users/jalilkennedy/Desktop/alignment-home-parity-2026-09-26.png`.

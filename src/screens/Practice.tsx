@@ -280,9 +280,9 @@ function ScriptureReferenceSheet({ passage, onClose }: { passage: string; onClos
   const references = SCRIPTURE_REFERENCES[passage] ?? SCRIPTURE_REFERENCES['Proverbs 3:5–6']
 
   return (
-    <div className="absolute inset-0 z-30 flex flex-col justify-end" style={{ background: 'rgba(36,23,26,0.34)' }}>
+    <div className="sheet-backdrop absolute inset-0 z-30 flex flex-col justify-end" style={{ background: 'rgba(36,23,26,0.34)' }}>
       <button className="flex-1" onClick={onClose} aria-label="Close Scripture reference" />
-      <div className="max-h-[76%] overflow-y-auto rounded-t-[28px] px-5 pb-10 pt-4 shadow-2xl" style={{ background: '#FFFCF6' }}>
+      <div className="bottom-sheet-rise max-h-[76%] overflow-y-auto rounded-t-[28px] px-5 pb-10 pt-4 shadow-2xl" style={{ background: '#FFFCF6' }}>
         <div className="mx-auto mb-4 h-1 w-12 rounded-full" style={{ background: '#D7C4AF' }} />
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
