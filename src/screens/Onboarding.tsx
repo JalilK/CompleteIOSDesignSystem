@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
+import { XPBar } from '../components/XPBar'
 
 const HERO_LANDSCAPE = alignmentAssets.currentPath
 const STONE_PATH = alignmentAssets.currentPath
@@ -297,40 +298,42 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
   return (
     <div className="relative h-full overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar light />
-      <div className="relative h-[276px] overflow-hidden">
+      <div className="relative h-[250px] overflow-hidden">
         <img src={alignmentAssets.completionLandscape} alt="Ancient stone path and city at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.05) 0%, rgba(247,241,231,0.02) 48%, #F7F1E7 100%)' }} />
       </div>
-      <div className="relative -mt-[66px] flex flex-col items-center px-6 pb-8 text-center">
-        <div className="relative flex h-[104px] w-[104px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
-          <div className="flex h-[82px] w-[82px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <div className="relative -mt-[58px] flex flex-col items-center px-6 pb-8 text-center">
+        <div className="relative flex h-[96px] w-[96px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #F9E8B9 0%, #B68425 44%, #F5D98A 100%)', boxShadow: '0 5px 24px rgba(182,132,37,0.4)' }}>
+          <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full" style={{ background: 'linear-gradient(145deg, #40513B 0%, #687B56 100%)', border: '1px solid rgba(255,252,246,0.48)' }}>
+            <svg width="44" height="44" viewBox="0 0 48 48" fill="none">
               <path d="M23 38V12" stroke="#DDB761" strokeWidth="2.2" strokeLinecap="round" />
               <path d="M23 29c-6-7-6-13-2-20 5 6 6 13 2 20z" fill="#DDB761" opacity="0.86" />
               <path d="M24 27c7-3 12-8 14-15-8 1-13 6-14 15zM23 34c-6-2-10-6-12-12 7 0 11 4 12 12z" fill="#E6C878" opacity="0.92" />
             </svg>
           </div>
         </div>
-        <h2 className="mt-7 font-serif text-[31px] font-semibold leading-[36px]" style={{ color: '#3A0D18' }}>
+        <h2 className="mt-5 font-serif text-[30px] font-semibold leading-[35px]" style={{ color: '#3A0D18' }}>
           First Scripture<br />practice <em className="font-medium" style={{ color: '#7B4B16' }}>complete</em>
         </h2>
-        <p className="mt-5 text-[14px]" style={{ color: '#30272A' }}>Passage Mastery · Level 1 of 5</p>
-        <div className="mt-4 flex items-center justify-center gap-3">
+        <p className="mt-4 text-[14px]" style={{ color: '#30272A' }}>Passage Mastery · Level 1 of 5</p>
+        <div className="mt-3 flex items-center justify-center gap-3">
           {Array.from({ length: 5 }).map((_, index) => (
             <span key={index} className="h-[13px] w-[13px] rounded-full" style={{ background: index === 0 ? '#B68425' : '#D8CDBC' }} />
           ))}
         </div>
-        <div className="mt-7 flex h-[58px] w-full items-center justify-center rounded-[9px]" style={{ background: 'rgba(255,252,246,0.45)', border: '1px solid rgba(221,208,192,0.78)' }}>
-          <span className="font-serif text-[32px]" style={{ color: '#9B6B18' }}>+25 XP</span>
+        <div className="mt-5 flex w-full flex-col gap-2 rounded-[9px] px-5 py-3 text-left" style={{ background: 'rgba(255,252,246,0.56)', border: '1px solid rgba(221,208,192,0.78)' }}>
+          <span className="text-center font-serif text-[28px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
+          <XPBar totalXP={25} awardedXP={25} id="onboarding-completion-xp" compact />
+          <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 1 · 75 XP to Level 2</span>
         </div>
-        <div className="mt-6 h-px w-10" style={{ background: '#B68425' }} />
-        <div className="mt-5 flex h-[52px] w-full items-center gap-3 rounded-[9px] px-4" style={{ background: 'rgba(255,252,246,0.46)', border: '1px solid rgba(221,208,192,0.78)' }}>
+        <div className="mt-3 h-px w-10" style={{ background: '#B68425' }} />
+        <div className="mt-3 flex h-[50px] w-full items-center gap-3 rounded-[9px] px-4" style={{ background: 'rgba(255,252,246,0.46)', border: '1px solid rgba(221,208,192,0.78)' }}>
           <span className="flex h-34 w-34 items-center justify-center rounded-full" style={{ width: 34, height: 34, background: '#B68425' }}>
             <svg width="21" height="18" viewBox="0 0 21 18" fill="none"><path d="M2 3.5c0-1 1-1.8 2-1.5l4.8 1.3c.8.2 1.4 1 1.4 1.8v10.4c0-.8-.6-1.5-1.4-1.8L4 12.4c-1-.3-2 .5-2 1.5V3.5zM19 3.5c0-1-1-1.8-2-1.5l-4.8 1.3c-.8.2-1.4 1-1.4 1.8v10.4c0-.8.6-1.5 1.4-1.8l4.8-1.3c1-.3 2 .5 2 1.5V3.5z" stroke="#FFFCF6" strokeWidth="1.3" strokeLinejoin="round"/></svg>
           </span>
           <span className="text-[13px] font-medium" style={{ color: '#30272A' }}>Text Before Assumption · 1 of 3</span>
         </div>
-        <div className="mt-7 w-full">
+        <div className="mt-4 w-full">
           <PrimaryButton label="Continue" onPress={onNext} />
         </div>
       </div>

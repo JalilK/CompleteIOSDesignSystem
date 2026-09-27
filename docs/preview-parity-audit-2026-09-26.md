@@ -47,7 +47,7 @@ Paywall now has a direct preview route at `/?screen=paywall`, with unavailable p
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
 - Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
-- Home, Progress, and Practice completion now share a native verified XP bar that animates earned XP from the prior total to the new committed total, including level-crossing fill behavior and reduced-motion fallback.
+- Home, Progress, Onboarding first-practice completion, and Practice completion now share a native verified XP bar that animates earned XP from the prior total to the new committed total, including level-crossing fill behavior and reduced-motion fallback.
 - Progress now uses the shared scenic visual system behind the level ring so the route moves closer to the September 25 Progress board rather than a flat utility page.
 - Practice completion now uses a compact verified XP meter inside the medallion/progress card, preserving the completion actions on the first scrollable surface.
 - Practice completion `Return to Alignment` now routes back to the active faithful-action/alignment surface instead of Home.
