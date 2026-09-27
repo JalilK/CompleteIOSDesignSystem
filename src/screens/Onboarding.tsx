@@ -244,10 +244,10 @@ function PurposeSelectionScreen({ onNext, onBack }: { onNext: () => void; onBack
   return (
     <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <NativeStatusBar />
-      <img src={alignmentAssets.questionLandscape} alt="Soft stone path landscape" className="absolute inset-x-0 top-[132px] h-[230px] object-cover opacity-80" />
-      <div className="absolute inset-x-0 top-[240px] h-[160px]" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0) 0%, #F7F1E7 74%)' }} />
+      <img src={alignmentAssets.questionLandscape} alt="Soft stone path landscape" className="absolute inset-x-0 top-0 h-[380px] object-cover opacity-90" />
+      <div className="absolute inset-x-0 top-0 h-[430px]" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.68) 0%, rgba(247,241,231,0.22) 38%, rgba(247,241,231,0.34) 58%, #F7F1E7 94%)' }} />
       <div className="relative z-10 flex h-full flex-col px-7 pb-8 pt-[68px]">
-        <button onClick={onBack} className="mb-8 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
+        <button onClick={onBack} className="mb-14 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         <h2 className="font-serif text-[29px] leading-[34px]" style={{ color: '#3A0D18' }}>
