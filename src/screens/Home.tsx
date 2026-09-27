@@ -1,6 +1,7 @@
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
 import { XPBar } from '../components/XPBar'
+import { AppIcon, IconDisc } from '../components/AppIcon'
 
 function ProfileButton({ onPress }: { onPress: () => void }) {
   return (
@@ -25,16 +26,64 @@ function LeafDisc() {
   )
 }
 
-function DevotionalTile({ label, title, image, onPress }: { label: string; title: string; image: string; onPress: () => void }) {
+const pathPieces = [
+  {
+    label: 'Devotional',
+    title: 'Trust Without Demanding an Outcome',
+    detail: 'Read the teaching from your current Path',
+    recency: 'Today',
+    action: 'Read',
+    icon: 'book' as const,
+    bg: '#F3E6C9',
+    color: '#9B6B18',
+    screen: 'devotional' as const,
+  },
+  {
+    label: 'Prayer',
+    title: 'Pray Proverbs 3:5-6',
+    detail: 'Respond to the Scripture you just studied',
+    recency: 'Yesterday',
+    action: 'Pray',
+    icon: 'prayer' as const,
+    bg: '#F5E4D2',
+    color: '#741630',
+    screen: 'prayer-mode' as const,
+  },
+  {
+    label: 'Scripture Practice',
+    title: 'Proverbs 3:5-6',
+    detail: 'Practiced recently · Level 2 of 5 · not mastered',
+    recency: '3 days ago',
+    action: 'Practice',
+    icon: 'leaf' as const,
+    bg: '#E6ECE2',
+    color: '#607255',
+    screen: 'practice-intro' as const,
+  },
+]
+
+function PathPieceCard({ item, onPress }: { item: (typeof pathPieces)[number]; onPress: () => void }) {
   return (
-    <button onClick={onPress} className="relative rounded-[9px] overflow-hidden text-left" style={{ height: 128, boxShadow: '0 1px 10px rgba(30,21,18,0.14)' }}>
-      <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(30,21,18,0.12) 0%, rgba(30,21,18,0.58) 54%, rgba(30,21,18,0.90) 100%)' }} />
-      <div className="absolute left-3 right-3 bottom-3">
-        <p className="text-[13px] font-semibold leading-[16px]" style={{ color: '#FFFCF6', textShadow: '0 1px 8px rgba(0,0,0,0.58)' }}>{label}</p>
-        <p className="text-[12px] leading-[16px] mt-0.5" style={{ color: 'rgba(255,252,246,0.94)', textShadow: '0 1px 8px rgba(0,0,0,0.58)' }}>{title}</p>
+    <button onClick={onPress} className="w-full rounded-[14px] p-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6', boxShadow: '0 1px 12px rgba(30,21,18,0.07)' }}>
+      <div className="flex items-start gap-3">
+        <IconDisc name={item.icon} size={44} iconSize={22} bg={item.bg} color={item.color} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: item.color }}>{item.label}</p>
+            <span className="shrink-0 text-[11px]" style={{ color: '#897A76' }}>{item.recency}</span>
+          </div>
+          <h3 className="mt-1 font-serif text-[19px] font-semibold leading-[23px]" style={{ color: '#24171A' }}>{item.title}</h3>
+          <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{item.detail}</p>
+        </div>
+        <span className="mt-8 text-[24px] leading-none" style={{ color: '#9B6B18' }}>›</span>
       </div>
-      <span className="absolute right-3 bottom-5 text-[22px]" style={{ color: '#FFFCF6' }}>›</span>
+      <div className="mt-3 flex items-center justify-between rounded-full px-3 py-2" style={{ background: '#F4EBDD' }}>
+        <span className="flex items-center gap-1.5 text-[12px] font-medium" style={{ color: '#675A5D' }}>
+          <AppIcon name="sync" size={14} color="#897A76" />
+          Continue this part only
+        </span>
+        <span className="text-[13px] font-semibold" style={{ color: '#741630' }}>{item.action}</span>
+      </div>
     </button>
   )
 }
@@ -102,23 +151,17 @@ export function Home() {
         </section>
 
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-serif text-[20px] leading-[25px] font-normal" style={{ color: '#24171A' }}>Today’s Devotionals</h2>
-            <button onClick={() => navigate('devotionals')} className="text-[13px]" style={{ color: '#675A5D' }}>See All</button>
+          <div className="mb-3 flex items-end justify-between gap-3">
+            <div>
+              <h2 className="font-serif text-[21px] leading-[25px] font-normal" style={{ color: '#24171A' }}>Continue one part</h2>
+              <p className="mt-1 text-[12px] leading-[16px]" style={{ color: '#675A5D' }}>Newest activity first. Do a devotional, pray, or revisit Scripture without starting the full Path.</p>
+            </div>
+            <button onClick={() => navigate('library')} className="shrink-0 text-[13px]" style={{ color: '#675A5D' }}>See All</button>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <DevotionalTile
-              label="For You"
-              title="A quiet word for your next step"
-              image={alignmentAssets.currentPath}
-              onPress={() => navigate('devotional')}
-            />
-            <DevotionalTile
-              label="Recent"
-              title="Personal devotional history"
-              image={alignmentAssets.forYou}
-              onPress={() => navigate('devotionals')}
-            />
+          <div className="flex flex-col gap-3">
+            {pathPieces.map(item => (
+              <PathPieceCard key={item.label} item={item} onPress={() => navigate(item.screen)} />
+            ))}
           </div>
         </section>
 
