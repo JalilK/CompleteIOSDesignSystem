@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useApp } from '../context'
 import { AppIcon, IconDisc } from '../components/AppIcon'
 import { alignmentAssets } from '../assets/alignment/assets'
@@ -22,9 +22,15 @@ export function AlignmentIntake() {
   const { navigate, goBack, alignmentText, setAlignmentText } = useApp()
   const [text, setText] = useState(alignmentText)
   const [notice, setNotice] = useState<string | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const useExample = () => {
     setText("I'm anxious about whether to accept a new job. I don't want fear or money to make the decision for me.")
     setNotice('Example added. You can edit it before continuing.')
+  }
+  const dismissKeyboard = () => {
+    textareaRef.current?.blur()
+    setIsEditing(false)
   }
 
   return (
@@ -37,7 +43,7 @@ export function AlignmentIntake() {
           <h1 className="font-serif text-[22px] font-bold" style={{ color: '#24171A' }}>New Alignment</h1>
         </div>
       </div>
-      <div className="flex-1 px-5 pt-3 flex flex-col gap-4 overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }}>
+      <div className="flex-1 px-5 pt-3 pb-36 flex flex-col gap-4 overflow-y-auto scrollbar-hide" style={{ background: '#F7F1E7' }} onScroll={() => isEditing && dismissKeyboard()}>
         <div>
           <h2 className="font-serif text-[26px] font-bold leading-[32px] mb-2" style={{ color: '#24171A' }}>What are you facing?</h2>
           <p className="text-[14px] leading-[21px]" style={{ color: '#675A5D' }}>
@@ -46,8 +52,11 @@ export function AlignmentIntake() {
         </div>
         <div className="rounded-[20px] p-4 flex-1 min-h-[180px]" style={{ background: '#FFFCF6', border: '1.5px solid #DDD0C0' }}>
           <textarea
+            ref={textareaRef}
             value={text}
             onChange={e => setText(e.target.value)}
+            onFocus={() => setIsEditing(true)}
+            onBlur={() => setIsEditing(false)}
             className="w-full h-full min-h-[160px] resize-none bg-transparent text-[16px] leading-[24px] outline-none"
             style={{ color: '#24171A', fontFamily: 'var(--font-sans)' }}
             placeholder="I'm anxious about whether to accept a new job. I don't want fear or money to make the decision for me."
@@ -84,7 +93,14 @@ export function AlignmentIntake() {
           </div>
         </div>
       </div>
-      <div className="px-5 pb-10 pt-4" style={{ background: '#F7F1E7' }}>
+      {isEditing && (
+        <div className="absolute inset-x-0 bottom-[104px] z-20 flex justify-end px-5">
+          <button onClick={dismissKeyboard} className="rounded-full px-4 py-2 text-[13px] font-semibold shadow-lg" style={{ background: '#FFFCF6', color: '#741630', border: '1px solid #DDD0C0' }}>
+            Done typing
+          </button>
+        </div>
+      )}
+      <div className="shrink-0 px-5 pb-10 pt-4" style={{ background: '#F7F1E7' }}>
         <button
           disabled={text.trim().length < 10}
           onClick={() => { setAlignmentText(text); navigate('alignment-analyzing') }}

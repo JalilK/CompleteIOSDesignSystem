@@ -46,6 +46,7 @@ Paywall now has a direct preview route at `/?screen=paywall`, with unavailable p
 - `What You'll Learn` on Practice entrance opens a native Level 2 learning sheet.
 - Practice image-to-content spacing was improved on entrance and feedback.
 - Shared screens now use contextual back navigation instead of hardcoded guesses.
+- Alignment intake preview includes keyboard-safe behavior approximation: a visible `Done typing` affordance, blur-on-scroll dismissal, and extra scroll padding so bottom content remains reachable while editing.
 - Home now uses the September 25 Home board hierarchy: Level 3/275 XP header, `Your Path` card, current Alignment card, `Today's Devotionals`, and `Home / Align / Devotionals / More` navigation.
 - Home, Progress, Onboarding first-practice completion, and Practice completion now share a native verified XP bar that animates earned XP from the prior total to the new committed total, including level-crossing fill behavior and reduced-motion fallback.
 - Progress now uses the shared scenic visual system behind the level ring so the route moves closer to the September 25 Progress board rather than a flat utility page.
@@ -91,7 +92,7 @@ The next implementation target is `ALIGN-GAP-006D Case`, covering intake, report
 - **Prayer/Meditation**: native stack exists. Needs persistent audio controls, transcript behavior, history behavior, and screenshot-safe spacing.
 - **Sound Controls**: native, routeable, and selectable in preview. Needs persistence and bottom safe-area proof.
 - **Privacy/Settings**: native, routeable, and no longer emoji-based. Needs confirmation dialogs/states and persistence.
-- **Alignment/Case**: native intake/report/action exist. Needs exact board parity and clearer lifecycle behavior.
+- **Alignment/Case**: native intake/report/action exist. Intake now approximates keyboard-safe scroll/dismiss behavior in the browser preview. Needs exact board parity and clearer lifecycle behavior.
 - **Practice**: six-question route exists; `View Scripture` and `What You'll Learn` now work. Needs final visual tuning, persistence, and XP reconciliation proof.
 
 ## Home Parity Acceptance Checklist
