@@ -315,7 +315,7 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
         <h2 className="mt-5 font-serif text-[30px] font-semibold leading-[35px]" style={{ color: '#3A0D18' }}>
           First Scripture<br />practice <em className="font-medium" style={{ color: '#7B4B16' }}>complete</em>
         </h2>
-        <p className="mt-4 text-[14px]" style={{ color: '#30272A' }}>Passage Mastery · Level 1 of 5</p>
+        <p className="mt-4 text-[14px]" style={{ color: '#30272A' }}>Account Level 2 reached · Passage Mastery Level 1 of 5</p>
         <div className="mt-3 flex items-center justify-center gap-3">
           {Array.from({ length: 5 }).map((_, index) => (
             <span key={index} className="h-[13px] w-[13px] rounded-full" style={{ background: index === 0 ? '#B68425' : '#D8CDBC' }} />
@@ -324,7 +324,7 @@ function CompletionReferenceNativeScreen({ onNext }: { onNext: () => void }) {
         <div className="mt-5 flex w-full flex-col gap-2 rounded-[9px] px-5 py-3 text-left" style={{ background: 'rgba(255,252,246,0.56)', border: '1px solid rgba(221,208,192,0.78)' }}>
           <span className="text-center font-serif text-[28px]" style={{ color: '#9B6B18' }}>+25 verified XP</span>
           <XPBar totalXP={25} awardedXP={25} id="onboarding-completion-xp" compact />
-          <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 1 · 75 XP to Level 2</span>
+          <span className="text-center text-[11px] font-medium" style={{ color: '#897A76' }}>Level 2 reached · 225 XP to Level 3</span>
         </div>
         <div className="mt-3 h-px w-10" style={{ background: '#B68425' }} />
         <div className="mt-3 flex h-[50px] w-full items-center gap-3 rounded-[9px] px-4" style={{ background: 'rgba(255,252,246,0.46)', border: '1px solid rgba(221,208,192,0.78)' }}>

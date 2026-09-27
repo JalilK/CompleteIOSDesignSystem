@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 
 const LEVEL_THRESHOLDS = [
   { level: 1, min: 0, name: 'Beginning Practice' },
-  { level: 2, min: 100, name: 'Text Observer' },
+  { level: 2, min: 25, name: 'Text Observer' },
   { level: 3, min: 250, name: 'Careful Interpreter' },
   { level: 4, min: 500, name: 'Faithful Applier' },
   { level: 5, min: 850, name: 'Conversation Ready' },
