@@ -435,10 +435,10 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
 
-      <div className="relative h-[358px] shrink-0 overflow-hidden">
+      <div className="relative h-[292px] shrink-0 overflow-hidden">
         <img src={HERO_LANDSCAPE} alt="Ancient hillside path at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.80) 0%, rgba(247,241,231,0.28) 46%, #F7F1E7 100%)' }} />
-        <div className="absolute inset-x-7 top-[120px] text-center">
+        <div className="absolute inset-x-7 top-[104px] text-center">
           <h2 className="font-serif text-[30px] leading-[36px]" style={{ color: '#3A0D18' }}>
             Continue your<br />journey in Scripture
           </h2>
@@ -448,11 +448,11 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
         </div>
       </div>
 
-      <div className="-mt-4 flex-1 overflow-y-auto scrollbar-hide px-7 pb-2">
-        <div className="flex flex-col gap-2.5">
+      <div className="-mt-1 flex-1 overflow-y-auto scrollbar-hide px-7 pb-4">
+        <div className="flex flex-col gap-2">
           {plans.map(p => (
             <button key={p.id} onClick={() => setSelectedPlan(p.id)}
-              className="rounded-[10px] px-4 py-3 flex items-center gap-3 transition-all duration-200"
+              className="rounded-[10px] px-4 py-2.5 flex items-center gap-3 transition-all duration-200"
               style={{
                 background: selectedPlan === p.id ? '#FFFCF6' : 'rgba(255,252,246,0.70)',
                 border: `1.5px solid ${selectedPlan === p.id ? '#B68425' : 'rgba(221,208,192,0.72)'}`,
@@ -479,7 +479,7 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
           </div>
         )}
 
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-3 flex flex-col gap-1.5">
           {benefits.map((b, i) => (
             <div key={i} className="flex items-start gap-2.5">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5"><circle cx="8" cy="8" r="8" fill="#B68425" /><path d="M4.5 8l2.5 2.5 5-5" stroke="#FFFCF6" strokeWidth="1.5" strokeLinecap="round" /></svg>
@@ -488,13 +488,13 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
           ))}
         </div>
 
-        <p className="mt-4 text-center text-[12px] leading-[18px]" style={{ color: '#675A5D' }}>
+        <p className="mt-3 text-center text-[12px] leading-[18px]" style={{ color: '#675A5D' }}>
           {isUnavailable ? 'No charge can begin until products are available.' : 'Then renews automatically. Cancel anytime.'}
         </p>
         {notice && <p className="mt-2 text-center text-[12px]" style={{ color: '#7A1E1E' }}>{notice}</p>}
       </div>
 
-      <div className="px-7 pb-6 pt-3 flex flex-col gap-3" style={{ background: '#F7F1E7' }}>
+      <div className="px-7 pt-3 flex flex-col gap-3" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 30px)' }}>
         <PrimaryButton label={isUnavailable ? 'Products Unavailable' : selectedPlan === 'annual' ? 'Start Free Trial' : 'Start Monthly'} onPress={activate} disabled={isUnavailable} />
         <div className="flex justify-center gap-4">
           <button onClick={() => setNotice('Restore purchases is available when StoreKit is connected.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Restore Purchases</button>
