@@ -489,10 +489,10 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
 
-      <div className="relative h-[268px] shrink-0 overflow-hidden">
+      <div className="relative h-[246px] shrink-0 overflow-hidden">
         <img src={HERO_LANDSCAPE} alt="Ancient hillside path at golden hour" className="h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(247,241,231,0.80) 0%, rgba(247,241,231,0.28) 46%, #F7F1E7 100%)' }} />
-        <div className="absolute inset-x-7 top-[94px] text-center">
+        <div className="absolute inset-x-7 top-[86px] text-center">
           <h2 className="font-serif text-[29px] leading-[34px]" style={{ color: '#3A0D18' }}>
             Continue your<br />journey in Scripture
           </h2>
@@ -502,11 +502,11 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
         </div>
       </div>
 
-      <div className="-mt-1 min-h-0 flex-1 overflow-y-auto scrollbar-hide px-7 pb-3">
+      <div className="-mt-1 min-h-0 flex-1 overflow-y-auto scrollbar-hide px-7 pb-8">
         <div className="flex flex-col gap-2">
           {plans.map(p => (
             <button key={p.id} onClick={() => setSelectedPlan(p.id)}
-              className="rounded-[10px] px-4 py-2 flex items-center gap-3 transition-all duration-200"
+              className="rounded-[10px] px-4 py-1.5 flex items-center gap-3 transition-all duration-200"
               style={{
                 background: selectedPlan === p.id ? '#FFFCF6' : 'rgba(255,252,246,0.70)',
                 border: `1.5px solid ${selectedPlan === p.id ? '#B68425' : 'rgba(221,208,192,0.72)'}`,
@@ -546,14 +546,14 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
           {isUnavailable ? 'No charge can begin until products are available.' : 'Then renews automatically. Cancel anytime.'}
         </p>
         {notice && <p className="mt-2 text-center text-[12px]" style={{ color: '#7A1E1E' }}>{notice}</p>}
-      </div>
 
-      <div className="shrink-0 px-7 pt-2 flex flex-col gap-2" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 18px)' }}>
-        <PrimaryButton label={isUnavailable ? 'Products Unavailable' : selectedPlan === 'annual' ? 'Start Free Trial' : 'Start Monthly'} onPress={activate} disabled={isUnavailable} />
-        <div className="flex justify-center gap-4">
-          <button onClick={() => setNotice('Restore purchases is available when StoreKit is connected.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Restore Purchases</button>
-          <button onClick={() => setNotice('Terms opens the App Store terms document in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Terms</button>
-          <button onClick={() => setNotice('Privacy opens the privacy policy in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Privacy</button>
+        <div className="mt-9 flex flex-col gap-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 24px)' }}>
+          <PrimaryButton label={isUnavailable ? 'Products Unavailable' : selectedPlan === 'annual' ? 'Start Free Trial' : 'Start Monthly'} onPress={activate} disabled={isUnavailable} />
+          <div className="flex justify-center gap-4">
+            <button onClick={() => setNotice('Restore purchases is available when StoreKit is connected.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Restore Purchases</button>
+            <button onClick={() => setNotice('Terms opens the App Store terms document in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Terms</button>
+            <button onClick={() => setNotice('Privacy opens the privacy policy in production.')} className="text-[12px] underline" style={{ color: '#5C4B45' }}>Privacy</button>
+          </div>
         </div>
       </div>
     </div>
