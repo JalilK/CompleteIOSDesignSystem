@@ -15,6 +15,7 @@ export type Screen =
   | 'library'
   | 'progress'
   | 'profile'
+  | 'devotionals'
   | 'devotional'
   | 'prayer-mode'
   | 'pray-scripture'
@@ -63,6 +64,7 @@ const screens: Screen[] = [
   'library',
   'progress',
   'profile',
+  'devotionals',
   'devotional',
   'prayer-mode',
   'pray-scripture',

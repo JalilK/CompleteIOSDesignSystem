@@ -48,7 +48,7 @@ export function BottomNav() {
   const items = [
     { id: 'home', label: 'Home', icon: HomeIcon, active: screen === 'home', action: () => setTab('home') },
     { id: 'align', label: 'Align', icon: AlignIcon, active: screen.startsWith('alignment') || screen === 'faithful-action', action: () => navigate('alignment-intake', { replace: true }) },
-    { id: 'devotionals', label: 'Devotionals', icon: DevotionalIcon, active: screen === 'devotional' || screen === 'prayer-mode', action: () => navigate('devotional', { replace: true }) },
+    { id: 'devotionals', label: 'Devotionals', icon: DevotionalIcon, active: screen === 'devotionals' || screen === 'devotional' || screen === 'prayer-mode', action: () => navigate('devotionals', { replace: true }) },
     { id: 'more', label: 'More', icon: MoreIcon, active: screen === 'profile', action: () => setTab('you') },
   ]
 

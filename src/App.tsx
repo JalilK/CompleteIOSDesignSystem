@@ -5,14 +5,14 @@ import { Home } from './screens/Home'
 import { Library } from './screens/Library'
 import { Progress } from './screens/Progress'
 import { Profile, PrivacySettings } from './screens/Profile'
-import { Devotional, GuidedPrayerScreen, MeditationPlayer, PrayerMode, PrayScriptureScreen, SoundControls } from './screens/Devotional'
+import { Devotional, DevotionalsIndex, GuidedPrayerScreen, MeditationPlayer, PrayerMode, PrayScriptureScreen, SoundControls } from './screens/Devotional'
 import { ContextStudy } from './screens/ContextStudy'
 import { AlignmentIntake, AlignmentAnalyzing, AlignmentReport, FaithfulAction } from './screens/Alignment'
 import { PracticeIntro, PracticeQuestion, PracticeLevelComplete } from './screens/Practice'
 
 const SHOW_BOTTOM_NAV = new Set([
   'home', 'library', 'progress', 'profile',
-  'alignment-intake', 'devotional',
+  'alignment-intake', 'devotionals', 'devotional',
 ])
 
 function AppShell() {
@@ -28,6 +28,7 @@ function AppShell() {
       case 'library': return <Library />
       case 'progress': return <Progress />
       case 'profile': return <Profile />
+      case 'devotionals': return <DevotionalsIndex />
       case 'devotional': return <Devotional />
       case 'prayer-mode': return <PrayerMode />
       case 'pray-scripture': return <PrayScriptureScreen />

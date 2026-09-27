@@ -99,7 +99,7 @@ export function Home() {
         <section>
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-serif text-[20px] leading-[25px] font-normal" style={{ color: '#24171A' }}>Today’s Devotionals</h2>
-            <button onClick={() => navigate('devotional')} className="text-[13px]" style={{ color: '#675A5D' }}>See All</button>
+            <button onClick={() => navigate('devotionals')} className="text-[13px]" style={{ color: '#675A5D' }}>See All</button>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <DevotionalTile
@@ -109,10 +109,10 @@ export function Home() {
               onPress={() => navigate('devotional')}
             />
             <DevotionalTile
-              label="For Everyone"
-              title="Faith for real life today"
+              label="Recent"
+              title="Personal devotional history"
               image={alignmentAssets.forYou}
-              onPress={() => navigate('devotional')}
+              onPress={() => navigate('devotionals')}
             />
           </div>
         </section>

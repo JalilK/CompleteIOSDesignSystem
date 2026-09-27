@@ -20,6 +20,93 @@ function BackButton({ onBack }: { onBack: () => void }) {
   )
 }
 
+type DevotionalCardSpec = {
+  label: string
+  title: string
+  subtitle: string
+  passage: string
+  image: string
+  icon: 'leaf' | 'tree'
+}
+
+const DEVOTIONALS: DevotionalCardSpec[] = [
+  {
+    label: 'For You',
+    title: 'Trust Without Demanding the Outcome',
+    subtitle: 'A quiet word for your next step',
+    passage: 'Proverbs 3:5-6 · James 4:13-15',
+    image: DEV_IMG,
+    icon: 'leaf',
+  },
+  {
+    label: 'Recent',
+    title: 'A Steadier Heart for Today',
+    subtitle: 'Personal devotional history',
+    passage: 'Proverbs 14:12',
+    image: STILL_WATERS_IMG,
+    icon: 'tree',
+  },
+]
+
+export function DevotionalsIndex() {
+  const { navigate, goBack } = useApp()
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
+      <div className="px-5 pt-14 pb-4 flex items-center gap-3 shrink-0">
+        <BackButton onBack={() => goBack('home')} />
+        <div>
+          <h1 className="font-serif text-[30px] leading-[35px] font-semibold" style={{ color: '#24171A' }}>Today’s Devotionals</h1>
+          <p className="text-[13px] mt-1" style={{ color: '#675A5D' }}>Read, pray, or begin Scripture Practice from your devotional material.</p>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-4">
+        <div className="rounded-[16px] p-4 flex gap-3" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+          <AppIcon name="lock" size={19} color="#9B6B18" className="shrink-0 mt-0.5" />
+          <p className="text-[13px] leading-[19px]" style={{ color: '#675A5D' }}>
+            Reading, saving, praying, or listening never awards mastery XP. XP begins only when you enter Scripture Practice and answer from the passage.
+          </p>
+        </div>
+
+        {DEVOTIONALS.map(item => (
+          <button key={item.label} onClick={() => navigate('devotional')} className="overflow-hidden rounded-[18px] text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6', boxShadow: '0 1px 14px rgba(30,21,18,0.08)' }}>
+            <div className="relative h-[150px] overflow-hidden">
+              <img src={item.image} alt="" className="h-full w-full object-cover" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.02) 0%, rgba(30,21,18,0.72) 100%)' }} />
+              <div className="absolute left-4 right-4 bottom-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: '#E6C878' }}>{item.label}</p>
+                <h2 className="font-serif text-[24px] leading-[29px] mt-1" style={{ color: '#FFFCF6' }}>{item.title}</h2>
+              </div>
+            </div>
+            <div className="p-4 flex items-center gap-3">
+              <IconDisc name={item.icon} size={42} />
+              <div className="flex-1">
+                <p className="text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{item.subtitle}</p>
+                <p className="text-[12px] font-semibold mt-1" style={{ color: '#9B6B18' }}>{item.passage}</p>
+              </div>
+              <span className="text-[24px]" style={{ color: '#9B6B18' }}>›</span>
+            </div>
+          </button>
+        ))}
+
+        <div className="grid grid-cols-2 gap-3 pt-1">
+          <button onClick={() => navigate('prayer-mode')} className="rounded-[16px] p-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+            <AppIcon name="prayer" size={23} color="#741630" />
+            <p className="font-serif text-[17px] font-semibold mt-3" style={{ color: '#24171A' }}>Pray or meditate</p>
+            <p className="text-[12px] leading-[17px] mt-1" style={{ color: '#675A5D' }}>Stay with today’s Scripture.</p>
+          </button>
+          <button onClick={() => navigate('library')} className="rounded-[16px] p-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+            <AppIcon name="book" size={23} color="#741630" />
+            <p className="font-serif text-[17px] font-semibold mt-3" style={{ color: '#24171A' }}>Saved journeys</p>
+            <p className="text-[12px] leading-[17px] mt-1" style={{ color: '#675A5D' }}>Reopen devotional history.</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Devotional() {
   const { navigate, goBack } = useApp()
   const [saved, setSaved] = useState(false)
