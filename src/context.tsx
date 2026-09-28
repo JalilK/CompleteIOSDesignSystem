@@ -34,6 +34,8 @@ export type Screen =
   | 'sound-controls'
   | 'privacy-settings'
   | 'context-study'
+  | 'motion-source-truth'
+  | 'prototype-graph'
 
 export type DevotionalActivity = {
   id: string
@@ -119,6 +121,8 @@ const screens: Screen[] = [
   'sound-controls',
   'privacy-settings',
   'context-study',
+  'motion-source-truth',
+  'prototype-graph',
 ]
 
 function previewInitialScreen(): Screen {

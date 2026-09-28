@@ -96,6 +96,8 @@ export function Profile() {
           <SettingsRow icon="info" label="Notifications" onPress={() => openDetail('Notifications', 'Control practice reminders, Path resume nudges, and quiet-hour behavior without exposing sensitive spiritual or personal details on the lock screen.', 'Preview state: reminders are off until the native app requests notification permission.')} />
           <SettingsRow icon="music" label="Sensory Preferences" onPress={() => navigate('sound-controls')} />
           <SettingsRow icon="settings" label="Accessibility" onPress={() => openDetail('Accessibility', 'Alignment must support Dynamic Type, VoiceOver labels, sufficient contrast, reduced motion, and text alternatives for progress, medals, and charts.', 'Use Sound Controls for reduce-motion preview. Native builds should mirror iOS accessibility settings.')} />
+          <SettingsRow icon="sync" label="Motion Source of Truth" onPress={() => navigate('motion-source-truth')} />
+          <SettingsRow icon="path" label="Button Destination Graph" onPress={() => navigate('prototype-graph')} />
         </Section>
 
         <Section title="Subscription">

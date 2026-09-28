@@ -10,6 +10,7 @@ import { ContextStudy } from './screens/ContextStudy'
 import { AlignmentIntake, AlignmentAnalyzing, AlignmentReport, FaithfulAction } from './screens/Alignment'
 import { PracticeIntro, PracticeQuestion, PracticeLevelComplete } from './screens/Practice'
 import { PathComplete, PathCover, PathOverview, PathPaused, PathPracticeHandoff, PathPracticeReturn, PathPrayerHandoff, PathPrayerReturn, PathSessionComplete, PathTeaching } from './screens/Path'
+import { MotionSourceTruth, PrototypeDestinationGraph } from './screens/SourceOfTruth'
 
 const SHOW_BOTTOM_NAV = new Set([
   'home', 'library', 'progress', 'profile',
@@ -55,6 +56,8 @@ function AppShell() {
       case 'path-overview': return <PathOverview />
       case 'path-paused': return <PathPaused />
       case 'path-complete': return <PathComplete />
+      case 'motion-source-truth': return <MotionSourceTruth />
+      case 'prototype-graph': return <PrototypeDestinationGraph />
       default: return <Home />
     }
   }
