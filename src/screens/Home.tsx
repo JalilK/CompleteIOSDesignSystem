@@ -153,7 +153,7 @@ export function Home() {
         <section>
           <div className="mb-3 flex items-end justify-between gap-3">
             <div>
-              <h2 className="font-serif text-[21px] leading-[25px] font-normal" style={{ color: '#24171A' }}>Continue one part</h2>
+              <h2 className="font-serif text-[21px] leading-[25px] font-normal" style={{ color: '#24171A' }}>Continue your study</h2>
               <p className="mt-1 text-[12px] leading-[16px]" style={{ color: '#675A5D' }}>Newest activity first. Do a devotional, pray, or revisit Scripture without starting the full Path.</p>
             </div>
             <button onClick={() => navigate('library')} className="shrink-0 text-[13px]" style={{ color: '#675A5D' }}>See All</button>
