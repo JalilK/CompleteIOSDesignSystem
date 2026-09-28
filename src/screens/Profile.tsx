@@ -19,7 +19,7 @@ function SettingsRow({ icon, label, value, destructive, onPress }: { icon: AppIc
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', boxShadow: '0 1px 12px rgba(30,21,18,0.05)' }}>
+    <div className="shrink-0 overflow-hidden rounded-[8px]" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', boxShadow: '0 1px 12px rgba(30,21,18,0.05)' }}>
       <p className="px-4 text-[11px] font-semibold uppercase pt-4 pb-2" style={{ color: '#B68425', letterSpacing: '0.12em' }}>{title}</p>
       {children}
     </div>
@@ -64,9 +64,12 @@ export function Profile() {
         <h1 className="font-serif text-[30px] font-bold" style={{ color: '#24171A' }}>You</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pb-8 flex flex-col gap-4">
+      <div
+        className="flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col gap-4"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 96px)' }}
+      >
         {/* Profile card */}
-        <div className="rounded-[8px] p-5 flex items-center gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
+        <div className="shrink-0 rounded-[8px] p-5 flex items-center gap-4" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
           <div className="w-16 h-16 rounded-full flex items-center justify-center font-bold text-[24px]" style={{ background: 'linear-gradient(135deg, #D8A8B1, #741630)', color: '#FFFCF6' }}>
             J
           </div>
@@ -78,7 +81,7 @@ export function Profile() {
         </div>
 
         {/* Active Path */}
-        <button onClick={() => navigate('path-overview')} className="rounded-[8px] p-4 flex w-full items-center gap-3 text-left" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+        <button onClick={() => navigate('path-overview')} className="shrink-0 rounded-[8px] p-4 flex w-full items-center gap-3 text-left" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
           <IconDisc name="path" size={42} iconSize={22} bg="#F3E6C9" color="#9B6B18" />
           <div className="flex-1">
             <p className="font-semibold text-[14px]" style={{ color: '#24171A' }}>Trusting God Through Uncertainty</p>
@@ -119,16 +122,16 @@ export function Profile() {
         </Section>
 
         {notice && (
-          <p role="status" className="rounded-[14px] px-4 py-3 text-[13px] leading-[18px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>
+          <p role="status" className="shrink-0 rounded-[14px] px-4 py-3 text-[13px] leading-[18px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>{notice}</p>
         )}
 
         <button onClick={() => setNotice('Signed out of the preview session.')}
-          className="w-full rounded-full font-semibold text-[16px] transition-all"
+          className="shrink-0 w-full rounded-full font-semibold text-[16px] transition-all"
           style={{ height: 52, border: '1.5px solid #DDD0C0', color: '#675A5D', background: 'transparent' }}>
           Sign Out
         </button>
 
-        <p className="text-center text-[12px]" style={{ color: '#DDD0C0' }}>Alignment · Version 1.0</p>
+        <p className="shrink-0 text-center text-[12px]" style={{ color: '#DDD0C0' }}>Alignment · Version 1.0</p>
       </div>
       {detail && <SettingsDetailSheet title={detail.title} body={detail.body} action={detail.action} onClose={() => setDetail(null)} />}
     </div>
