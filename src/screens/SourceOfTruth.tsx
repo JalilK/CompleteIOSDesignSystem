@@ -101,12 +101,12 @@ function StatusBar() {
 
 function Header({ title, eyebrow, onBack }: { title: string; eyebrow: string; onBack: () => void }) {
   return (
-    <div className="px-6 pt-5">
+    <div className="px-5 pt-5">
       <button onClick={onBack} className="mb-5 flex h-10 w-10 items-center justify-center rounded-full" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }} aria-label="Back">
         ‹
       </button>
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#B68425' }}>{eyebrow}</p>
-      <h1 className="font-serif text-[32px] leading-[37px] font-semibold" style={{ color: '#24171A' }}>{title}</h1>
+      <h1 className="break-words font-serif text-[27px] leading-[32px] font-semibold" style={{ color: '#24171A' }}>{title}</h1>
     </div>
   )
 }
@@ -161,7 +161,7 @@ export function MotionSourceTruth() {
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <StatusBar />
       <Header title="Motion source of truth" eyebrow="Revision 22.3 semantic events" onBack={() => goBack('profile')} />
-      <div className="mt-5 flex-1 overflow-y-auto px-6 pb-8 scrollbar-hide">
+      <div className="mt-5 flex-1 overflow-y-auto px-5 pb-8 scrollbar-hide">
         <div className="mb-4 rounded-[12px] p-4" style={{ background: '#24171A', color: '#FFFCF6' }}>
           <p className="text-[13px] leading-[19px]">
             These are the Figma design states that map directly to the native motion registry. Lottie assets must be authored from these events, not from ad hoc screen animation.
@@ -211,7 +211,7 @@ export function PrototypeDestinationGraph() {
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <StatusBar />
       <Header title="Button destination graph" eyebrow="No inert controls" onBack={() => goBack('profile')} />
-      <div className="mt-5 flex-1 overflow-y-auto px-6 pb-8 scrollbar-hide">
+      <div className="mt-5 flex-1 overflow-y-auto px-5 pb-8 scrollbar-hide">
         <div className="mb-4 grid grid-cols-2 gap-3">
           <div className="rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
             <p className="text-[28px] font-semibold" style={{ color: '#741630' }}>{destinations.length}</p>
