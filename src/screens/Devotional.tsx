@@ -137,9 +137,10 @@ export function DevotionalsIndex() {
 }
 
 export function Devotional() {
-  const { navigate, goBack } = useApp()
+  const { navigate, goBack, devotionalActivities } = useApp()
   const [saved, setSaved] = useState(false)
   const [whyOpen, setWhyOpen] = useState(false)
+  const currentDevotional = devotionalActivities[0]
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -157,7 +158,9 @@ export function Devotional() {
         <div className="absolute bottom-5 left-5 right-5 rounded-[16px] px-4 py-3 text-center" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(229,215,198,0.78)', boxShadow: '0 10px 24px rgba(30,21,18,0.08)', backdropFilter: 'blur(10px)' }}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.24em] mb-2" style={{ color: '#B68425' }}>For You</p>
           <h1 className="font-serif text-[27px] font-semibold leading-[32px]" style={{ color: '#3A0D18' }}>
-            Trust Without<br />Demanding the Outcome
+            {(currentDevotional?.title ?? 'Trust Without Demanding the Outcome').replace(' Without ', ' Without\n').split('\n').map((line, index) => (
+              <span key={line}>{index > 0 && <br />}{line}</span>
+            ))}
           </h1>
           <p className="mt-2 text-[13px]" style={{ color: '#675A5D' }}>Proverbs 3:5–6 · James 4:13–15</p>
         </div>
@@ -260,7 +263,8 @@ export function Devotional() {
 
 // Prayer mode
 export function PrayerMode() {
-  const { navigate, goBack } = useApp()
+  const { navigate, goBack, prayerActivities } = useApp()
+  const currentPrayer = prayerActivities[0]
 
   return (
     <div className="relative flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
@@ -274,7 +278,7 @@ export function PrayerMode() {
             <path d="M12 4L6 10l6 6" stroke="#675A5D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <h1 className="font-serif text-[35px] font-semibold leading-[40px]" style={{ color: '#24171A' }}>Pray or meditate</h1>
+        <h1 className="font-serif text-[35px] font-semibold leading-[40px]" style={{ color: '#24171A' }}>{currentPrayer ? 'Continue prayer' : 'Pray or meditate'}</h1>
       </div>
 
       <div className="relative flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col gap-5" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 34px)' }}>
@@ -289,7 +293,7 @@ export function PrayerMode() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#897A76" strokeWidth="1.5" strokeLinecap="round" /></svg>
         </button>
 
-        <p className="text-[15px]" style={{ color: '#30272A' }}>Stay with the Scripture you just studied.</p>
+        <p className="text-[15px]" style={{ color: '#30272A' }}>{currentPrayer ? currentPrayer.detail : 'Stay with the Scripture you just studied.'}</p>
 
         <div className="flex flex-col gap-3">
           {[

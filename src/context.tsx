@@ -35,6 +35,29 @@ export type Screen =
   | 'privacy-settings'
   | 'context-study'
 
+export type DevotionalActivity = {
+  id: string
+  title: string
+  detail: string
+  lastActivityAt: number
+}
+
+export type PrayerActivity = {
+  id: string
+  title: string
+  detail: string
+  lastActivityAt: number
+}
+
+export type ScripturePracticeActivity = {
+  id: string
+  passage: string
+  context: string
+  mastery: number
+  masteryGoal: number
+  lastActivityAt: number
+}
+
 interface AppState {
   screen: Screen
   history: Screen[]
@@ -46,6 +69,9 @@ interface AppState {
   recentXPGain: number
   passageMastery: number
   practiceLevel2Complete: boolean
+  devotionalActivities: DevotionalActivity[]
+  prayerActivities: PrayerActivity[]
+  scripturePracticeActivities: ScripturePracticeActivity[]
 }
 
 interface AppContextType extends AppState {
@@ -114,6 +140,52 @@ function previewInitialOnboardingStep(): number {
   return Number.isInteger(requested) && requested >= 1 && requested <= 8 ? requested : 1
 }
 
+function previewParams() {
+  if (typeof window === 'undefined') return new URLSearchParams()
+  return new URLSearchParams(window.location.search)
+}
+
+function initialDevotionalActivities(): DevotionalActivity[] {
+  const params = previewParams()
+  if (params.get('emptyStudy') === '1' || params.get('emptyDevotionals') === '1') return []
+  return [
+    {
+      id: 'devotional-trust-outcome',
+      title: 'Trust Without Demanding an Outcome',
+      detail: 'Read the teaching from your current Path',
+      lastActivityAt: 300,
+    },
+  ]
+}
+
+function initialPrayerActivities(): PrayerActivity[] {
+  const params = previewParams()
+  if (params.get('emptyStudy') === '1' || params.get('emptyPrayers') === '1') return []
+  return [
+    {
+      id: 'prayer-proverbs-3-5-6',
+      title: 'Pray Proverbs 3:5-6',
+      detail: 'Respond to the Scripture you just studied',
+      lastActivityAt: 200,
+    },
+  ]
+}
+
+function initialScripturePracticeActivities(): ScripturePracticeActivity[] {
+  const params = previewParams()
+  if (params.get('emptyStudy') === '1' || params.get('emptyPractice') === '1') return []
+  return [
+    {
+      id: 'practice-proverbs-3-5-6',
+      passage: 'Proverbs 3:5-6',
+      context: 'Trusting God Through Uncertainty',
+      mastery: 2,
+      masteryGoal: 5,
+      lastActivityAt: 100,
+    },
+  ]
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const initialScreen = previewInitialScreen()
   const [state, setState] = useState<AppState>({
@@ -127,6 +199,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     recentXPGain: 0,
     passageMastery: 2,
     practiceLevel2Complete: false,
+    devotionalActivities: initialDevotionalActivities(),
+    prayerActivities: initialPrayerActivities(),
+    scripturePracticeActivities: initialScripturePracticeActivities(),
   })
 
   const navigate = (screen: Screen, options?: { replace?: boolean }) => setState(s => {
@@ -156,6 +231,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       recentXPGain: 50,
       passageMastery: Math.max(s.passageMastery, 2),
       practiceLevel2Complete: true,
+      scripturePracticeActivities: s.scripturePracticeActivities.map(activity =>
+        activity.id === 'practice-proverbs-3-5-6'
+          ? { ...activity, mastery: Math.max(activity.mastery, 2), lastActivityAt: 400 }
+          : activity
+      ),
     }
   })
 

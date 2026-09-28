@@ -87,8 +87,9 @@ function PracticeLearningSheet({ onClose }: { onClose: () => void }) {
 
 // PRAC-01 Practice Intro
 export function PracticeIntro() {
-  const { navigate, goBack } = useApp()
+  const { navigate, goBack, scripturePracticeActivities } = useApp()
   const [showLearning, setShowLearning] = useState(false)
+  const currentPractice = scripturePracticeActivities.find(activity => activity.mastery < activity.masteryGoal)
 
   return (
     <div className="relative flex flex-col h-full overflow-hidden">
@@ -99,7 +100,7 @@ export function PracticeIntro() {
           <BackButton onBack={() => goBack('home')} />
         </div>
         <div className="absolute bottom-4 left-5 right-5 rounded-[16px] px-4 py-3" style={{ background: 'rgba(255,252,246,0.92)', border: '1px solid rgba(229,215,198,0.78)', boxShadow: '0 10px 24px rgba(30,21,18,0.08)', backdropFilter: 'blur(10px)' }}>
-          <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>From: Trusting God Through Uncertainty</p>
+          <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: '#B68425', letterSpacing: '0.1em' }}>{currentPractice ? 'Resume Scripture Practice' : 'From: Trusting God Through Uncertainty'}</p>
           <h1 className="font-serif text-[26px] font-bold leading-[32px]" style={{ color: '#24171A' }}>
             Trust without demanding an outcome
           </h1>
@@ -125,7 +126,7 @@ export function PracticeIntro() {
         <div className="rounded-[18px] p-4 flex flex-col gap-3" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
           <div className="flex justify-between">
             <span className="text-[13px]" style={{ color: '#675A5D' }}>Passage Mastery</span>
-            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>Level 2 · Proverbs 3:5–6</span>
+            <span className="text-[13px] font-semibold" style={{ color: '#24171A' }}>Level {currentPractice?.mastery ?? 2} · {currentPractice?.passage ?? 'Proverbs 3:5–6'}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[13px]" style={{ color: '#675A5D' }}>Questions</span>
@@ -144,7 +145,7 @@ export function PracticeIntro() {
         <button onClick={() => navigate('practice-question')}
           className="w-full rounded-full font-semibold text-[17px] flex items-center justify-center gap-2 transition-all"
           style={{ height: 56, background: '#741630', color: '#FFFCF6' }}>
-          Begin Practice →
+          {currentPractice ? 'Resume Practice →' : 'Begin Practice →'}
         </button>
         <button onClick={() => setShowLearning(true)} className="text-center text-[14px] font-medium" style={{ color: '#741630' }}>
           What You'll Learn

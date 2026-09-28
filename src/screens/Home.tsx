@@ -1,4 +1,5 @@
 import { useApp } from '../context'
+import type { Screen } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
 import { XPBar } from '../components/XPBar'
 import { AppIcon, IconDisc } from '../components/AppIcon'
@@ -26,51 +27,39 @@ function LeafDisc() {
   )
 }
 
-const pathPieces = [
-  {
-    label: 'Devotional',
-    title: 'Trust Without Demanding an Outcome',
-    detail: 'Read the teaching from your current Path',
-    recency: 'Today',
-    action: 'Read',
-    icon: 'book' as const,
-    bg: '#F3E6C9',
-    color: '#9B6B18',
-    screen: 'devotional' as const,
-  },
-  {
-    label: 'Prayer',
-    title: 'Pray Proverbs 3:5-6',
-    detail: 'Respond to the Scripture you just studied',
-    recency: 'Yesterday',
-    action: 'Pray',
-    icon: 'prayer' as const,
-    bg: '#F5E4D2',
-    color: '#741630',
-    screen: 'prayer-mode' as const,
-  },
-  {
-    label: 'Scripture Practice',
-    title: 'Proverbs 3:5-6',
-    detail: 'Practiced recently · Level 2 of 5 · not mastered',
-    recency: '3 days ago',
-    action: 'Practice',
-    icon: 'leaf' as const,
-    bg: '#E6ECE2',
-    color: '#607255',
-    screen: 'practice-intro' as const,
-  },
-]
+type StudyResumeItem = {
+  id: string
+  kind: 'devotional' | 'prayer' | 'scripturePractice'
+  label: string
+  title: string
+  detail: string
+  lastActivityAt: number
+  action: string
+  screen: Screen
+}
 
-function PathPieceCard({ item, onPress }: { item: (typeof pathPieces)[number]; onPress: () => void }) {
+const studyVisuals = {
+  devotional: { icon: 'book' as const, bg: '#F3E6C9', color: '#9B6B18' },
+  prayer: { icon: 'prayer' as const, bg: '#F5E4D2', color: '#741630' },
+  scripturePractice: { icon: 'leaf' as const, bg: '#E6ECE2', color: '#607255' },
+}
+
+function recencyLabel(lastActivityAt: number) {
+  if (lastActivityAt >= 300) return 'Today'
+  if (lastActivityAt >= 200) return 'Yesterday'
+  return '3 days ago'
+}
+
+function PathPieceCard({ item, onPress }: { item: StudyResumeItem; onPress: () => void }) {
+  const visual = studyVisuals[item.kind]
   return (
     <button onClick={onPress} className="w-full rounded-[14px] p-4 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6', boxShadow: '0 1px 12px rgba(30,21,18,0.07)' }}>
       <div className="flex items-start gap-3">
-        <IconDisc name={item.icon} size={44} iconSize={22} bg={item.bg} color={item.color} />
+        <IconDisc name={visual.icon} size={44} iconSize={22} bg={visual.bg} color={visual.color} />
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: item.color }}>{item.label}</p>
-            <span className="shrink-0 text-[11px]" style={{ color: '#897A76' }}>{item.recency}</span>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: visual.color }}>{item.label}</p>
+            <span className="shrink-0 text-[11px]" style={{ color: '#897A76' }}>{recencyLabel(item.lastActivityAt)}</span>
           </div>
           <h3 className="mt-1 font-serif text-[19px] font-semibold leading-[23px]" style={{ color: '#24171A' }}>{item.title}</h3>
           <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{item.detail}</p>
@@ -88,8 +77,79 @@ function PathPieceCard({ item, onPress }: { item: (typeof pathPieces)[number]; o
   )
 }
 
+function EmptyStudyCard({ kind }: { kind: StudyResumeItem['kind'] }) {
+  const copy = {
+    devotional: {
+      label: 'Devotional',
+      title: 'No devotional history yet',
+      body: 'Read a devotional from your Path and it will appear here.',
+    },
+    prayer: {
+      label: 'Prayer',
+      title: 'No prayers started yet',
+      body: 'Pray from a studied Scripture and your latest prayer will be ready here.',
+    },
+    scripturePractice: {
+      label: 'Scripture Practice',
+      title: 'No unmastered Scripture',
+      body: 'Practiced passages that still need mastery will appear here.',
+    },
+  }[kind]
+  const visual = studyVisuals[kind]
+
+  return (
+    <div className="flex items-start gap-3 rounded-[14px] p-4" style={{ background: 'rgba(255,252,246,0.62)', border: '1px dashed #D8CABA' }}>
+      <IconDisc name={visual.icon} size={40} iconSize={20} bg={visual.bg} color={visual.color} />
+      <div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.11em]" style={{ color: visual.color }}>{copy.label}</p>
+        <h3 className="mt-1 font-serif text-[17px] font-semibold leading-[22px]" style={{ color: '#24171A' }}>{copy.title}</h3>
+        <p className="mt-1 text-[13px] leading-[18px]" style={{ color: '#675A5D' }}>{copy.body}</p>
+      </div>
+    </div>
+  )
+}
+
 export function Home() {
-  const { navigate, setTab, totalXP, level, recentXPGain } = useApp()
+  const { navigate, setTab, totalXP, level, recentXPGain, devotionalActivities, prayerActivities, scripturePracticeActivities } = useApp()
+  const studyItems: StudyResumeItem[] = [
+    ...devotionalActivities.map(activity => ({
+      id: activity.id,
+      kind: 'devotional' as const,
+      label: 'Devotional',
+      title: activity.title,
+      detail: activity.detail,
+      lastActivityAt: activity.lastActivityAt,
+      action: 'Read',
+      screen: 'devotional' as const,
+    })),
+    ...prayerActivities.map(activity => ({
+      id: activity.id,
+      kind: 'prayer' as const,
+      label: 'Prayer',
+      title: activity.title,
+      detail: activity.detail,
+      lastActivityAt: activity.lastActivityAt,
+      action: 'Pray',
+      screen: 'prayer-mode' as const,
+    })),
+    ...scripturePracticeActivities
+      .filter(activity => activity.mastery < activity.masteryGoal)
+      .map(activity => ({
+        id: activity.id,
+        kind: 'scripturePractice' as const,
+        label: 'Scripture Practice',
+        title: activity.passage,
+        detail: `${activity.context} · Level ${activity.mastery} of ${activity.masteryGoal} · not mastered`,
+        lastActivityAt: activity.lastActivityAt,
+        action: 'Practice',
+        screen: 'practice-intro' as const,
+      })),
+  ].sort((a, b) => b.lastActivityAt - a.lastActivityAt)
+  const emptyKinds: StudyResumeItem['kind'][] = [
+    devotionalActivities.length === 0 ? 'devotional' : null,
+    prayerActivities.length === 0 ? 'prayer' : null,
+    scripturePracticeActivities.filter(activity => activity.mastery < activity.masteryGoal).length === 0 ? 'scripturePractice' : null,
+  ].filter((kind): kind is StudyResumeItem['kind'] => kind !== null)
 
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ background: '#F7F1E7' }}>
@@ -159,9 +219,10 @@ export function Home() {
             <button onClick={() => navigate('library')} className="shrink-0 text-[13px]" style={{ color: '#675A5D' }}>See All</button>
           </div>
           <div className="flex flex-col gap-3">
-            {pathPieces.map(item => (
-              <PathPieceCard key={item.label} item={item} onPress={() => navigate(item.screen)} />
+            {studyItems.map(item => (
+              <PathPieceCard key={item.id} item={item} onPress={() => navigate(item.screen)} />
             ))}
+            {emptyKinds.map(kind => <EmptyStudyCard key={kind} kind={kind} />)}
           </div>
         </section>
 
