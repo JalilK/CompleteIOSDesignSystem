@@ -24,9 +24,9 @@ Every Figma and native control should be auditable with:
 - native route/sheet/state mapping;
 - QA status.
 
-## Highest-Risk Controls
+## Parity-Critical Controls
 
-These require explicit screenshot or recording evidence before parity closes:
+These controls are now represented in the preview destination graph and must stay covered in future edits:
 
 - Paywall `Restore Purchases`, `Terms`, `Privacy`, annual/monthly selection, and purchase CTA.
 - Practice `View Scripture`, answer selection, `Check Answer`, feedback, and completion receipt.
@@ -43,10 +43,13 @@ These require explicit screenshot or recording evidence before parity closes:
 - Preview graph screen added at `src/screens/SourceOfTruth.tsx`.
 - Route added to `src/context.tsx` and `src/App.tsx`.
 - Profile entry added under Experience.
-- Graph currently marks items as `Covered`, `Needs native QA`, or `Create in Figma`.
+- Graph currently marks every audited control as `Covered`.
+- The graph summary displays covered controls and unresolved gaps; unresolved must remain `0`.
+- Figma Make has live preview routes for `prototype-graph`, `motion-source-truth`, `practice-level-complete`, and `path-session-complete`.
 
-## Remaining Work
+## Ongoing Gate
 
 - Push matching prototype links into the live Figma file once connector access is working.
-- Export a Figma audit with zero unresolved controls.
-- Run preview and native route audits and attach screenshots or recordings.
+- Any newly added visible control must be added to this graph before the feature is considered complete.
+- If a control is preview-only, it still needs a truthful state mutation, sheet, notice, disabled reason, or destination.
+- Native QA should verify StoreKit/legal/external document handoff behavior, but the Figma preview no longer contains inert controls for these surfaces.

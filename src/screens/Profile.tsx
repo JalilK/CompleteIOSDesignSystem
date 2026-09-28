@@ -143,11 +143,18 @@ function ToggleRow({ icon, title, body, enabled, onToggle }: {
   onToggle: () => void
 }) {
   return (
-    <button onClick={onToggle} className="flex w-full items-center gap-3 px-4 py-3.5 text-left" style={{ borderBottom: '1px solid #E5D7C6' }}>
+    <button
+      onClick={onToggle}
+      aria-pressed={enabled}
+      aria-label={`${title}. ${enabled ? 'On' : 'Off'}. ${body}`}
+      className="flex w-full items-center gap-3 px-4 py-3.5 text-left"
+      style={{ borderBottom: '1px solid #E5D7C6' }}
+    >
       <IconDisc name={icon} size={38} iconSize={19} bg="#F4EBDD" color="#40513B" />
       <span className="flex-1">
         <span className="block text-[15px] font-medium" style={{ color: '#24171A' }}>{title}</span>
         <span className="mt-0.5 block text-[12px] leading-[16px]" style={{ color: '#675A5D' }}>{body}</span>
+        <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.08em]" style={{ color: enabled ? '#40513B' : '#897A76' }}>{enabled ? 'On' : 'Off'}</span>
       </span>
       <span className="h-8 w-14 rounded-full p-1" style={{ background: enabled ? '#5E986A' : '#DDD0C0' }}>
         <span className="block h-6 w-6 rounded-full bg-white transition-transform" style={{ transform: enabled ? 'translateX(24px)' : 'translateX(0)' }} />

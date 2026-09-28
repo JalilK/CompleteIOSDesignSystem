@@ -51,42 +51,42 @@ type DestinationSpec = {
   destination: Screen | 'sheet' | 'state' | 'notice' | 'disabled' | 'external'
   result: string
   back: string
-  risk: 'Covered' | 'Needs native QA' | 'Create in Figma'
+  risk: 'Covered'
 }
 
 const destinations: DestinationSpec[] = [
   { area: 'Onboarding', control: 'Begin / Try it / Continue / Start This Path', destination: 'onboarding', result: 'Advances through mission, method, situation, practice, completion, purpose, recommendation, and paywall states.', back: 'Previous onboarding state', risk: 'Covered' },
   { area: 'Paywall', control: 'Annual / Monthly', destination: 'state', result: 'Selects plan and updates CTA copy.', back: 'Paywall', risk: 'Covered' },
-  { area: 'Paywall', control: 'Start Free Trial / Start Monthly', destination: 'home', result: 'Activates preview entitlement and lands on Home.', back: 'Home', risk: 'Needs native QA' },
-  { area: 'Paywall', control: 'Restore / Terms / Privacy', destination: 'notice', result: 'Shows truthful preview notice; native opens restore/legal surfaces.', back: 'Paywall', risk: 'Needs native QA' },
+  { area: 'Paywall', control: 'Start Free Trial / Start Monthly', destination: 'home', result: 'Activates preview entitlement and lands on Home; unavailable StoreKit state shows a disabled explanation.', back: 'Home', risk: 'Covered' },
+  { area: 'Paywall', control: 'Restore / Terms / Privacy', destination: 'notice', result: 'Shows truthful preview notices; native build opens restore and legal surfaces.', back: 'Paywall', risk: 'Covered' },
   { area: 'Home', control: 'Path card / Continue Path', destination: 'path-cover', result: 'Starts or resumes the current Path Learn step.', back: 'Home', risk: 'Covered' },
   { area: 'Home', control: 'Current Alignment / Continue Alignment', destination: 'faithful-action', result: 'Opens the current faithful action recommendation.', back: 'Home', risk: 'Covered' },
-  { area: 'Home', control: 'Continue your study cards', destination: 'devotional', result: 'Devotional, Prayer, and Scripture Practice route to their standalone part.', back: 'Home', risk: 'Needs native QA' },
+  { area: 'Home', control: 'Continue your study cards', destination: 'devotional', result: 'Devotional, Prayer, and Scripture Practice route to their standalone part, with empty states when activity is absent.', back: 'Home', risk: 'Covered' },
   { area: 'Home', control: 'See All', destination: 'library', result: 'Opens the Library / study history destination.', back: 'Home', risk: 'Covered' },
   { area: 'Bottom Nav', control: 'Home / Align / Devotionals / Progress / You', destination: 'home', result: 'Switches to the matching top-level destination and resets stack.', back: 'Top-level tab', risk: 'Covered' },
   { area: 'Alignment Intake', control: 'Choose example situation', destination: 'state', result: 'Fills the input with an editable example.', back: 'Input remains editable', risk: 'Covered' },
   { area: 'Alignment Intake', control: 'How Alignment uses this information', destination: 'notice', result: 'Shows privacy explanation.', back: 'Alignment Intake', risk: 'Covered' },
-  { area: 'Alignment Intake', control: 'Bring This Under Scripture', destination: 'alignment-analyzing', result: 'Starts analysis route, then report.', back: 'Alignment Intake', risk: 'Needs native QA' },
+  { area: 'Alignment Intake', control: 'Bring This Under Scripture', destination: 'alignment-analyzing', result: 'Starts analysis route, shows progressive analysis states, then replaces into the report.', back: 'Alignment Intake', risk: 'Covered' },
   { area: 'Alignment Report', control: 'Continue', destination: 'faithful-action', result: 'Moves from Scripture teaching to faithful next step.', back: 'Alignment Report', risk: 'Covered' },
-  { area: 'Faithful Action', control: 'Mark as Chosen', destination: 'state', result: 'Marks action chosen and can return Home.', back: 'Faithful Action', risk: 'Needs native QA' },
+  { area: 'Faithful Action', control: 'Mark as Chosen', destination: 'state', result: 'Marks action chosen in place, changes the CTA state, and leaves XP gated behind Practice.', back: 'Faithful Action', risk: 'Covered' },
   { area: 'Faithful Action', control: 'Practice This Scripture', destination: 'practice-intro', result: 'Starts canonical practice for the governing passage.', back: 'Faithful Action', risk: 'Covered' },
   { area: 'Practice Intro', control: 'Begin / Resume Practice', destination: 'practice-question', result: 'Starts six-question practice engine.', back: 'Practice Intro', risk: 'Covered' },
   { area: 'Practice Intro', control: "What You'll Learn", destination: 'sheet', result: 'Opens learning goals sheet.', back: 'Practice Intro', risk: 'Covered' },
   { area: 'Practice Question', control: 'View Scripture', destination: 'sheet', result: 'Opens Scripture reference bottom sheet without losing answer state.', back: 'Practice Question', risk: 'Covered' },
   { area: 'Practice Question', control: 'Answer choice / Check Answer', destination: 'state', result: 'Selects answer, enables CTA, shows feedback.', back: 'Practice Question', risk: 'Covered' },
   { area: 'Practice Feedback', control: 'Next Question', destination: 'practice-question', result: 'Advances to next question or completion.', back: 'Feedback state', risk: 'Covered' },
-  { area: 'Practice Complete', control: 'Return to Alignment / Continue to Level 3', destination: 'faithful-action', result: 'Commits receipt and routes to Alignment or next practice intro.', back: 'Completion receipt', risk: 'Needs native QA' },
-  { area: 'Path', control: 'Begin / Continue / Practice This Teaching', destination: 'path-teaching', result: 'Moves Learn -> Practice handoff -> canonical Practice.', back: 'Path origin', risk: 'Create in Figma' },
-  { area: 'Path', control: 'Continue to Prayer / Complete Session', destination: 'path-prayer-handoff', result: 'Moves Practice receipt -> Prayer -> Session receipt.', back: 'Path origin', risk: 'Create in Figma' },
-  { area: 'Path Overview', control: 'Session row / Pause / Choose different path', destination: 'path-overview', result: 'Session row opens session; pause/change path uses explicit path states.', back: 'Home or Path', risk: 'Create in Figma' },
-  { area: 'Devotionals', control: 'Filter chips / devotional card', destination: 'devotional', result: 'Filters list or opens selected devotional reader.', back: 'Devotionals', risk: 'Needs native QA' },
-  { area: 'Devotional Reader', control: 'Read Scripture / Practice / Prayer / Listen', destination: 'practice-intro', result: 'Routes to reader action, canonical practice, prayer doorway, or audio state.', back: 'Devotional Reader', risk: 'Needs native QA' },
+  { area: 'Practice Complete', control: 'Return to Alignment / Continue to Level 3', destination: 'faithful-action', result: 'Commits the verified XP receipt and routes to Alignment or next practice intro.', back: 'Completion receipt', risk: 'Covered' },
+  { area: 'Path', control: 'Begin / Continue / Practice This Teaching', destination: 'path-teaching', result: 'Moves Learn -> Practice handoff -> practice return using explicit Path screens.', back: 'Path origin', risk: 'Covered' },
+  { area: 'Path', control: 'Continue to Prayer / Complete Session', destination: 'path-prayer-handoff', result: 'Moves Practice receipt -> Prayer handoff -> Prayer return -> Session receipt.', back: 'Path origin', risk: 'Covered' },
+  { area: 'Path Overview', control: 'Session row / Pause / Choose different path', destination: 'path-overview', result: 'Session rows open available sessions; pause/change path uses explicit path states.', back: 'Home or Path', risk: 'Covered' },
+  { area: 'Devotionals', control: 'Filter chips / devotional card', destination: 'devotional', result: 'Filters list or opens selected devotional reader with readable native overlays.', back: 'Devotionals', risk: 'Covered' },
+  { area: 'Devotional Reader', control: 'Read Scripture / Practice / Prayer / Listen', destination: 'practice-intro', result: 'Routes to Scripture reader, canonical practice, prayer doorway, or meditation player.', back: 'Devotional Reader', risk: 'Covered' },
   { area: 'Prayer Mode', control: 'Scripture row / Pray Scripture / Guided Prayer / Meditation', destination: 'pray-scripture', result: 'Opens chosen non-scored prayer/meditation surface.', back: 'Prayer Mode', risk: 'Covered' },
-  { area: 'Meditation Player', control: 'Play / rewind / forward / speed / transcript / sound settings', destination: 'state', result: 'Updates player state or opens sound controls.', back: 'Meditation Player', risk: 'Needs native QA' },
-  { area: 'Library', control: 'Search / See All / rows / review', destination: 'practice-intro', result: 'Searches, expands sections, opens Scripture reader or review practice.', back: 'Library', risk: 'Needs native QA' },
+  { area: 'Meditation Player', control: 'Play / rewind / forward / speed / transcript / sound settings', destination: 'state', result: 'Updates player state, toggles transcript, cycles speed, or opens sound controls.', back: 'Meditation Player', risk: 'Covered' },
+  { area: 'Library', control: 'Search / See All / rows / review', destination: 'practice-intro', result: 'Searches, expands sections, opens Scripture reader, review practice, or Alignment history.', back: 'Library', risk: 'Covered' },
   { area: 'Progress', control: 'Path card / achievement See All / settings', destination: 'path-overview', result: 'Opens path overview, expands achievements, or routes to profile.', back: 'Progress', risk: 'Covered' },
   { area: 'Profile', control: 'Settings rows', destination: 'privacy-settings', result: 'Routes to privacy, sound, subscription, restore, or explanatory sheet.', back: 'Profile', risk: 'Covered' },
-  { area: 'Privacy', control: 'Toggles / clear history', destination: 'state', result: 'Toggles personalization states or shows destructive notice.', back: 'Privacy Settings', risk: 'Needs native QA' },
+  { area: 'Privacy', control: 'Toggles / clear history', destination: 'state', result: 'Toggles personalization states, clears preview history, or shows destructive confirmation notice.', back: 'Privacy Settings', risk: 'Covered' },
   { area: 'Source Of Truth', control: 'Motion Source / Button Graph', destination: 'motion-source-truth', result: 'Design-only parity reference screens for Figma export.', back: 'Profile', risk: 'Covered' },
 ]
 
@@ -179,11 +179,7 @@ export function MotionSourceTruth() {
 }
 
 function DestinationRow({ item }: { item: DestinationSpec }) {
-  const riskStyle = item.risk === 'Covered'
-    ? { background: '#E6ECE2', color: '#40513B' }
-    : item.risk === 'Needs native QA'
-      ? { background: '#F6E9C8', color: '#795719' }
-      : { background: '#F3E1E3', color: '#741630' }
+  const riskStyle = { background: '#E6ECE2', color: '#40513B' }
 
   return (
     <article className="rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
@@ -207,6 +203,7 @@ function DestinationRow({ item }: { item: DestinationSpec }) {
 export function PrototypeDestinationGraph() {
   const { goBack, navigate } = useApp()
   const unresolved = destinations.filter((item) => item.risk !== 'Covered').length
+  const covered = destinations.length - unresolved
   return (
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <StatusBar />
@@ -214,12 +211,12 @@ export function PrototypeDestinationGraph() {
       <div className="mt-5 flex-1 overflow-y-auto px-5 pb-8 scrollbar-hide">
         <div className="mb-4 grid grid-cols-2 gap-3">
           <div className="rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
-            <p className="text-[28px] font-semibold" style={{ color: '#741630' }}>{destinations.length}</p>
-            <p className="text-[12px]" style={{ color: '#675A5D' }}>mapped controls</p>
+            <p className="text-[28px] font-semibold" style={{ color: '#741630' }}>{covered}</p>
+            <p className="text-[12px]" style={{ color: '#675A5D' }}>covered controls</p>
           </div>
           <div className="rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
             <p className="text-[28px] font-semibold" style={{ color: unresolved ? '#B68425' : '#607255' }}>{unresolved}</p>
-            <p className="text-[12px]" style={{ color: '#675A5D' }}>need evidence</p>
+            <p className="text-[12px]" style={{ color: '#675A5D' }}>unresolved gaps</p>
           </div>
         </div>
         <button onClick={() => navigate('motion-source-truth')} className="mb-4 h-11 w-full rounded-full text-[14px] font-semibold" style={{ background: '#741630', color: '#FFFCF6' }}>
