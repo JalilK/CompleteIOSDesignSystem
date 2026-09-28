@@ -96,6 +96,179 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.motion-card-enter {
+  animation: motionCardEnter 0.5s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+@keyframes motionCardEnter {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.motion-demo-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-demo-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,252,246,0.58) 45%, transparent 72%);
+  transform: translateX(-110%);
+  animation: motionSweep 2.4s cubic-bezier(0.22, 0.9, 0.32, 1) infinite;
+}
+
+@keyframes motionSweep {
+  0%, 30% { transform: translateX(-110%); opacity: 0; }
+  42% { opacity: 1; }
+  72%, 100% { transform: translateX(110%); opacity: 0; }
+}
+
+.motion-demo-icon {
+  animation: motionIconBreathe 2.4s cubic-bezier(0.22, 0.9, 0.32, 1) infinite;
+}
+
+@keyframes motionIconBreathe {
+  0%, 100% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  60% { transform: scale(0.98); }
+}
+
+.motion-demo-correct {
+  animation: answerCorrectPop 1.8s cubic-bezier(0.22, 0.9, 0.32, 1) infinite;
+}
+
+.motion-demo-reconsider {
+  animation: answerReconsiderSettle 1.8s cubic-bezier(0.22, 0.9, 0.32, 1) infinite;
+}
+
+.motion-demo-xp {
+  animation: xpTransferGlow 2.1s cubic-bezier(0.22, 0.9, 0.32, 1) infinite;
+}
+
+.motion-demo-milestone {
+  animation: milestoneRiseLoop 2.4s cubic-bezier(0.34, 1.4, 0.64, 1) infinite;
+}
+
+.motion-demo-quiet {
+  animation: quietSettle 2.2s ease-out infinite;
+}
+
+@keyframes answerCorrectPop {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(96,114,85,0); }
+  35% { transform: scale(1.16); box-shadow: 0 0 0 12px rgba(96,114,85,0.14); }
+  56% { transform: scale(0.98); }
+}
+
+@keyframes answerReconsiderSettle {
+  0%, 100% { transform: translateX(0); }
+  24% { transform: translateX(-4px); }
+  34% { transform: translateX(4px); }
+  48% { transform: translateX(0); }
+}
+
+@keyframes xpTransferGlow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(182,132,37,0)); transform: translateY(0); }
+  45% { filter: drop-shadow(0 8px 14px rgba(182,132,37,0.36)); transform: translateY(-3px); }
+}
+
+@keyframes milestoneRiseLoop {
+  0% { transform: translateY(10px) scale(0.92); opacity: 0.65; }
+  34% { transform: translateY(0) scale(1.1); opacity: 1; }
+  58%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes quietSettle {
+  0%, 100% { opacity: 0.78; transform: scale(1); }
+  48% { opacity: 1; transform: scale(1.04); }
+}
+
+.answer-choice-motion {
+  animation: choiceSelect 0.22s ease-out both;
+}
+
+@keyframes choiceSelect {
+  from { transform: scale(0.985); }
+  to { transform: scale(1); }
+}
+
+.feedback-hero {
+  animation: feedbackHeroReveal 0.42s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+.feedback-icon-correct {
+  animation: answerCorrectPop 0.72s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+.feedback-icon-reconsider {
+  animation: answerReconsiderSettle 0.68s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+.feedback-title-motion {
+  animation: feedbackTitleReveal 0.42s ease-out 0.12s both;
+}
+
+.feedback-content-motion {
+  animation: feedbackContentReveal 0.48s ease-out 0.18s both;
+}
+
+.boundary-card-motion {
+  animation: boundaryCardReveal 0.5s ease-out 0.24s both;
+}
+
+@keyframes feedbackHeroReveal {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes feedbackTitleReveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes feedbackContentReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes boundaryCardReveal {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.stage-step-motion {
+  animation: stageStepSettle 0.46s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+@keyframes stageStepSettle {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.receipt-row-motion {
+  animation: receiptRowReveal 0.5s cubic-bezier(0.22, 0.9, 0.32, 1) both;
+}
+
+.receipt-row-motion:nth-child(1) { animation-delay: 0.06s; }
+.receipt-row-motion:nth-child(2) { animation-delay: 0.14s; }
+.receipt-row-motion:nth-child(3) { animation-delay: 0.22s; }
+.receipt-row-motion:nth-child(4) { animation-delay: 0.30s; }
+
+@keyframes receiptRowReveal {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.path-frame-image {
+  animation: imageFocusSettle 0.7s ease-out both;
+}
+
+@keyframes imageFocusSettle {
+  from { transform: scale(1.04); filter: saturate(0.92); }
+  to { transform: scale(1); filter: saturate(1); }
+}
+
 /* Progress bar fill animation */
 @keyframes fillBar {
   from { width: 0%; }
@@ -146,7 +319,25 @@ body {
   .screen-enter,
   .slide-up,
   .sheet-backdrop,
-  .bottom-sheet-rise {
+  .bottom-sheet-rise,
+  .motion-card-enter,
+  .motion-demo-stage::after,
+  .motion-demo-icon,
+  .motion-demo-correct,
+  .motion-demo-reconsider,
+  .motion-demo-xp,
+  .motion-demo-milestone,
+  .motion-demo-quiet,
+  .answer-choice-motion,
+  .feedback-hero,
+  .feedback-icon-correct,
+  .feedback-icon-reconsider,
+  .feedback-title-motion,
+  .feedback-content-motion,
+  .boundary-card-motion,
+  .stage-step-motion,
+  .receipt-row-motion,
+  .path-frame-image {
     animation: none !important;
   }
 }

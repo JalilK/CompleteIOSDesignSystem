@@ -397,7 +397,7 @@ export function PracticeQuestion() {
         <div className="flex flex-col gap-2.5">
           {q.answers.map((a, i) => (
             <button key={i} onClick={() => !checked && setSelected(i)}
-              className="flex items-center gap-4 rounded-[16px] px-5 py-4 text-left transition-all duration-200"
+              className={`flex items-center gap-4 rounded-[16px] px-5 py-4 text-left transition-all duration-200 ${selected === i ? 'answer-choice-motion' : ''}`}
               style={{
                 background: selected === i ? '#FDEEF1' : '#FFFCF6',
                 border: `1.5px solid ${selected === i ? '#741630' : '#DDD0C0'}`,
@@ -433,29 +433,29 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
 
   return (
     <div className="flex flex-col h-full overflow-hidden screen-enter">
-      <div className="relative h-44 overflow-hidden shrink-0">
-        <img src={alignmentAssets.currentPath} alt="Ancient city landscape" className="w-full h-full object-cover" />
+      <div className="feedback-hero relative h-44 overflow-hidden shrink-0">
+        <img src={alignmentAssets.currentPath} alt="Ancient city landscape" className="path-frame-image w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: correct ? 'rgba(88,112,78,0.6)' : 'rgba(163,58,58,0.5)' }} />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: correct ? '#607255' : '#A33A3A' }}>
+          <div className={`w-14 h-14 rounded-full flex items-center justify-center ${correct ? 'feedback-icon-correct' : 'feedback-icon-reconsider'}`} style={{ background: correct ? '#607255' : '#A33A3A' }}>
             {correct
               ? <svg width="26" height="20" viewBox="0 0 26 20" fill="none"><path d="M1 10l8 8 16-17" stroke="#FFFCF6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               : <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="#FFFCF6" strokeWidth="2.5" strokeLinecap="round" /></svg>
             }
           </div>
-          <p className="font-serif text-[28px] font-bold" style={{ color: '#FFFCF6' }}>{correct ? 'Correct' : 'Not quite'}</p>
+          <p className="feedback-title-motion font-serif text-[28px] font-bold" style={{ color: '#FFFCF6' }}>{correct ? 'Correct' : 'Not quite'}</p>
           <div className="h-0.5 w-16 rounded-full" style={{ background: correct ? '#E6C878' : '#D8A8B1' }} />
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-7 flex flex-col gap-5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
-        <div>
+        <div className="feedback-content-motion">
           <p className="text-[12px] font-semibold uppercase tracking-wider mb-2" style={{ color: '#B68425', letterSpacing: '0.1em' }}>What the passage teaches</p>
           <p className="text-[16px] leading-[24px]" style={{ color: '#24171A' }}>{teaching}</p>
         </div>
 
         {boundary && (
-          <div className="rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
+          <div className="boundary-card-motion rounded-[14px] p-4 flex gap-3" style={{ background: '#FFF3CD', border: '1px solid #E6C878' }}>
             <AppIcon name="alert" size={18} color="#9B6B18" className="shrink-0 mt-0.5" />
             <div>
               <p className="text-[12px] font-semibold mb-1" style={{ color: '#795719' }}>Important boundary</p>
@@ -465,7 +465,7 @@ function PracticeFeedback({ correct, teaching, boundary, onNext, questionIdx, to
         )}
 
         {!correct && (
-          <div className="rounded-[14px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
+          <div className="feedback-content-motion rounded-[14px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0' }}>
             <p className="text-[12px] font-semibold mb-1" style={{ color: '#897A76' }}>Why that answer sounds plausible</p>
             <p className="text-[13px] leading-[20px]" style={{ color: '#675A5D' }}>
               Many people associate trust with guaranteed outcomes. The passage, however, calls you to trust the direction, not demand the result.
@@ -498,7 +498,7 @@ export function PracticeLevelComplete() {
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-5 flex flex-col items-center gap-3.5" style={{ background: '#F7F1E7', paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 42px)' }}>
-        <div className="medal-rise w-[68px] h-[68px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
+        <div className="medal-rise motion-demo-milestone w-[68px] h-[68px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #B68425 0%, #E6C878 45%, #B68425 100%)', boxShadow: '0 6px 32px rgba(182,132,37,0.45)' }}>
           <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3B1F0F 0%, #741630 100%)' }}>
             <AppIcon name="book" size={25} color="#E6C878" />
           </div>
@@ -514,7 +514,7 @@ export function PracticeLevelComplete() {
         </p>
 
         <div className="w-full rounded-[18px] p-3.5 flex flex-col gap-3" style={{ background: '#FFFCF6', boxShadow: '0 2px 16px rgba(30,21,18,0.07)' }}>
-          <div className="flex items-center gap-3">
+          <div className="receipt-row-motion flex items-center gap-3">
             <AppIcon name="book" size={22} color="#B68425" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Passage Mastery · {displayedMastery} of 5</p>
@@ -524,7 +524,7 @@ export function PracticeLevelComplete() {
             </div>
           </div>
           <div className="h-px" style={{ background: '#DDD0C0' }} />
-          <div className="flex items-center gap-3">
+          <div className="receipt-row-motion flex items-center gap-3">
             <AppIcon name="star" size={22} color="#B68425" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-2 xp-pop" style={{ color: '#B68425' }}>+{earnedXP} verified XP · {displayedTotal} XP total</p>
@@ -532,7 +532,7 @@ export function PracticeLevelComplete() {
             </div>
           </div>
           <div className="h-px" style={{ background: '#DDD0C0' }} />
-          <div className="flex items-center gap-3">
+          <div className="receipt-row-motion flex items-center gap-3">
             <AppIcon name="leaf" size={22} color="#607255" />
             <div className="flex-1">
               <p className="text-[13px] font-semibold mb-1" style={{ color: '#24171A' }}>Scripture in Context · 2 of 3</p>

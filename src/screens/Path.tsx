@@ -53,8 +53,8 @@ function StageRail({ active, complete = [] }: { active: 'Learn' | 'Practice' | '
         const isComplete = complete.includes(stage)
         const isActive = active === stage
         return (
-          <div key={stage} className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-semibold" style={{ background: isComplete ? '#607255' : isActive ? '#741630' : '#E9DDCD', color: isComplete || isActive ? '#FFFCF6' : '#897A76' }}>
+          <div key={stage} className="stage-step-motion flex items-center gap-2">
+            <span className={`flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-semibold ${isComplete || isActive ? 'motion-demo-quiet' : ''}`} style={{ background: isComplete ? '#607255' : isActive ? '#741630' : '#E9DDCD', color: isComplete || isActive ? '#FFFCF6' : '#897A76' }}>
               {isComplete ? '✓' : index + 1}
             </span>
             <span className="text-[11px] font-semibold uppercase" style={{ color: isActive ? '#741630' : isComplete ? '#607255' : '#897A76', letterSpacing: '0.08em' }}>{stage}</span>
@@ -75,7 +75,7 @@ function PathFrame({ children, image = PATH_IMG, title = 'Trusting God Through U
   return (
     <div className="flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
       <div className="relative shrink-0 overflow-hidden" style={{ height: imageHeight }}>
-        <img src={image} alt="" className="h-full w-full object-cover" />
+        <img src={image} alt="" className="path-frame-image h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.14) 0%, rgba(247,241,231,0.10) 42%, rgba(247,241,231,0.96) 100%)' }} />
         <div className="absolute left-5 right-5 top-14 flex items-start justify-between">
           <PathBack />
@@ -188,7 +188,7 @@ export function PathPracticeReturn() {
 
 function ReceiptRow({ icon, label, value }: { icon: 'book' | 'star' | 'leaf' | 'path'; label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3 rounded-[8px] px-4 py-2.5 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
+    <div className="receipt-row-motion flex items-center gap-3 rounded-[8px] px-4 py-2.5 text-left" style={{ background: '#FFFCF6', border: '1px solid #E5D7C6' }}>
       <IconDisc name={icon} size={36} iconSize={19} bg="#F3E6C9" color="#9B6B18" />
       <div>
         <p className="text-[9px] font-semibold uppercase" style={{ color: '#B68425', letterSpacing: '0.14em' }}>{label}</p>

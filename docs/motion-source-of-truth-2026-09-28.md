@@ -61,9 +61,10 @@ Required events:
 - Preview screen added at `src/screens/SourceOfTruth.tsx`.
 - Route added to `src/context.tsx` and `src/App.tsx`.
 - Profile entry added under Experience.
+- Live preview motion demos added for every required semantic event.
+- Practice answer selection, correct/reconsider feedback, receipt rows, Path stage indicators, image settle, medallions, bottom sheets, and XP bars now animate in the preview.
 
 ## Remaining Work
 
 - Push these frames into the live Figma design file once Figma connector access is working.
-- Add real keyframe/prototype motion in Figma where available.
-- Export sampled motion evidence for answer feedback, XP transfer, level up, Path session complete, and bottom-sheet reveal.
+- Export sampled motion evidence for answer feedback, XP transfer, level up, Path session complete, and bottom-sheet reveal after each Figma Make sync.

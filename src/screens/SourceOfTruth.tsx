@@ -113,8 +113,26 @@ function Header({ title, eyebrow, onBack }: { title: string; eyebrow: string; on
 
 function MotionCard({ spec }: { spec: MotionEventSpec }) {
   const tone = toneStyles[spec.tone]
+  const demoClass = spec.event.includes('answer_correct')
+    ? 'motion-demo-correct'
+    : spec.event.includes('answer_reconsider')
+      ? 'motion-demo-reconsider'
+      : spec.event.includes('xp') || spec.event.includes('mastery') || spec.event.includes('achievement_progress')
+        ? 'motion-demo-xp'
+        : spec.event.includes('complete') || spec.event.includes('unlock') || spec.event.includes('level')
+          ? 'motion-demo-milestone'
+          : 'motion-demo-quiet'
   return (
-    <article className="rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', boxShadow: '0 1px 10px rgba(30,21,18,0.06)' }}>
+    <article className="motion-card-enter rounded-[12px] p-4" style={{ background: '#FFFCF6', border: '1px solid #DDD0C0', boxShadow: '0 1px 10px rgba(30,21,18,0.06)' }}>
+      <div className="motion-demo-stage mb-3 flex h-[72px] items-center justify-between overflow-hidden rounded-[12px] px-4" style={{ background: tone.bg, border: `1px solid ${tone.border}` }}>
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.13em]" style={{ color: tone.color }}>Start · Impact · Resolve</p>
+          <p className="mt-1 text-[13px] font-semibold" style={{ color: '#24171A' }}>{spec.receipt === 'Required' ? 'Receipt-gated' : 'Immediate feedback'}</p>
+        </div>
+        <span className={`motion-demo-icon ${demoClass} flex h-12 w-12 items-center justify-center rounded-full`} style={{ background: '#FFFCF6', color: tone.color, boxShadow: '0 4px 16px rgba(30,21,18,0.12)' }}>
+          <AppIcon name={spec.icon} size={24} color={tone.color} />
+        </span>
+      </div>
       <div className="mb-3 flex items-start gap-3">
         <IconDisc name={spec.icon} size={44} iconSize={22} bg={tone.bg} color={tone.color} />
         <div className="min-w-0 flex-1">
