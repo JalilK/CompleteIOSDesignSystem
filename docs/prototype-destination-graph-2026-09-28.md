@@ -50,6 +50,8 @@ These controls are now represented in the preview destination graph and must sta
   - Preview route now runs Mission -> Method -> Situation Intake -> Practice -> Completion -> Level Up -> Purpose -> Recommended Path -> Paywall -> Home.
   - Local visual evidence: `.qa/onboarding_playable_2026-10-03_v2/`.
   - Live Figma file `uRIDtKoKGqWVCI6ayQVjwt` now has `PROTO-CORE-01B — Method / Scripture Before Advice` (`118:1146`) inserted between Mission and Situation.
+  - Live Figma prototype Flow 1 now starts on onboarding: node `38:667` is `PROTO-ONBOARDING-START — Mission / Begin`, with the previous Home flow-start content preserved as `ARCHIVE — Home frame before onboarding start fix`.
+  - Verified preview entry URL: `https://www.figma.com/proto/uRIDtKoKGqWVCI6ayQVjwt/Untitled?node-id=38-667&starting-point-node-id=38%3A667&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&show-proto-sidebar=1`.
   - Live Figma validation found `0` visible engineering destination labels and `0` offscreen CTA labels across the core route.
   - Core route CTAs are wired from Mission through Method, Situation, Practice, Scripture sheet, Feedback, XP, Level Up, Prayer, Session Complete, and Home.
 

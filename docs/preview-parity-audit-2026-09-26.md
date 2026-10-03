@@ -125,6 +125,7 @@ Home completion evidence proves:
 - Onboarding Paywall activation smoke test should now start from `/?screen=onboarding&onboardingStep=9` -> `Start 7-Day Free Trial` -> Home after the situation intake, level-up, purpose, and recommended Path steps are included.
 - 2026-10-03 superseding evidence: `.qa/onboarding_playable_2026-10-03_v2/` captures the expanded playable onboarding route, including the new Situation Intake state and example-enabled CTA state.
 - 2026-10-03 live Figma patch: file `uRIDtKoKGqWVCI6ayQVjwt`, `PROTO-CORE-01B — Method / Scripture Before Advice` (`118:1146`) inserted into the central route; core CTA labels fixed and engineering route labels hidden.
+- 2026-10-03 live Figma prototype entry fix: Flow 1 now opens onboarding at `PROTO-ONBOARDING-START — Mission / Begin` (`38:667`) instead of the old Home frame, with the old Home content archived as a non-flow frame.
 - Saved Paywall evidence: `.qa/paywall_parity_2026_09_26/01_paywall_available.png`, `02_paywall_unavailable.png`, and `03_paywall_activation_home.png`, each with matching `.ax.txt` files.
 - Paywall restore control smoke test passed by rendering a visible StoreKit-connected preview notice.
 - Manual contextual navigation smoke test passed for `Home -> Devotional -> Practice -> Back`.

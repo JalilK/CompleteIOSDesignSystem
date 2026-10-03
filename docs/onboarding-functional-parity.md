@@ -65,6 +65,7 @@ The master Alignment spec remains authoritative for behavior, state, XP, StoreKi
   - `PROTO-CORE-01 — Mission / Begin` now routes to `PROTO-CORE-01B — Method / Scripture Before Advice`.
   - `PROTO-CORE-01B — Method / Scripture Before Advice` routes to `PROTO-CORE-02 — Situation Intake / Tailor Scripture`.
   - Core prototype CTA labels were centered and engineering destination labels hidden so the preview reads like an app instead of a route map.
+- 2026-10-03: Live Figma prototype playback now starts on onboarding. Flow 1 node `38:667` is `PROTO-ONBOARDING-START — Mission / Begin`; the previous Home content from that node is retained as `ARCHIVE — Home frame before onboarding start fix`.
 
 ## Implementation Notes
 
