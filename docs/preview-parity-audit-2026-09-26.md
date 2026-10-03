@@ -121,8 +121,10 @@ Home completion evidence proves:
 - Visual preview at 390 x 844 confirmed the Home screen fits with the devotional section visible above the bottom navigation.
 - Saved Home evidence: `.qa/home_parity_2026_09_26/home_390x844.png` and `.qa/home_parity_2026_09_26/home_390x844.ax.txt`. Desktop copy: `/Users/jalilkennedy/Desktop/alignment-home-parity-2026-09-26.png`.
 - Saved Onboarding evidence: `.qa/onboarding_parity_2026_09_26/01_mission.png`, `02_method.png`, `03_question_1.png`, `04_question_1_feedback.png`, `05_completion.png`, `06_purpose_selection.png`, and `07_recommended_path.png`, each with matching `.ax.txt` files.
-- Direct QA URLs now support `?screen=onboarding&onboardingStep=1...7` and `questionIndex=0...3` for stable screenshot capture.
-- Onboarding Paywall activation smoke test passed: `/?screen=onboarding&onboardingStep=7` -> `Start 7-Day Free Trial` -> Home.
+- Direct QA URLs now support `?screen=onboarding&onboardingStep=1...9` and `questionIndex=0...3` for stable screenshot capture.
+- Onboarding Paywall activation smoke test should now start from `/?screen=onboarding&onboardingStep=9` -> `Start 7-Day Free Trial` -> Home after the situation intake, level-up, purpose, and recommended Path steps are included.
+- 2026-10-03 superseding evidence: `.qa/onboarding_playable_2026-10-03_v2/` captures the expanded playable onboarding route, including the new Situation Intake state and example-enabled CTA state.
+- 2026-10-03 live Figma patch: file `uRIDtKoKGqWVCI6ayQVjwt`, `PROTO-CORE-01B — Method / Scripture Before Advice` (`118:1146`) inserted into the central route; core CTA labels fixed and engineering route labels hidden.
 - Saved Paywall evidence: `.qa/paywall_parity_2026_09_26/01_paywall_available.png`, `02_paywall_unavailable.png`, and `03_paywall_activation_home.png`, each with matching `.ax.txt` files.
 - Paywall restore control smoke test passed by rendering a visible StoreKit-connected preview notice.
 - Manual contextual navigation smoke test passed for `Home -> Devotional -> Practice -> Back`.

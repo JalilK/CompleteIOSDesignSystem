@@ -45,7 +45,13 @@ These controls are now represented in the preview destination graph and must sta
 - Profile entry added under Experience.
 - Graph currently marks every audited control as `Covered`.
 - The graph summary displays covered controls and unresolved gaps; unresolved must remain `0`.
-- Figma Make has live preview routes for `prototype-graph`, `motion-source-truth`, `practice-level-complete`, and `path-session-complete`.
+- Figma Make has live preview routes for `prototype-graph`, `motion-source-truth`, `practice-level-complete`, `path-session-complete`, and direct onboarding states through `?screen=onboarding&onboardingStep=1...9`.
+- 2026-10-03 playable onboarding update:
+  - Preview route now runs Mission -> Method -> Situation Intake -> Practice -> Completion -> Level Up -> Purpose -> Recommended Path -> Paywall -> Home.
+  - Local visual evidence: `.qa/onboarding_playable_2026-10-03_v2/`.
+  - Live Figma file `uRIDtKoKGqWVCI6ayQVjwt` now has `PROTO-CORE-01B — Method / Scripture Before Advice` (`118:1146`) inserted between Mission and Situation.
+  - Live Figma validation found `0` visible engineering destination labels and `0` offscreen CTA labels across the core route.
+  - Core route CTAs are wired from Mission through Method, Situation, Practice, Scripture sheet, Feedback, XP, Level Up, Prayer, Session Complete, and Home.
 
 ## Ongoing Gate
 

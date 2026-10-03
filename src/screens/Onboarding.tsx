@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useApp } from '../context'
 import { alignmentAssets } from '../assets/alignment/assets'
 import { XPBar } from '../components/XPBar'
@@ -139,6 +139,105 @@ function MethodReferenceNativeScreen({ onNext, onBack }: { onNext: () => void; o
         <div className="mt-auto w-full pb-1">
           <PrimaryButton label="Try it" onPress={onNext} />
         </div>
+      </div>
+    </div>
+  )
+}
+
+function SituationReferenceNativeScreen({
+  onNext,
+  onBack,
+  initialText,
+  onSave,
+}: {
+  onNext: () => void
+  onBack: () => void
+  initialText: string
+  onSave: (text: string) => void
+}) {
+  const [text, setText] = useState(initialText)
+  const [notice, setNotice] = useState<string | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const canContinue = text.trim().length >= 10
+  const useExample = () => {
+    setText("I'm anxious about whether to accept a new job. I don't want fear or money to make the decision for me.")
+    setNotice('Example added. You can edit it before continuing.')
+  }
+  const dismissKeyboard = () => {
+    textareaRef.current?.blur()
+    setIsEditing(false)
+  }
+  const continueToPractice = () => {
+    if (!canContinue) return
+    onSave(text.trim())
+    dismissKeyboard()
+    onNext()
+  }
+
+  return (
+    <div className="relative flex h-full flex-col overflow-hidden" style={{ background: '#F7F1E7' }}>
+      <NativeStatusBar light />
+      <div className="relative h-[196px] shrink-0 overflow-hidden">
+        <img src={alignmentAssets.methodBibleRoom} alt="Open journal and Scripture in warm morning light" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(30,21,18,0.16) 0%, rgba(247,241,231,0.58) 55%, #F7F1E7 100%)' }} />
+        <button onClick={onBack} className="absolute left-5 top-[62px] z-20 flex h-10 w-10 items-center justify-center rounded-full" aria-label="Back">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 3L5 9l6 6" stroke="#3A0D18" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
+        <h2 className="absolute bottom-4 left-7 right-7 font-serif text-[31px] font-semibold leading-[36px]" style={{ color: '#24171A' }}>What are you facing?</h2>
+      </div>
+      <div className="flex min-h-0 flex-1 flex-col px-7 pb-4">
+        <div className="shrink-0">
+          <p className="text-[14px] leading-[20px]" style={{ color: '#675A5D' }}>
+            Describe the situation in your own words. Your first Scripture practice will use this as context without treating your feelings as proof.
+          </p>
+        </div>
+
+        <div className="mt-4 min-h-0 flex-1 overflow-y-auto pb-4 scrollbar-hide" onScroll={() => isEditing && dismissKeyboard()}>
+          <div className="rounded-[18px] p-4" style={{ background: '#FFFCF6', border: '1.5px solid #DDD0C0', minHeight: 156 }}>
+            <textarea
+              ref={textareaRef}
+              value={text}
+              onChange={event => setText(event.target.value)}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+              className="h-[132px] w-full resize-none bg-transparent text-[16px] leading-[24px] outline-none"
+              style={{ color: '#24171A', fontFamily: 'var(--font-sans)' }}
+              placeholder="I'm anxious about whether to accept a new job. I don't want fear or money to make the decision for me."
+            />
+          </div>
+          <div className="mt-3 flex flex-col gap-2">
+            <button onClick={useExample} className="text-left text-[13px] font-medium" style={{ color: '#741630' }}>Choose an example situation</button>
+            <button
+              onClick={() => setNotice('This preview keeps the text local and uses it only to tailor the first recommended Scripture path. Production keeps the same privacy gate and deletion contract.')}
+              className="text-left text-[13px]"
+              style={{ color: '#897A76' }}
+            >
+              How Alignment uses this information
+            </button>
+          </div>
+          {notice && (
+            <p role="status" className="mt-3 rounded-[12px] px-3 py-2 text-[12px] leading-[17px]" style={{ background: '#F4EBDD', color: '#675A5D', border: '1px solid #DDD0C0' }}>
+              {notice}
+            </p>
+          )}
+          <div className="mt-4">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: '#B18423' }}>Practice preview</p>
+            <p className="mt-1 text-[13px] leading-[19px]" style={{ color: '#675A5D' }}>
+              Next: a short Scripture-handling question. XP is awarded only after the verified practice receipt.
+            </p>
+          </div>
+        </div>
+      </div>
+      {isEditing && (
+        <div className="absolute inset-x-0 bottom-[102px] z-30 flex justify-end px-7">
+          <button onClick={dismissKeyboard} className="rounded-full px-4 py-2 text-[13px] font-semibold shadow-lg" style={{ background: '#FFFCF6', color: '#741630', border: '1px solid #DDD0C0' }}>
+            Done typing
+          </button>
+        </div>
+      )}
+      <div className="shrink-0 px-7 pb-8 pt-3" style={{ background: '#F7F1E7' }}>
+        <PrimaryButton label="Tailor My First Scripture" onPress={continueToPractice} disabled={!canContinue} />
       </div>
     </div>
   )
@@ -563,7 +662,7 @@ export function PaywallScreen({ onNext, onBack }: { onNext?: () => void; onBack?
 }
 
 export function Onboarding() {
-  const { onboardingStep, nextOnboardingStep, prevOnboardingStep, setTab } = useApp()
+  const { onboardingStep, nextOnboardingStep, prevOnboardingStep, setAlignmentText, alignmentText, setTab } = useApp()
   const [questionIndex, setQuestionIndex] = useState(() => {
     if (typeof window === 'undefined') return 0
     const requested = Number(new URLSearchParams(window.location.search).get('questionIndex'))
@@ -593,12 +692,13 @@ export function Onboarding() {
   const steps: Record<number, React.ReactElement> = {
     1: <MissionReferenceNativeScreen onNext={nextOnboardingStep} />,
     2: <MethodReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    3: <QuestionReferenceNativeScreen key={questionIndex} questionIndex={questionIndex} onCorrect={advanceOnboardingQuestion} onBack={backFromQuestion} />,
-    4: <CompletionReferenceNativeScreen onNext={nextOnboardingStep} />,
-    5: <AccountLevelUpScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    6: <PurposeSelectionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    7: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
-    8: <PaywallScreen onNext={finishOnboarding} onBack={prevOnboardingStep} />,
+    3: <SituationReferenceNativeScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} initialText={alignmentText} onSave={setAlignmentText} />,
+    4: <QuestionReferenceNativeScreen key={questionIndex} questionIndex={questionIndex} onCorrect={advanceOnboardingQuestion} onBack={backFromQuestion} />,
+    5: <CompletionReferenceNativeScreen onNext={nextOnboardingStep} />,
+    6: <AccountLevelUpScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    7: <PurposeSelectionScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    8: <RecommendedPathScreen onNext={nextOnboardingStep} onBack={prevOnboardingStep} />,
+    9: <PaywallScreen onNext={finishOnboarding} onBack={prevOnboardingStep} />,
   }
 
   return (
